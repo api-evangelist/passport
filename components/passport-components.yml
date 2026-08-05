@@ -1,0 +1,64 @@
+generated: '2026-08-04'
+method: searched
+source: >-
+  https://passportglobal.com/technology/, https://passportglobal.com/product-release/,
+  https://passportglobal.com/track/, https://passportglobal.com/bigcommerce-passport-shipping-app-instructions/
+summary: >-
+  Passport's client-side surface is delivered as platform apps and checkout extensions rather than as a
+  developer-loadable component library. There is no published web-component or JS element library, no loader
+  script, and no component reference documentation — these are storefront-installable surfaces configured through
+  the host platform, not embedded by a developer with a script tag.
+families:
+- name: Shopify
+  kind: platform app + checkout extensions
+  components:
+  - name: Passport Shipping app
+    description: >-
+      Shopify app providing Passport as a shipping option, with Portal access and onboarding built in. Passport is
+      recognized as a native carrier in Shopify with SLA tracking and tracking-based automation.
+    source: https://passportglobal.com/product-release/
+  - name: Expanded Checkout Block
+    description: Shopify Plus checkout extension surfacing Passport's duty/tax and delivery detail inside checkout.
+    source: https://passportglobal.com/product-release/
+  - name: Shipping Assurance
+    description: Shopify Plus checkout extension offering shipping protection at checkout.
+    source: https://passportglobal.com/product-release/
+- name: BigCommerce
+  kind: platform app
+  components:
+  - name: Passport Shipping app for BigCommerce
+    description: Storefront shipping integration; Passport publishes step-by-step install instructions.
+    source: https://passportglobal.com/bigcommerce-passport-shipping-app-instructions/
+- name: Other ecommerce platforms
+  kind: platform integrations
+  components:
+  - name: WooCommerce integration
+    source: https://passportglobal.com/technology/
+  - name: Magento integration
+    source: https://passportglobal.com/technology/
+- name: Branded tracking
+  kind: hosted page
+  components:
+  - name: Branded tracking page
+    description: >-
+      Customizable hosted tracking experience (logo, colors, product recommendations) with proactive delivery
+      alerts. Shipment responses return a per-shipment tracking_url on track.passportshipping.com.
+    hosted_url_pattern: https://track.passportshipping.com/<tracking_code>
+    public_lookup: https://passportglobal.com/track/
+    source: https://passportglobal.com/technology/
+- name: Passport Portal
+  kind: hosted dashboard
+  components:
+  - name: Passport Portal
+    description: >-
+      Customer dashboard for international performance data, exception visibility, transit times, market
+      comparison, multi-user account management, and first-mile label generation for UK 3PLs.
+    url: https://portal.passportglobal.com/
+    http_status: 403
+    embeddable: false
+    source: https://passportglobal.com/technology/
+gaps:
+- No published JavaScript/web-component library, loader script, or component API reference.
+- No embeddable checkout element that a developer can mount outside Shopify/BigCommerce.
+- The partner integrations directory (https://partners.passportglobal.com/integrations) returned 403 to an
+  anonymous probe on 2026-08-04, so the full 100+ integration list could not be enumerated first-hand.

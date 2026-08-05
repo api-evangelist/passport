@@ -1,0 +1,77 @@
+generated: '2026-08-04'
+method: searched
+source: >-
+  https://docs.passportglobal.com/ (Redoc version selector + v3.13/3.14/3.15 documents),
+  https://status.passportglobal.com/, https://passportglobal.com/service-alerts/,
+  https://passportglobal.com/product-release/
+summary: >-
+  Passport versions its public API by URL major (/v3) with a minor document version (3.15 current) and keeps the
+  two previous documents publicly retrievable. It runs a real status page and a customer-facing service-alerts
+  page. It publishes no deprecation policy, no sunset schedule, no support window, and no SLA on its public
+  developer surface.
+versioning:
+  strategy: uri-path-major + document-minor
+  current_version: '3.15'
+  url_major: v3
+  base_url: https://api.passportshipping.com/v3
+  published_versions:
+  - version: '3.15'
+    label: latest
+    url: https://docs.passportglobal.com/passport_public_api_v3_15.yml
+    http_status: 200
+    operations: 11
+  - version: '3.14'
+    url: https://docs.passportglobal.com/passport_public_api_v3_14.yml
+    http_status: 200
+    operations: 10
+  - version: '3.13'
+    url: https://docs.passportglobal.com/passport_public_api_v3_13.yml
+    http_status: 200
+    operations: 4
+  note: >-
+    Older documents remain fetchable but carry no "supported until" statement, so it is not knowable from the
+    public surface whether 3.13 and 3.14 are still served by the runtime.
+deprecation:
+  policy_published: false
+  policy_url: null
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  deprecated_operations: []
+  note: >-
+    No operation, parameter, or schema in v3.15 carries `deprecated: true`, and no deprecation, sunset, or
+    breaking-change policy is published. Comparing v3.13 → v3.15 shows only additive change (see
+    changelog/passport-changelog.yml), so no removal precedent is observable either.
+status_page:
+  url: https://status.passportglobal.com/
+  http_status: 200
+  type: hosted status site (Angular single-page app, spg-app)
+  history_feed: not published as RSS/Atom or JSON on the public surface
+  components_documented: not exposed without JavaScript execution
+service_alerts:
+  url: https://passportglobal.com/service-alerts/
+  http_status: 200
+  note: >-
+    Carrier/lane-level operational advisories (strikes, customs changes, peak-season cutoffs) for shippers —
+    the operational sibling of the status page, not an API incident feed.
+health_check:
+  operation: GET /ping
+  base_url: https://api.passportshipping.com/v3/ping
+  authenticated: true
+  probe:
+    fetched: '2026-08-04'
+    http_status: 401
+    note: The health check itself is key-gated, so it cannot be used as an anonymous liveness probe.
+sla:
+  published: false
+  note: >-
+    No uptime commitment, support-response target, or error-budget statement appears on the public developer
+    surface; commercial terms are handled through https://passportglobal.com/contact-sales/.
+support:
+  channel: https://passportglobal.com/contact-sales/
+  note: >-
+    API keys, onboarding, and error remediation ("please reach out to Passport support") all route through the
+    account team; there is no public developer support forum, ticket portal, or community.
+cross_links:
+  changelog: changelog/passport-changelog.yml
+  conventions: conventions/passport-conventions.yml

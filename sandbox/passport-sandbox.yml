@@ -1,0 +1,56 @@
+generated: '2026-08-04'
+method: searched
+source: https://docs.passportglobal.com/ (Passport Global API v3.15 — info.description "Environments") + live probe
+summary: >-
+  Passport publishes a named testing environment that mirrors the production API path-for-path. It is not an open
+  sandbox: it is key-gated exactly like production, keys come from the onboarding team, and Passport publishes no
+  test data — no test tracking codes, no fixture orders, no simulated failure triggers, no time controls.
+environments:
+- name: testing
+  base_url: https://api-stg.passportshipping.com/v3
+  documented_as: 'Testing Environment: api-stg.passportshipping.com/v3'
+  open_signup: false
+  credential: X-Access-Token issued by the Passport onboarding team
+  probe:
+    url: https://api-stg.passportshipping.com/v3/ping
+    fetched: '2026-08-04'
+    http_status: 401
+    body: 'Unable to access the requested resource, authorization failed.'
+- name: production
+  base_url: https://api.passportshipping.com/v3
+  documented_as: 'Production Environment: api.passportshipping.com/v3'
+  probe:
+    url: https://api.passportshipping.com/v3/ping
+    fetched: '2026-08-04'
+    http_status: 401
+key_model:
+  test_vs_live_prefix: not published
+  separate_keys_per_environment: true
+  note: >-
+    Keys are opaque values delivered out of band; Passport does not publish a test/live prefix convention
+    (no sk_test_/sk_live_ equivalent), so a key cannot be identified as test or live by inspection.
+test_data:
+  test_tracking_codes: none published
+  test_addresses: none published
+  test_products: none published
+  failure_triggers: none published
+  time_simulation: none published
+  note: >-
+    The only environment-flavored values in the public spec are example artifacts of a staging run — a label URL
+    on `stg-postage-label` and a tracking URL on `track-stg.passportshipping.com` — which appear as schema
+    examples, not as callable test fixtures.
+related_surfaces:
+- name: Passport Portal
+  url: https://portal.passportglobal.com/
+  http_status: 403
+  note: Customer dashboard; login-gated, no public demo or guest console.
+- name: API console / try-it
+  available: false
+  note: Docs are rendered with Redoc, which has no interactive request execution.
+gaps:
+- No self-service sandbox signup — every environment requires an onboarding-issued key.
+- No published test fixtures, magic identifiers, or error-simulation triggers.
+- No interactive API console.
+cross_links:
+  authentication: authentication/passport-authentication.yml
+  conventions: conventions/passport-conventions.yml

@@ -1,0 +1,27 @@
+generated: '2026-08-04'
+method: generated
+source: openapi/passport-public-api-openapi.yml (Passport Global API v3.15) + conventions/, errors/, authentication/
+summary: >-
+  Packaged Agent Skills for the three marquee flows of the Passport Global API. Every operation, field name, error
+  message and constraint referenced in these skills is taken from Passport's published OpenAPI 3.0.1 document —
+  nothing is invented. Passport publishes no skills, AGENTS.md, or llms.txt of its own.
+provider_published: false
+skills:
+- name: passport-quote-and-ship
+  file: passport-quote-and-ship.md
+  description: Rate an international parcel, buy the label, and void it when something goes wrong.
+  operations: ["POST /rate", "POST /ship", "POST /void/{code}"]
+- name: passport-checkout-landed-cost
+  file: passport-checkout-landed-cost.md
+  description: Cart-level landed cost, duty/tax calculation, and localized product pricing at checkout.
+  operations: [POST /cart, POST /tax-and-duty, POST /product-price]
+- name: passport-order-sync
+  file: passport-order-sync.md
+  description: Submit, update, read and delete commercial orders for customs and compliance attribution.
+  operations: [POST /order, PUT /order, GET /order, DELETE /order]
+agent_notes:
+- Authentication is a single static key in the X-Access-Token header; there is no OAuth, no scopes, and no self-service signup.
+- No idempotency mechanism exists. POST /ship buys a label and is not replay-safe — never blind-retry it.
+- No rate limits or 429 semantics are documented; back off conservatively.
+- DELETE /order and POST /void/{code} are destructive and should require human confirmation.
+- The published spec lists only the staging server; production is https://api.passportshipping.com/v3.

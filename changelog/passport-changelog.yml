@@ -1,0 +1,72 @@
+generated: '2026-08-04'
+method: searched
+source: >-
+  https://docs.passportglobal.com/ (published OpenAPI documents v3.13, v3.14, v3.15) +
+  https://passportglobal.com/product-release/
+summary: >-
+  Passport publishes no dated API changelog. Two partial substitutes exist: a product-release page that narrates
+  platform updates by product area without per-entry dates, and the Redoc version selector on the API docs, which
+  keeps the two prior OpenAPI documents fetchable. The API entries below are DERIVED by diffing those three
+  documents — additive-only across 3.13 → 3.15, with no operation or schema removed.
+scheme:
+  api_versioning: uri-path-major (/v3) + document-minor (3.x)
+  current_version: '3.15'
+  dated_changelog: false
+  rss_or_atom: false
+  breaking_change_policy: not published
+sources:
+- kind: product-release-notes
+  url: https://passportglobal.com/product-release/
+  http_status: 200
+  dated_entries: false
+  note: >-
+    "Passport Product Updates 2026" — narrative release notes grouped by product area (Passport Portal, Passport
+    Global, Shopify integration) with a year-level timeframe only. Mentions "newly developed APIs" for geolocation,
+    currency conversion and price inclusivity leaving beta, but those APIs are not in the public OpenAPI.
+- kind: openapi-version-selector
+  url: https://docs.passportglobal.com/
+  http_status: 200
+  note: Redoc `<select>` exposing passport_public_api_v3_15.yml (latest), v3_14, v3_13.
+entries:
+- version: '3.15'
+  date: null
+  date_note: undated; current document at time of harvest (2026-08-04)
+  breaking: false
+  additions:
+  - POST /tax-and-duty — standalone tax and duty calculator for an order
+  - components.schemas.TaxAndDuty_Request
+  - components.schemas.TaxAndDuty_Response
+  removals: []
+  source: https://docs.passportglobal.com/passport_public_api_v3_15.yml
+- version: '3.14'
+  date: null
+  date_note: undated
+  breaking: false
+  additions:
+  - POST /order — submit order information
+  - PUT /order — update order information
+  - DELETE /order — delete order
+  - GET /order — retrieve orders by orderNames
+  - POST /cart — cart-level rate, duty and tax quoting
+  - POST /product-price — currency-converted product pricing
+  - 'components.schemas: Order_POST_Request, Order_PUT_Request, Order_DELETE_Response, Order_GET_Response, Cart_Request, Cart_Response, ProductPrice_Request, ProductPrice_Response'
+  removals: []
+  source: https://docs.passportglobal.com/passport_public_api_v3_14.yml
+- version: '3.13'
+  date: null
+  date_note: undated; oldest document still published
+  breaking: false
+  additions:
+  - POST /rate — shipping rate including landed cost
+  - POST /ship — shipping label generation
+  - POST /void/{code} — void an existing label
+  - GET /ping — health check
+  removals: []
+  source: https://docs.passportglobal.com/passport_public_api_v3_13.yml
+gaps:
+- No dates on any release — neither the product-release page nor the OpenAPI documents carry a release date.
+- No machine-readable changelog feed (RSS/Atom/JSON) for the API.
+- The product-release page describes APIs (geolocation, currency conversion, price inclusivity) that do not appear in the public OpenAPI, so part of the API surface is undocumented publicly.
+cross_links:
+  lifecycle: lifecycle/passport-lifecycle.yml
+  openapi: openapi/passport-public-api-openapi.yml

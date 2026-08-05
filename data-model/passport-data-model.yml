@@ -1,0 +1,117 @@
+generated: '2026-08-04'
+method: derived
+source: openapi/passport-public-api-openapi.yml (v3.15 components.schemas + path parameters)
+summary: >-
+  The Passport Global API has no resource-URL identity model — there are no /{id} paths except POST /void/{code},
+  and no schema exposes a Passport-issued object id other than the shipment tracking code. Entities below are the
+  request/response documents the API exchanges, plus the shared inline structures (Address, Parcel, Item) that
+  recur across them. The identity keys that matter are caller-supplied: `order_name` for orders and `reference`
+  for rate/ship/cart correlation.
+identifiers:
+- name: code
+  entity: Shipment
+  issued_by: passport
+  format: 'Passport tracking code, e.g. PG3450126846CA (spec example)'
+  used_in: ["POST /void/{code} path parameter", "Ship_Response.code", "tracking_url"]
+- name: order_name
+  entity: Order
+  issued_by: caller
+  format: string, <= 100 characters, non-blank
+  used_in: [Order_POST_Request, Order_PUT_Request, orderNames query parameter on GET/PUT/DELETE /order]
+- name: reference
+  entity: Rate / Ship / Cart / ProductPrice value
+  issued_by: caller
+  format: free-form string
+  note: Caller-side correlation handle echoed through rating, shipping, and price-conversion payloads.
+- name: request_id
+  entity: Cart quote / TaxAndDuty quote
+  issued_by: passport
+  used_in: [Cart_Response.request_id, TaxAndDuty_Response.request_id]
+  note: Per-quote identifier returned only by these two operations.
+entities:
+- name: Rate
+  schemas: [Rate_Request, Rate_Response]
+  operation: POST /rate
+  description: A landed-cost quote for one parcel — carrier rate plus duty, tax and insurance in a single currency.
+  fields: [rate, duty, tax, insurance, currency, serviceName]
+- name: Shipment
+  schemas: [Ship_Request, Ship_Response]
+  operations: ["POST /ship", "POST /void/{code}"]
+  description: A purchased international label with a tracking code, a hosted label image, and a branded tracking URL.
+  fields: [code, rate, duty, tax, insurance, currency, label, tracking_url]
+- name: Order
+  schemas: [Order_POST_Request, Order_PUT_Request, Order_GET_Response, Order_DELETE_Response]
+  operations: [POST /order, PUT /order, GET /order, DELETE /order]
+  description: >-
+    The commercial order behind a shipment — totals, currency, line items with HS codes and origin countries,
+    destination address, chosen shipping option, and optional customer tax id.
+  fields: [total_value, value, currency_code, order_name, created, items, address_to, shipping, customer_tax_id, order_url]
+- name: CartQuote
+  schemas: [Cart_Request, Cart_Response]
+  operation: POST /cart
+  description: >-
+    Checkout-time rating for a whole cart — returns a rates array of service options with rate, tax, duty,
+    insurance, total, formatted display string, estimated delivery date, and a duty/tax breakdown.
+  fields: [request_id, currency, rates]
+- name: ProductPrice
+  schemas: [ProductPrice_Request, ProductPrice_Response]
+  operation: POST /product-price
+  description: >-
+    Currency conversion and price presentation for a set of product values — conversion rate, adjustment,
+    conversion fee, rounded and formatted presentment values per reference.
+  fields: [base_currency, presentment_currency, currency_symbol, currency_code, currency_text, country, converted_values]
+- name: TaxAndDuty
+  schemas: [TaxAndDuty_Request, TaxAndDuty_Response]
+  operation: POST /tax-and-duty
+  description: Standalone duty and tax calculation for a shipment's items given a shipping rate and origin/destination.
+  fields: [request_id, currency, rates]
+shared_structures:
+- name: Address
+  inline_in: [Rate_Request.address_to, Rate_Request.address_from, Ship_Request.address_to, Ship_Request.address_from, Order_POST_Request.address_to, Order_PUT_Request.address_to, Cart_Request.address_from, Cart_Request.address_to, TaxAndDuty_Request.address_from, TaxAndDuty_Request.address_to]
+  fields: [reference, street1, street2, city, state, zip, country, name, company, phone, email, customer_tax_id]
+  note: Defined inline ten times with drifting field sets rather than as one reusable component schema.
+- name: Parcel
+  inline_in: [Rate_Request.parcel, Ship_Request.parcel, Cart_Request.parcel]
+  fields: [reference, length, units_length, width, height, weight, units_weight]
+- name: Item
+  inline_in: [Rate_Request.items, Ship_Request.items, Cart_Request.items, TaxAndDuty_Request.items, Order_POST_Request.items, Order_PUT_Request.items]
+  fields: [description, hs_code, sku, quantity, value, weight, units_weight, origin, currency, country_of_origin, country_of_fulfillment, requires_shipping, value_discounted, name, id]
+  note: The order-side item shape differs from the shipping-side item shape (name/id/requires_shipping vs description/origin).
+relationships:
+- from: Order
+  to: Shipment
+  type: has_one
+  via: shipping (service_name / service_code chosen from a Rate or CartQuote)
+  confidence: medium
+  note: Inferred from field semantics — the API exposes no id linking an order document to a tracking code.
+- from: Order
+  to: Item
+  type: has_many
+  via: items[]
+- from: Shipment
+  to: Item
+  type: has_many
+  via: items[]
+- from: CartQuote
+  to: Rate
+  type: has_many
+  via: rates[] (service_name, service_code, rate, tax, duty, insurance, total, edd, duty_tax_breakdown)
+- from: Shipment
+  to: Rate
+  type: belongs_to
+  via: service_name (Ship_Request.service_name is the serviceName returned by POST /rate)
+  confidence: high
+- from: ProductPrice
+  to: ConvertedValue
+  type: has_many
+  via: converted_values[] keyed by reference
+schema_reuse:
+  components_schemas: 14
+  reused_components: 0
+  note: >-
+    No schema is referenced by more than one operation and no shared Address/Parcel/Item component exists — every
+    structure is redefined inline. This is the single biggest structural improvement available in the spec and is
+    captured in overlays/passport-public-api-overlay.yaml as a recommendation, not applied to the original.
+cross_links:
+  openapi: openapi/passport-public-api-openapi.yml
+  conventions: conventions/passport-conventions.yml

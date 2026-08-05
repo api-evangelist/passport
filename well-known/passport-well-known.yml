@@ -1,0 +1,51 @@
+generated: '2026-08-04'
+method: probed
+source: live HTTP probes, 2026-08-04
+summary: >-
+  No /.well-known/ discovery documents are served on any Passport host. Every path below was probed on all four
+  hosts and returned 404 (the marketing site answers with a WordPress 404 HTML page; the API hosts answer with a
+  JSON {"message":"Not Found","code":0}). No raw files were saved because there were no 200s, and no WellKnown
+  pointer is wired in apis.yml — an empty index must not be credited as a discovery surface.
+hosts_probed:
+- passportglobal.com
+- docs.passportglobal.com
+- api.passportshipping.com
+- api-stg.passportshipping.com
+paths_probed:
+- path: /.well-known/security.txt
+  status: 404
+  file: null
+- path: /security.txt
+  status: 404
+  file: null
+- path: /.well-known/openid-configuration
+  status: 404
+  file: null
+- path: /.well-known/oauth-authorization-server
+  status: 404
+  file: null
+- path: /.well-known/api-catalog
+  status: 404
+  file: null
+- path: /.well-known/ai-plugin.json
+  status: 404
+  file: null
+- path: /.well-known/agent-card.json
+  status: 404
+  file: null
+- path: /.well-known/agent.json
+  status: 404
+  file: null
+- path: /llms.txt
+  status: 404
+  file: null
+other_discovery:
+- path: /robots.txt
+  host: passportglobal.com
+  status: 200
+  note: Yoast-generated; User-agent * Disallow (nothing blocked), Crawl-delay 10, sitemap at /sitemap_index.xml.
+- path: /sitemap_index.xml
+  host: passportglobal.com
+  status: 200
+  note: WordPress/Yoast sitemap index — the only machine-readable site inventory Passport publishes.
+hits: []

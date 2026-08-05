@@ -1,18 +1,75 @@
 aid: passport
 name: Passport
-description: 'Passport is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: >-
+  Passport (Passport Global, Inc.) is a cross-border ecommerce logistics and compliance platform founded in 2017
+  that helps direct-to-consumer brands sell and ship internationally to 190+ markets. The company combines its own
+  international parcel network (Passport Shipping) with in-country enablement, marketplace management, trade and
+  fiscal compliance, seller/merchant-of-record services, duty drawback, and returns. Its public REST API — the
+  Passport Global API, currently version 3.15 — exposes landed-cost rating, shipping label generation and voiding,
+  order submission and management, cart-level duty and tax quoting, currency-converted product pricing, and a
+  tax-and-duty calculator, authenticated with an X-Access-Token API key issued by the Passport onboarding team.
 url: https://raw.githubusercontent.com/api-evangelist/passport/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
-specificationVersion: '0.20'
+specificationVersion: '0.21'
+image: https://passportglobal.com/wp-content/uploads/2024/12/passport-international-shipping-compliance-localization.png
 created: '2026-08-04'
 modified: '2026-08-04'
 tags:
 - Company
-apis: []
+- shipping
+- logistics
+- cross-border-ecommerce
+- international-shipping
+- customs-compliance
+- landed-cost
+- duties-and-taxes
+- parcel-delivery
+- ecommerce
+- merchant-of-record
+- trade-compliance
+apis:
+- name: Passport Global API
+  description: >-
+    REST-like JSON API for international shipping and landed cost. Endpoints cover shipping rate requests including
+    duties and taxes (/rate), shipping label generation (/ship) and voiding (/void/{code}), order create/update/
+    delete/read (/order), cart-level rate, duty and tax quoting (/cart), currency-converted product pricing
+    (/product-price), a standalone tax and duty calculator (/tax-and-duty), and a health check (/ping). All calls
+    are HTTPS and authenticated with an X-Access-Token header API key provisioned during onboarding.
+  humanURL: https://docs.passportglobal.com/
+  baseURL: https://api.passportshipping.com/v3
+  tags:
+  - shipping
+  - logistics
+  - landed-cost
+  - duties-and-taxes
+  - customs-compliance
+  - cross-border-ecommerce
+  properties:
+  - type: OpenAPI
+    url: openapi/passport-public-api-openapi.yml
+  - type: Documentation
+    url: https://docs.passportglobal.com/
+  - type: APIReference
+    url: https://docs.passportglobal.com/
+  - type: GettingStarted
+    url: https://docs.passportglobal.com/
+  - type: Overlay
+    url: overlays/passport-public-api-overlay.yaml
+  - type: Authentication
+    url: authentication/passport-authentication.yml
+  - type: Conventions
+    url: conventions/passport-conventions.yml
+  - type: ErrorCatalog
+    url: errors/passport-problem-types.yml
+  - type: DataModel
+    url: data-model/passport-data-model.yml
+  - type: Examples
+    url: examples/passport-examples.yml
+  - type: Sandbox
+    url: sandbox/passport-sandbox.yml
+  - type: ChangeLog
+    url: changelog/passport-changelog.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -20,4 +77,61 @@ maintainers:
   email: info@apis.io
 common:
 - type: Website
-  url: https://forgeglobal.com/passport_stock/
+  url: https://passportglobal.com/
+- type: Documentation
+  url: https://docs.passportglobal.com/
+- type: APIReference
+  url: https://docs.passportglobal.com/
+- type: GettingStarted
+  url: https://docs.passportglobal.com/
+- type: Support
+  url: https://passportglobal.com/contact-sales/
+- type: Blog
+  url: https://passportglobal.com/news-and-articles/
+- type: BlogRSS
+  url: https://passportglobal.com/feed/
+- type: Login
+  url: https://portal.passportglobal.com/
+- type: TermsOfService
+  url: https://passportglobal.com/terms-of-use/
+- type: PrivacyPolicy
+  url: https://passportglobal.com/privacy-policy/
+- type: Compliance
+  url: https://passportglobal.com/gdpr/
+- type: StatusPage
+  url: https://status.passportglobal.com/
+- type: ChangeLog
+  url: changelog/passport-changelog.yml
+- type: Lifecycle
+  url: lifecycle/passport-lifecycle.yml
+- type: Conformance
+  url: conformance/passport-conformance.yml
+- type: DomainSecurity
+  url: security/passport-domain-security.yml
+- type: Authentication
+  url: authentication/passport-authentication.yml
+- type: Conventions
+  url: conventions/passport-conventions.yml
+- type: ErrorCatalog
+  url: errors/passport-problem-types.yml
+- type: DataModel
+  url: data-model/passport-data-model.yml
+- type: Examples
+  url: examples/passport-examples.yml
+- type: Overlay
+  url: overlays/passport-public-api-overlay.yaml
+- type: Sandbox
+  url: sandbox/passport-sandbox.yml
+- type: Components
+  url: components/passport-components.yml
+- type: MCPServer
+  url: mcp/passport-mcp.yml
+- type: LLMsTxt
+  url: llms/passport-llms.txt
+- type: AgentSkill
+  url: skills/_index.yml
+x-enrichment:
+  date: '2026-08-04'
+  status: enriched
+  artifacts_added: 20
+  pass: local-v1

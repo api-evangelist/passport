@@ -1,0 +1,100 @@
+generated: '2026-08-04'
+method: derived
+source: >-
+  openapi/passport-public-api-openapi.yml (v3.15) + https://docs.passportglobal.com/ preamble + live probes of
+  https://api.passportshipping.com/v3/
+summary: >-
+  Cross-cutting request/response semantics for the Passport Global API, read from the published OpenAPI 3.0.1
+  document and the documentation preamble. Passport is an RPC-flavored REST API: almost every capability is a POST
+  to a verb-shaped path, auth is a single static header key, and there is no idempotency, no pagination, no
+  rate-limit signaling, and no request-id response header. Do not assume any of those exist.
+authentication:
+  style: api_key_header
+  header: X-Access-Token
+  self_service: false
+  see: authentication/passport-authentication.yml
+transport:
+  https_only: true
+  content_type: application/json
+  methods_used: [POST, PUT, DELETE, GET]
+  note: >-
+    The docs preamble states "All requests are made using the POST method"; the v3.15 spec has since added GET,
+    PUT and DELETE on /order and GET /ping, so the preamble is stale relative to the spec.
+resource_style:
+  shape: rpc-over-rest
+  evidence: >-
+    Paths are actions (/rate, /ship, /void/{code}, /cart, /product-price, /tax-and-duty, /ping) rather than
+    collections; only /order behaves as a resource, and even there the identifier travels as an `orderNames`
+    query parameter rather than a path segment.
+idempotency:
+  supported: false
+  documented: false
+  header: null
+  note: >-
+    No Idempotency-Key (or equivalent) header is defined anywhere in the spec or the docs, and POST /ship —
+    the money-moving, label-buying operation — has no replay-safety mechanism. A retried POST /ship after a
+    timeout cannot be safely deduplicated by the caller; the documented recovery is POST /void/{code}.
+pagination:
+  supported: false
+  note: >-
+    GET /order takes an `orderNames` filter and returns matching orders; no limit/offset/cursor/page parameters
+    and no pagination envelope are defined. There is no list-all operation.
+filtering:
+  parameters:
+  - name: orderNames
+    in: query
+    required: true
+    applies_to: [GET /order, PUT /order, DELETE /order]
+    note: Comma-joined order names; must be non-empty and contain at least one value.
+versioning:
+  strategy: [path, document]
+  path_prefix: /v3
+  document_versions_published: ['3.15', '3.14', '3.13']
+  document_url_pattern: https://docs.passportglobal.com/passport_public_api_v<major>_<minor>.yml
+  note: >-
+    The URL major version (/v3) is stable while the OpenAPI document carries a minor version (3.13 → 3.15) that
+    increments as operations are added. Passport keeps the two prior documents live and switchable in its Redoc
+    version selector, which is the only published version history.
+  see: lifecycle/passport-lifecycle.yml
+request_tracing:
+  response_header: null
+  response_body_field: request_id
+  applies_to: [POST /cart, POST /tax-and-duty]
+  error_field: message
+  note: >-
+    Two operations return a `request_id` in the success body (Cart_Response and TaxAndDuty_Response, where it is a
+    required field); the other seven return no correlation identifier at all. On 500 responses a RequestId is
+    embedded in the free-text `message` ("RequestId: $RequestId") and callers are told to share it with support.
+    There is no correlation-id request header and no request-id response header on any operation.
+rate_limiting:
+  documented: false
+  headers: []
+  note: No rate limits, quotas, burst rules, or 429 responses appear anywhere in the spec or the public docs.
+error_envelope:
+  content_type: application/json
+  shape: '{ message: string, details?: string|object, code?: number }'
+  rfc9457: false
+  see: errors/passport-problem-types.yml
+money_and_units:
+  currency: ISO 4217 three-letter codes
+  single_currency_rule: >-
+    All items in a single request must share one currency; mixed currencies are rejected with 400 MixedCurrency.
+  value_bounds:
+    min: 0.01
+    max: 99999999.99
+  weight_and_dimensions: declared per-parcel on /rate and /ship requests
+environments:
+  production: https://api.passportshipping.com/v3
+  testing: https://api-stg.passportshipping.com/v3
+  see: sandbox/passport-sandbox.yml
+webhooks:
+  first_party: false
+  note: >-
+    Passport publishes no first-party webhook or event catalog. Shipment status updates reach integrators through
+    the branded tracking page, the Passport Portal, or third-party aggregators (EasyPost, AfterShip, ShipEngine,
+    TrackingMore) that poll Passport and emit their own webhooks.
+cross_links:
+  authentication: authentication/passport-authentication.yml
+  errors: errors/passport-problem-types.yml
+  lifecycle: lifecycle/passport-lifecycle.yml
+  data_model: data-model/passport-data-model.yml

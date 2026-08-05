@@ -1,0 +1,719 @@
+generated: '2026-08-04'
+method: derived
+source: openapi/passport-public-api-openapi.yml (v3.15 schema-level and response-level `example` values)
+summary: Every value below is Passport's own published example data, taken verbatim from the `example` keywords
+  in its OpenAPI 3.0.1 document. Success payloads are assembled per schema from the property-level examples the
+  spec supplies (the spec carries no whole-payload request examples); error payloads are copied verbatim from the
+  response-level `examples` maps. Nothing here is invented, and none of it is callable test data — Passport publishes
+  no test fixtures.
+payloads:
+- operation: POST /rate
+  kind: request
+  schema: Rate_Request
+  payload:
+    reference: shipmentref
+    address_to:
+      reference: To address 1
+      street1: 111 Broadway Ave.
+      street2: Floor 7
+      city: London
+      state: ''
+      zip: B33 8TH
+      country: GB
+      name: John Smith
+      company: Company Inc
+      phone: 518-111-1111
+      email: js-myth@example.com
+    address_from:
+      reference: From address 1
+      street1: 111 sunset blvd.
+      city: Los angeles
+      state: CA
+      zip: '90111'
+      country: US
+      name: Allison Fox
+      company: Lululemon
+      phone: 518-111-1111
+      email: js-myth@example.com
+    parcel:
+      reference: Parcel ID
+      length: 10.5
+      units_length: in
+      width: 5.2
+      height: 1.1
+      weight: 100.15
+      units_weight: oz
+    items:
+    - description: Black T-shirt
+      hs_code: '3304300000'
+      sku: GEN12345
+      quantity: 2
+      value: 12.34
+      weight: 0.5
+      units_weight: oz
+      origin: US
+      currency: USD
+    duty_paid: true
+    contents_type: merchandise
+- operation: POST /rate
+  kind: response 200
+  schema: Rate_Response
+  payload:
+    rate: 10.78
+    duty: 0
+    tax: 2.47
+    insurance: 1.5
+    currency: USD
+    serviceName: PriorityDdpDelcon
+- operation: POST /ship
+  kind: request
+  schema: Ship_Request
+  payload:
+    address_to:
+      reference: To address 1
+      street1: 111 Broadway Ave.
+      street2: Floor 7
+      city: London
+      state: ''
+      zip: B33 8TH
+      country: GB
+      name: John Smith
+      company: Company Inc
+      phone: 518-111-1111
+      email: js-myth@example.com
+      customer_tax_id: CHE-123.456.789 HR
+    address_from:
+      reference: From address 1
+      street1: 111 sunset blvd.
+      city: Los angeles
+      state: CA
+      zip: '90111'
+      country: US
+      name: Allison Fox
+      company: ProShip
+      phone: 518-111-1111
+      email: js-myth@example.com
+    parcel:
+      reference: Parcel ID
+      length: 10.5
+      units_length: in
+      width: 5.2
+      height: 1.1
+      weight: 100.15
+      units_weight: oz
+    items:
+    - description: Blackt T-shirt
+      hs_code: '3304300000'
+      sku: GEN12345
+      quantity: 2
+      value: 12.34
+      weight: 0.5
+      units_weight: oz
+      origin: US
+      currency: USD
+    service_name: PriorityDdpDelcon
+- operation: POST /ship
+  kind: response 200
+  schema: Ship_Response
+  payload:
+    code: PG3450126846CA
+    rate: 18.62
+    duty: 0
+    tax: 2.47
+    insurance: 1.3
+    currency: USD
+    label: https://s3-us-west-2.amazonaws.com/stg-postage-label/20180731/b64515eaf3a7a7729dc40fc07d1e88dc1532985659248.png
+    tracking_url: https://track-stg.passportshipping.com/PG3450126846CA
+- operation: POST /order
+  kind: request
+  schema: Order_POST_Request
+  payload:
+    total_value: 100.0
+    currency_code: USD
+    order_name: <in your system>
+    created: 1707811200
+    value: 120.0
+    items:
+    - name: Sample Product
+      sku: SKU123
+      requires_shipping: true
+      value: 55.0
+      value_discounted: 45.0
+      quantity: 2
+      hs_code: 1234.56.78
+      country_of_origin: US
+      country_of_fulfillment: US
+      description: Product description here
+      weight: 123
+    address_to:
+      street1: Georg-Leipold-Straße 5
+      street2: ''
+      city: Weiden in der Oberpfalz
+      zip: 92637
+      country: DE
+      name: Daniel Gauer
+      phone: 518-111-1111
+      email: daniel.gauer@web.de
+    shipping:
+      id: 123456
+      rate: 5.0
+      duty: 3.0
+      duty_source: Passport
+      tax: 2.0
+      tax_source: Passport
+      service_name: PassportPriorityDdpDelcon
+    customer_tax_id: CHE-123.456.789 HR
+    order_url: https://passportglobal.com
+- operation: PUT /order
+  kind: request
+  schema: Order_PUT_Request
+  payload:
+    total_value: 55.17
+    currency_code: USD
+    order_name: '123123'
+    created: 1707811200
+    value: 70.8
+    items:
+    - id: '123'
+      name: 'Product #16787'
+      sku: SKU456
+      requires_shipping: true
+      value: 550
+      value_discounted: 15
+      quantity: 2
+      hs_code: '125556.78'
+      country_of_origin: FR
+      country_of_fulfillment: FR
+      description: Product description here
+      weight: 88
+    address_to:
+      street1: Georg
+      street2: ''
+      city: Weiden in der Oberpfalz
+      zip: 92637
+      country: DE
+      name: Daniel Gauer
+      phone: 4911231231230
+      email: testorder@randomtest.com
+    shipping:
+      id: 123456
+      rate: 5
+      duty: 3
+      duty_source: Passport
+      tax: 2
+      tax_source: Passport
+      service_code: PassportPriorityDdpDelcon
+      service_name: PassportPriorityDdpDelcon
+    customer_tax_id: test123
+    order_url: https://example.com
+- operation: DELETE /order
+  kind: response 200
+  schema: Order_DELETE_Response
+  payload:
+    deleted:
+    - WEB-1001
+- operation: GET /order
+  kind: response 200
+  schema: Order_GET_Response
+  payload:
+  - order_name: store1_order001
+    created: 1707811200
+    value: 120
+    items:
+    - name: Sample Product
+      sku: SKU123
+      requires_shipping: true
+      value: 55
+      value_discounted: 45
+      quantity: 2
+      hs_code: 1234.56.78
+      country_of_origin: US
+      description: Product description here
+      weight: 123
+    address_to:
+      street1: 30 Rue de la Baie
+      street2: ''
+      city: Gatineau
+      state: QC
+      zip: J8T 3H5
+      country: CA
+      name: Daniel Gauer
+      phone: 49162342340
+      email: test@test.test
+    shipping:
+      id: 123456
+      rate: 5
+      duty: 3
+      duty_source: Passport
+      tax: 2
+      tax_source: Passport
+      service_name: PassportPriorityDdpDelcon
+    customer_tax_id: CHE-123.456.789 HR
+    integration_id: 6
+    presentment_currency: USD
+    value_discounted_presentment_currency: 150
+- operation: POST /cart
+  kind: request
+  schema: Cart_Request
+  payload:
+    reference: ORDER12345
+    service_name: Express
+    contents_type: merchandise
+    presentment_currency: EUR
+    address_from:
+      street1: 123 Main St
+      street2: Apt 4B
+      city: Los Angeles
+      state: CA
+      zip: '90045'
+      country: US
+      company: Sender Inc.
+      name: Alice Johnson
+    address_to:
+      street1: 81 Bay Street
+      street2: ''
+      city: Toronto
+      state: 'ON'
+      zip: M5J0E7
+      country: Canada
+      name: Bob Smith
+      phone: 555-987-6543
+      email: bob@example.com
+    parcel:
+      length: 10.5
+      width: 5.2
+      height: 1.1
+      weight: 10.15
+    items:
+    - description: Black T-Shirt
+      hs_code: '9505900000'
+      sku: TSHIRT123
+      quantity: 2
+      value: 24.68
+      weight: 1.0
+      origin: US
+- operation: POST /cart
+  kind: response 200
+  schema: Cart_Response
+  payload:
+    request_id: 682302a7-6c05-438f-ae8e-9b8cffc054b2
+    currency: EUR
+    rates:
+    - service_name: Passport Priority Duties and Taxes Paid
+      service_code: PriorityDdpDelcon
+      rate: 9
+      tax: 0
+      duty: 6
+      insurance: 1
+      formatted:
+        rate: €9
+        tax: €0
+        duty: €6
+        insurance: €1
+      description: The total amount is inclusive of all local duties, taxes and fees. We guarantee no additional
+        charges on delivery.
+      total: 16
+      edd:
+        min_days: 7
+        max_days: 11
+        message: 7-11 business days.
+      duty_tax_breakdown:
+      - sku: TSHIRT123
+        description: Black T-Shirt
+        tax: 0
+        duty: 6
+- operation: POST /product-price
+  kind: request
+  schema: ProductPrice_Request
+  payload:
+    base_currency: USD
+    presentment_currency: CAD
+    country: CA
+    values:
+    - reference: Product_1_USD_CAD
+      value: 1
+- operation: POST /product-price
+  kind: response 200
+  schema: ProductPrice_Response
+  payload:
+    base_currency: USD
+    presentment_currency: CAD
+    currency_symbol: CAD
+    currency_code: CAD
+    currency_text: Canadian Dollar
+    country: CA
+    converted_values:
+    - reference: Product_1_USD_CAD
+      value: 1
+      converted_value: '1.31234'
+      adjustment: 10%
+      adjusted_value: 1.1
+      conversion_rate: '1.31234'
+      converted_value_with_fee: '1.44357'
+      conversion_fee: '0.1'
+      converted_value_with_fee_rounded: '1.44'
+      converted_value_formatted: 1.44 CAD
+- operation: POST /tax-and-duty
+  kind: request
+  schema: TaxAndDuty_Request
+  payload:
+    reference: ORDER12345
+    presentment_currency: EUR
+    shipping_rate: 0
+    insurance: 0
+    address_from:
+      street1: 123 Main St
+      street2: Apt 4B
+      city: Los Angeles
+      state: CA
+      zip: '90045'
+      country: US
+    address_to:
+      street1: 81 Bay Street
+      street2: ''
+      city: Toronto
+      state: 'ON'
+      zip: M5J0E7
+      country: CA
+    items:
+    - description: Black T-Shirt
+      hs_code: '9505900000'
+      sku: TSHIRT123
+      quantity: 2
+      value: 24.68
+      weight: 1.0
+      origin: US
+- operation: POST /tax-and-duty
+  kind: response 200
+  schema: TaxAndDuty_Response
+  payload:
+    request_id: 682302a7-6c05-438f-ae8e-9b8cffc054b2
+    currency: EUR
+    rates:
+    - tax: 0
+      duty: 6
+      total: 16
+      formatted:
+        tax: €0
+        duty: €6
+      duty_tax_breakdown:
+      - sku: TSHIRT123
+        description: Black T-Shirt
+        tax: 0
+        duty: 6
+error_payloads:
+- operation: POST /rate
+  status: '400'
+  name: MixedCurrency
+  payload:
+    message: 'Passport only accepts a single currency for items at a time. Currencies received: [''USD'', ''AED'',
+      ''GBP'']'
+- operation: POST /ship
+  status: '400'
+  name: BadRequest
+  payload:
+    message: Brand has not been onboarded within Passport’s system. Please reach out to Passport support.
+- operation: POST /ship
+  status: '400'
+  name: MixedCurrency
+  payload:
+    message: 'Passport only accepts a single currency for items at a time. Currencies received: [''USD'', ''AED'',
+      ''GBP'']'
+- operation: POST /order
+  status: '400'
+  name: IntegrationNotFound
+  payload:
+    details: Brand has not been onboarded within Passport’s system. Please reach out to Passport support.
+- operation: POST /order
+  status: '401'
+  name: UnauthorizedAccess
+  payload:
+    message: Unable to access the requested resource, authorization failed.
+    details: missing/incorrect authorization data
+- operation: POST /order
+  status: '403'
+  name: MerchantBlocked
+  payload:
+    message: Brand is blocked
+    details: Brand is blocked
+- operation: POST /order
+  status: '404'
+  name: NotFound
+  payload:
+    message: Not Found
+    code: 0
+    details: Bad URL
+- operation: POST /order
+  status: '422'
+  name: EmptyBody
+  payload:
+    message: Body cant be blank
+    details: Empty body
+- operation: POST /order
+  status: '422'
+  name: ValidationErrors
+  payload:
+    message: Body validation errors
+    details:
+      body:
+        currency_code:
+        - Currency code cannot be blank
+        - Currency must be a string.
+        - Currency code should contain 3 characters.
+        value:
+        - Value must be a number.
+        - Value cannot be blank
+        - Value must be no greater than 99999999.99.
+        - Value must be no less than 0.01.
+        total_value:
+        - Total value must be a number.
+        - Total value cannot be blank
+        - Total value must be no greater than 99999999.99.
+        - Total value must be no less than 0.01.
+        order_name:
+        - Order name value cannot be blank
+        - Order name should contain at most 100 characters.
+        created:
+        - Created name value cannot be blank
+        - Created must be an integer.
+      items:
+        name:
+        - Name cannot be blank
+        requires_shipping:
+        - Requires shipping cannot be blank
+        value:
+        - Value must be a number.
+        - Value cannot be blank
+        - Value must be no greater than 99999.99.
+        - Value must be no less than 0.01.
+        value_discounted:
+        - Value discounted must be a number.
+        - Value discounted cannot be blank
+        - Value discounted must be no greater than 99999.99.
+        - Value discounted must be no less than 0.01.
+        quantity:
+        - Quantity cannot be blank
+        - Quantity discounted must be a number.
+        weight:
+        - Weight cannot be blank
+      address_to:
+        street1:
+        - street1 cannot be blank
+        - street1 must be a string
+        city:
+        - city cannot be blank
+        - city must be a string
+        country:
+        - country cannot be blank
+        - country must be a string
+        company:
+        - Company must be a string
+        street2:
+        - Street2 must be a string
+      shipping:
+        id:
+        - Id must be a number.
+        rate:
+        - Rate must be a number.
+        - Rate cannot be blank
+        - Rate must be no greater than 99999.99.
+        - Rate must be no less than 0.01.
+        duty:
+        - Duty must be a number.
+        - Duty cannot be blank
+        - Duty must be no greater than 99999.99.
+        - Duty must be no less than 0.01.
+        tax:
+        - Tax must be a number.
+        - Tax cannot be blank
+        - Tax must be no greater than 99999.99.
+        - Tax must be no less than 0.01.
+        service_name:
+        - Service name must be a string.
+        duty_source:
+        - Duty source name must be a string.
+        tax_source:
+        - Tax source name must be a string.
+- operation: POST /order
+  status: '500'
+  name: InternalError
+  payload:
+    message: 'Sorry, something went wrong while processing your request. We are already working on a solution. RequestId:
+      $RequestId'
+    details: Internal Server Error
+- operation: PUT /order
+  status: '401'
+  name: UnauthorizedAccess
+  payload:
+    message: 'Unauthorised: Returned when authentication fails'
+- operation: PUT /order
+  status: '403'
+  name: MerchantBlocked
+  payload:
+    message: 'Denied: Returned when orders are past 1 year'
+- operation: PUT /order
+  status: '404'
+  name: NotFound
+  payload:
+    message: 'Not found: order with ORDER_NAME not found'
+- operation: PUT /order
+  status: '422'
+  name: ValidationErrors
+  payload:
+    message: 'Unprocessable Entity: Returned when the request payload is missing mandatory information or contains
+      invalid data'
+- operation: DELETE /order
+  status: '400'
+  name: BadRequest
+  payload:
+    message: Returned when order name is not in correct format or brand is not onboarded within Passport’s systems.
+- operation: DELETE /order
+  status: '401'
+  name: UnauthorizedAccess
+  payload:
+    message: 'Unauthorised: Returned when authentication fails.'
+- operation: DELETE /order
+  status: '403'
+  name: MerchantBlocked
+  payload:
+    message: 'Forbidden: Brand is blocked'
+- operation: DELETE /order
+  status: '500'
+  name: InternalError
+  payload:
+    message: Internal Server Error
+- operation: GET /order
+  status: '400'
+  name: RequiredAndMustNonEmptyString
+  payload:
+    message: Query parameter 'orderNames' is required and must be a non-empty string
+- operation: GET /order
+  status: '400'
+  name: MustContainLeastOneValue
+  payload:
+    message: Query parameter 'orderNames' must contain at least one value
+- operation: GET /order
+  status: '400'
+  name: IntegrationNotConfigured
+  payload:
+    message: Integration is not configured for this merchant
+- operation: GET /order
+  status: '400'
+  name: BrandNotOnboarded
+  payload:
+    message: Brand has not been onboarded within Passport’s system. Please reach out to Passport support
+- operation: GET /order
+  status: '401'
+  name: UnauthorizedAccess
+  payload:
+    message: 'Unauthorised: Missing or invalid credentials'
+- operation: GET /order
+  status: '403'
+  name: MerchantBlocked
+  payload:
+    message: 'Forbidden: Brand is blocked'
+- operation: GET /order
+  status: '404'
+  name: NotFound
+  payload:
+    message: 'Not found: Orders were not found'
+- operation: GET /order
+  status: '500'
+  name: InternalError
+  payload:
+    message: 'Internal Server Error: Generic failure while processing the request. The response contains a message
+      with a `RequestId` you can share with support'
+- operation: POST /product-price
+  status: '400'
+  name: PresentmentCurrencyNotSupported
+  payload:
+    message: presentment_currency EUR is not supported.
+    details: Currency is not supported
+- operation: POST /product-price
+  status: '400'
+  name: BaseCurrencyNotSupported
+  payload:
+    message: base_currency XYZ is not supported.
+    details: Currency is not supported
+- operation: POST /product-price
+  status: '401'
+  name: UnauthorizedAccess
+  payload:
+    message: Unable to access the requested resource, authorization failed.
+    details: missing/incorrect authorization data
+- operation: POST /product-price
+  status: '403'
+  name: MerchantBlocked
+  payload:
+    message: Merchant is blocked
+    details: Merchant is blocked
+- operation: POST /product-price
+  status: '404'
+  name: NotFound
+  payload:
+    message: Not Found
+    code: 0
+    details: Bad URL
+- operation: POST /product-price
+  status: '422'
+  name: ValidationErrors
+  payload:
+    message: Body validation errors
+    details:
+      body:
+        base_currency:
+        - Base currency cannot be blank.
+        presentment_currency:
+        - Presentment currency cannot be blank.
+        values:
+        - Values cannot be blank.
+        reference:
+        - Reference cannot be blank.
+        value:
+        - Value cannot be blank.
+        - Value must be no less than 0.01.
+        - Value must be no greater than 9999999.99.
+        - Value must be a number.
+- operation: POST /product-price
+  status: '500'
+  name: InternalError
+  payload:
+    message: 'Sorry, something went wrong while processing your request. We are already working on a solution. RequestId:
+      $RequestId'
+    details: Other errors or unprocessed exceptions.
+- operation: POST /tax-and-duty
+  status: '400'
+  name: BrandNotOnboarded
+  payload:
+    message: Brand has not been onboarded within Passport's system. Please reach out to Passport support.
+- operation: POST /tax-and-duty
+  status: '401'
+  name: UnauthorizedAccess
+  payload:
+    message: Unable to access the requested resource, authorization failed.
+    details: missing/incorrect authorization data
+- operation: POST /tax-and-duty
+  status: '403'
+  name: MerchantBlocked
+  payload:
+    message: Brand is blocked
+    details: Brand is blocked
+- operation: POST /tax-and-duty
+  status: '404'
+  name: NotFound
+  payload:
+    message: Not Found
+    code: 0
+    details: Bad URL
+- operation: POST /tax-and-duty
+  status: '422'
+  name: ValidationErrors
+  payload:
+    message: Request payload is missing mandatory data or contains invalid data
+- operation: POST /tax-and-duty
+  status: '500'
+  name: InternalError
+  payload:
+    message: 'Sorry, something went wrong while processing your request. We are already working on a solution. RequestId:
+      $RequestId'
+    details: Internal Server Error

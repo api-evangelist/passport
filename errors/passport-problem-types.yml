@@ -1,0 +1,123 @@
+generated: '2026-08-04'
+method: derived
+source: openapi/passport-public-api-openapi.yml (v3.15 4xx/5xx responses and their published examples)
+format: custom-json
+rfc9457: false
+summary: >-
+  Passport Global API does not use RFC 9457 problem+json. Errors are returned as application/json with a flat
+  envelope carrying a human-readable `message`, an optional `details` field (a string, or an object of field-level
+  validation messages on 422), and an occasional numeric `code`. There is no stable machine-readable error-code
+  registry — callers must branch on HTTP status and, for validation, walk the `details` object.
+envelope:
+  content_type: application/json
+  fields:
+  - name: message
+    type: string
+    always_present: true
+    description: Human-readable summary of the failure.
+  - name: details
+    type: string|object
+    always_present: false
+    description: >-
+      A string clarifier on most errors; on 422 validation failures an object keyed by request section (`body`,
+      `items`) whose values are objects of field name to an array of validation messages.
+  - name: code
+    type: number
+    always_present: false
+    description: Observed only on 404 (Not Found) with value 0; not a documented error-code registry.
+  trace_id:
+    field: message
+    pattern: 'RequestId: $RequestId'
+    note: >-
+      500 responses embed a RequestId inside the message string rather than in a dedicated field or response header.
+      The /order GET 500 description tells callers to share that RequestId with support.
+status_codes:
+- status: 400
+  title: Bad Request
+  applies_to: ["POST /rate", "POST /ship", "POST /void/{code}", "POST /order", "DELETE /order", "GET /order", "POST /cart", "POST /product-price", "POST /tax-and-duty"]
+  causes:
+  - id: BrandNotOnboarded
+    message: Brand has not been onboarded within Passport's system. Please reach out to Passport support.
+    remediation: Contact Passport support/onboarding to have the brand provisioned before calling the API.
+  - id: MixedCurrency
+    message: "Passport only accepts a single currency for items at a time. Currencies received: ['USD', 'AED', 'GBP']"
+    remediation: Normalize every item in the request to a single ISO 4217 currency before submitting.
+  - id: IntegrationNotConfigured
+    message: Integration is not configured for this merchant
+    remediation: Ask Passport to configure the ecommerce integration for the merchant account.
+  - id: RequiredAndMustNonEmptyString
+    message: "Query parameter 'orderNames' is required and must be a non-empty string"
+    remediation: Supply a non-empty orderNames query parameter.
+  - id: MustContainLeastOneValue
+    message: "Query parameter 'orderNames' must contain at least one value"
+    remediation: Supply at least one order name in orderNames.
+  - id: NonVoidableShipment
+    message: Bad Request, with an error message for non-voidable shipments
+    remediation: Only labels that have not yet been tendered/manifested can be voided.
+  - id: BadOrderNameFormat
+    message: Returned when order name is not in correct format or brand is not onboarded within Passport's systems.
+    remediation: Check the order name format against the /order request schema.
+- status: 401
+  title: Unauthorized
+  applies_to: [POST /rate, POST /ship, POST /order, PUT /order, DELETE /order, GET /order, POST /cart, POST /product-price, POST /tax-and-duty]
+  causes:
+  - id: UnauthorizedAccess
+    message: Unable to access the requested resource, authorization failed.
+    details: missing/incorrect authorization data
+    remediation: Send the X-Access-Token header with the key issued by Passport onboarding for the target environment.
+- status: 403
+  title: Forbidden
+  applies_to: [POST /order, PUT /order, DELETE /order, GET /order, POST /cart, POST /product-price, POST /tax-and-duty]
+  causes:
+  - id: MerchantBlocked
+    message: Brand is blocked
+    details: Brand is blocked
+    remediation: Commercial/account state — contact Passport; not retryable.
+  - id: OrderTooOld
+    message: 'Denied: Returned when orders are past 1 year'
+    remediation: Orders older than one year cannot be updated via PUT /order.
+- status: 404
+  title: Not Found
+  applies_to: ["POST /rate", "POST /ship", "POST /void/{code}", "POST /order", "PUT /order", "GET /order", "POST /cart", "POST /product-price", "POST /tax-and-duty"]
+  causes:
+  - id: NotFound
+    message: Not Found
+    code: 0
+    details: Bad URL
+    remediation: Verify the path and API version prefix (/v3).
+  - id: InvalidTrackingCode
+    message: Not Found, for invalid tracking codes
+    remediation: Void requires a valid Passport tracking code (e.g. the `code` returned by POST /ship).
+  - id: OrderNotFound
+    message: 'Not found: order with ORDER_NAME not found'
+    remediation: Confirm the order was previously submitted via POST /order.
+- status: 422
+  title: Unprocessable Entity
+  applies_to: [POST /rate, POST /ship, POST /order, PUT /order, POST /cart, POST /product-price, POST /tax-and-duty]
+  causes:
+  - id: EmptyBody
+    message: Body cant be blank
+    details: Empty body
+    remediation: Send a JSON request body.
+  - id: ValidationErrors
+    message: Body validation errors
+    details_shape: '{ body: { <field>: [ "<message>", ... ] }, items: { <field>: [ ... ] } }'
+    remediation: >-
+      Walk details.body and details.items for per-field messages. Documented constraints include currency_code
+      (3 characters, non-blank, string), value and total_value (number, 0.01–99999999.99), order_name (<=100 chars,
+      non-blank), created (integer, non-blank).
+- status: 500
+  title: Internal Server Error
+  applies_to: [POST /rate, POST /ship, POST /order, DELETE /order, GET /order, POST /cart, POST /product-price, POST /tax-and-duty]
+  causes:
+  - id: InternalError
+    message: 'Sorry, something went wrong while processing your request. We are already working on a solution. RequestId: $RequestId'
+    remediation: Retry with backoff; if it persists, share the RequestId from the message with Passport support.
+gaps:
+- No stable, documented error-code registry — every failure is identified only by HTTP status plus free-text message.
+- No RFC 9457 application/problem+json media type.
+- No Retry-After or rate-limit signaling documented on any error.
+- 401/404/422/500 on POST /rate and POST /ship carry no response schema or example at all in the spec.
+cross_links:
+  authentication: authentication/passport-authentication.yml
+  conventions: conventions/passport-conventions.yml

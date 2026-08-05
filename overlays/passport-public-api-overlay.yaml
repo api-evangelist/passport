@@ -1,0 +1,118 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the Passport Global API
+  version: 1.0.0
+  x-generated: '2026-08-04'
+  x-method: generated
+  x-source: openapi/passport-public-api-openapi.yml (Passport Global API v3.15)
+  x-summary: >-
+    Non-destructive enhancements to Passport's published OpenAPI 3.0.1 document. This overlay does not change
+    Passport's API — it records the machine-readable facts that are documented in prose (the X-Access-Token
+    security scheme, the production server) or missing entirely (operationIds, tag descriptions), so the contract
+    becomes usable by generators, agents, and governance tooling. The original file in openapi/ is never mutated.
+extends: ../openapi/passport-public-api-openapi.yml
+actions:
+- target: $.servers
+  description: >-
+    Add the production server. The published spec lists ONLY the staging host
+    (https://api-stg.passportshipping.com/v3), even though info.description names
+    https://api.passportshipping.com/v3 as production — a client generated from the spec as published points at
+    staging by default.
+  update:
+  - url: https://api.passportshipping.com/v3
+    description: Production
+- target: $.components
+  description: >-
+    Declare the API key security scheme that the documentation preamble describes in prose. The spec ships with no
+    components.securitySchemes at all, so no generated client knows how to authenticate.
+  update:
+    securitySchemes:
+      AccessToken:
+        type: apiKey
+        in: header
+        name: X-Access-Token
+        description: >-
+          API key issued by the Passport onboarding team, sent on every request. Separate keys are issued for the
+          testing and production environments.
+- target: $
+  description: >-
+    Apply the API key requirement globally — every operation is key-gated (verified by probe: an unauthenticated
+    GET /v3/ping returns 401).
+  update:
+    security:
+    - AccessToken: []
+- target: $.paths['/rate'].post
+  description: Add a stable operationId. Ten of eleven operations in v3.15 have no operationId, which blocks SDK generation and agent tool binding.
+  update:
+    operationId: createRate
+- target: $.paths['/ship'].post
+  description: Add a stable operationId.
+  update:
+    operationId: createShipment
+- target: $.paths['/void/{code}'].post
+  description: Add a stable operationId.
+  update:
+    operationId: voidShipment
+- target: $.paths['/order'].post
+  description: Add a stable operationId.
+  update:
+    operationId: createOrder
+- target: $.paths['/order'].put
+  description: Add a stable operationId.
+  update:
+    operationId: updateOrder
+- target: $.paths['/order'].delete
+  description: Add a stable operationId.
+  update:
+    operationId: deleteOrders
+- target: $.paths['/order'].get
+  description: Add a stable operationId.
+  update:
+    operationId: getOrders
+- target: $.paths['/cart'].post
+  description: Add a stable operationId.
+  update:
+    operationId: createCartQuote
+- target: $.paths['/tax-and-duty'].post
+  description: Add a stable operationId.
+  update:
+    operationId: calculateTaxAndDuty
+- target: $.paths['/ping'].get
+  description: Add a stable operationId, and record that the health check is itself authenticated.
+  update:
+    operationId: getPing
+    x-authenticated: true
+- target: $.tags
+  description: >-
+    Add descriptions to the eight tags. Every tag in the published document is a bare name with no description,
+    which is what a docs renderer and an agent both read first.
+  update:
+  - name: Rate
+    description: Landed-cost rating — carrier rate plus duty, tax and insurance for a parcel.
+  - name: Ship
+    description: Label purchase — returns a Passport tracking code, hosted label image, and branded tracking URL.
+  - name: Void
+    description: Cancellation of a purchased label by tracking code.
+  - name: Order
+    description: Commercial order submission, update, retrieval and deletion.
+  - name: Cart
+    description: Checkout-time rating for a whole cart, returning selectable service options with duty/tax breakdown.
+  - name: Product Price
+    description: Currency conversion and presentment pricing for product values.
+  - name: Tax And Duty
+    description: Standalone duty and tax calculation for a set of items and a shipping rate.
+  - name: Healthcheck
+    description: Liveness probe for the API.
+x-recommendations:
+  not_applied_here:
+  - >-
+    Extract the Address, Parcel and Item structures into components.schemas and $ref them. They are currently
+    redefined inline ten, three and six times respectively with drifting field sets — see
+    data-model/passport-data-model.yml. This is a structural refactor of Passport's spec, not an overlay action.
+  - >-
+    Give POST /rate and POST /ship response schemas for 401/404/422/500 — those statuses are listed with no
+    description, no schema, and no example.
+  - >-
+    Define an idempotency mechanism for POST /ship. A label purchase retried after a network timeout has no
+    replay-safe path today; the only documented recovery is POST /void/{code}.
+  - Publish a dated changelog and a deprecation/sunset policy — neither exists (lifecycle/, changelog/).

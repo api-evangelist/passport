@@ -1,0 +1,62 @@
+generated: '2026-08-04'
+method: searched
+source: https://docs.passportglobal.com/ (Getting Started with Passport Global API, v3.15 — info.description)
+docs: https://docs.passportglobal.com/
+summary: >-
+  Passport Global API authentication is a single static API key sent on every request in a custom HTTP header,
+  X-Access-Token. Keys are not self-service: they are provisioned by the Passport onboarding team and handed to a
+  named point of contact at the brand during integration. There is no OAuth 2.0, no OpenID Connect, no mutual TLS,
+  and no scope model published on the public surface.
+schemes:
+- id: api_key_header
+  type: apiKey
+  in: header
+  name: X-Access-Token
+  required: true
+  applies_to: all operations
+  description: >-
+    "Authentication and identification is done by providing an API key on every request as a custom HTTP header
+    'X-Access-Token'." — Passport Global API v3.15 documentation preamble.
+  issuance: >-
+    "During the onboarding or integration process, our Onboarding team will create an account for your organization
+    and provide the API key to your designated point of contact, which is typically a member of the operations,
+    development team, or one of the founders."
+  self_service: false
+  rotation_documented: false
+transport:
+  https_required: true
+  note: "Passport Global API is a REST-like API. All methods must be called using HTTPS."
+environments:
+- name: production
+  base_url: https://api.passportshipping.com/v3
+  key_scope: separate production key issued at onboarding
+- name: testing
+  base_url: https://api-stg.passportshipping.com/v3
+  key_scope: separate testing key issued at onboarding
+spec_gap:
+  securitySchemes_declared: false
+  note: >-
+    The published OpenAPI 3.0.1 document declares no components.securitySchemes and no security requirement on any
+    operation, even though every operation is key-gated in production. The auth model is described only in prose in
+    info.description. This is captured as an enhancement in overlays/passport-public-api-overlay.yaml and is a
+    concrete fix for Passport to make in its own spec.
+observed_behavior:
+- probe: GET https://api.passportshipping.com/v3/ping (no credentials)
+  http_status: 401
+  www_authenticate: Basic realm=Authorization Required
+  body: 'Unable to access the requested resource, authorization failed.'
+  fetched: '2026-08-04'
+- probe: GET https://api-stg.passportshipping.com/v3/ping (no credentials)
+  http_status: 401
+  body: 'Unable to access the requested resource, authorization failed.'
+  fetched: '2026-08-04'
+error_responses:
+  '401':
+    message: Unable to access the requested resource, authorization failed.
+    details: missing/incorrect authorization data
+  '403':
+    message: Brand is blocked
+cross_links:
+  conventions: conventions/passport-conventions.yml
+  errors: errors/passport-problem-types.yml
+  sandbox: sandbox/passport-sandbox.yml
