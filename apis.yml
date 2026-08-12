@@ -29,33 +29,232 @@ tags:
 - merchant-of-record
 - trade-compliance
 apis:
-- name: Passport Global API
-  description: >-
-    REST-like JSON API for international shipping and landed cost. Endpoints cover shipping rate requests including
-    duties and taxes (/rate), shipping label generation (/ship) and voiding (/void/{code}), order create/update/
-    delete/read (/order), cart-level rate, duty and tax quoting (/cart), currency-converted product pricing
-    (/product-price), a standalone tax and duty calculator (/tax-and-duty), and a health check (/ping). All calls
-    are HTTPS and authenticated with an X-Access-Token header API key provisioned during onboarding.
+- aid: passport:passport-cart-api
+  name: Passport Cart API
+  description: The Cart API from Passport — 1 operation(s) for cart.
   humanURL: https://docs.passportglobal.com/
   baseURL: https://api.passportshipping.com/v3
   tags:
-  - shipping
-  - logistics
-  - landed-cost
-  - duties-and-taxes
-  - customs-compliance
-  - cross-border-ecommerce
+  - Cart
   properties:
   - type: OpenAPI
-    url: openapi/passport-public-api-openapi.yml
+    url: openapi/passport-cart-api-openapi.yml
   - type: Documentation
     url: https://docs.passportglobal.com/
   - type: APIReference
     url: https://docs.passportglobal.com/
   - type: GettingStarted
     url: https://docs.passportglobal.com/
-  - type: Overlay
-    url: overlays/passport-public-api-overlay.yaml
+  - type: Authentication
+    url: authentication/passport-authentication.yml
+  - type: Conventions
+    url: conventions/passport-conventions.yml
+  - type: ErrorCatalog
+    url: errors/passport-problem-types.yml
+  - type: DataModel
+    url: data-model/passport-data-model.yml
+  - type: Examples
+    url: examples/passport-examples.yml
+  - type: Sandbox
+    url: sandbox/passport-sandbox.yml
+  - type: ChangeLog
+    url: changelog/passport-changelog.yml
+- aid: passport:passport-healthcheck-api
+  name: Passport Healthcheck API
+  description: The Healthcheck API from Passport — 1 operation(s) for healthcheck.
+  humanURL: https://docs.passportglobal.com/
+  baseURL: https://api.passportshipping.com/v3
+  tags:
+  - Healthcheck
+  properties:
+  - type: OpenAPI
+    url: openapi/passport-healthcheck-api-openapi.yml
+  - type: Documentation
+    url: https://docs.passportglobal.com/
+  - type: APIReference
+    url: https://docs.passportglobal.com/
+  - type: GettingStarted
+    url: https://docs.passportglobal.com/
+  - type: Authentication
+    url: authentication/passport-authentication.yml
+  - type: Conventions
+    url: conventions/passport-conventions.yml
+  - type: ErrorCatalog
+    url: errors/passport-problem-types.yml
+  - type: DataModel
+    url: data-model/passport-data-model.yml
+  - type: Examples
+    url: examples/passport-examples.yml
+  - type: Sandbox
+    url: sandbox/passport-sandbox.yml
+  - type: ChangeLog
+    url: changelog/passport-changelog.yml
+- aid: passport:passport-order-api
+  name: Passport Order API
+  description: The Order API from Passport — 1 operation(s) for order.
+  humanURL: https://docs.passportglobal.com/
+  baseURL: https://api.passportshipping.com/v3
+  tags:
+  - Order
+  properties:
+  - type: OpenAPI
+    url: openapi/passport-order-api-openapi.yml
+  - type: Documentation
+    url: https://docs.passportglobal.com/
+  - type: APIReference
+    url: https://docs.passportglobal.com/
+  - type: GettingStarted
+    url: https://docs.passportglobal.com/
+  - type: Authentication
+    url: authentication/passport-authentication.yml
+  - type: Conventions
+    url: conventions/passport-conventions.yml
+  - type: ErrorCatalog
+    url: errors/passport-problem-types.yml
+  - type: DataModel
+    url: data-model/passport-data-model.yml
+  - type: Examples
+    url: examples/passport-examples.yml
+  - type: Sandbox
+    url: sandbox/passport-sandbox.yml
+  - type: ChangeLog
+    url: changelog/passport-changelog.yml
+- aid: passport:passport-product-price-api
+  name: Passport Product Price API
+  description: The Product Price API from Passport — 1 operation(s) for product price.
+  humanURL: https://docs.passportglobal.com/
+  baseURL: https://api.passportshipping.com/v3
+  tags:
+  - Product Price
+  properties:
+  - type: OpenAPI
+    url: openapi/passport-product-price-api-openapi.yml
+  - type: Documentation
+    url: https://docs.passportglobal.com/
+  - type: APIReference
+    url: https://docs.passportglobal.com/
+  - type: GettingStarted
+    url: https://docs.passportglobal.com/
+  - type: Authentication
+    url: authentication/passport-authentication.yml
+  - type: Conventions
+    url: conventions/passport-conventions.yml
+  - type: ErrorCatalog
+    url: errors/passport-problem-types.yml
+  - type: DataModel
+    url: data-model/passport-data-model.yml
+  - type: Examples
+    url: examples/passport-examples.yml
+  - type: Sandbox
+    url: sandbox/passport-sandbox.yml
+  - type: ChangeLog
+    url: changelog/passport-changelog.yml
+- aid: passport:passport-rate-api
+  name: Passport Rate API
+  description: The Rate API from Passport — 1 operation(s) for rate.
+  humanURL: https://docs.passportglobal.com/
+  baseURL: https://api.passportshipping.com/v3
+  tags:
+  - Rate
+  properties:
+  - type: OpenAPI
+    url: openapi/passport-rate-api-openapi.yml
+  - type: Documentation
+    url: https://docs.passportglobal.com/
+  - type: APIReference
+    url: https://docs.passportglobal.com/
+  - type: GettingStarted
+    url: https://docs.passportglobal.com/
+  - type: Authentication
+    url: authentication/passport-authentication.yml
+  - type: Conventions
+    url: conventions/passport-conventions.yml
+  - type: ErrorCatalog
+    url: errors/passport-problem-types.yml
+  - type: DataModel
+    url: data-model/passport-data-model.yml
+  - type: Examples
+    url: examples/passport-examples.yml
+  - type: Sandbox
+    url: sandbox/passport-sandbox.yml
+  - type: ChangeLog
+    url: changelog/passport-changelog.yml
+- aid: passport:passport-ship-api
+  name: Passport Ship API
+  description: The Ship API from Passport — 1 operation(s) for ship.
+  humanURL: https://docs.passportglobal.com/
+  baseURL: https://api.passportshipping.com/v3
+  tags:
+  - Ship
+  properties:
+  - type: OpenAPI
+    url: openapi/passport-ship-api-openapi.yml
+  - type: Documentation
+    url: https://docs.passportglobal.com/
+  - type: APIReference
+    url: https://docs.passportglobal.com/
+  - type: GettingStarted
+    url: https://docs.passportglobal.com/
+  - type: Authentication
+    url: authentication/passport-authentication.yml
+  - type: Conventions
+    url: conventions/passport-conventions.yml
+  - type: ErrorCatalog
+    url: errors/passport-problem-types.yml
+  - type: DataModel
+    url: data-model/passport-data-model.yml
+  - type: Examples
+    url: examples/passport-examples.yml
+  - type: Sandbox
+    url: sandbox/passport-sandbox.yml
+  - type: ChangeLog
+    url: changelog/passport-changelog.yml
+- aid: passport:passport-tax-and-duty-api
+  name: Passport Tax And Duty API
+  description: The Tax And Duty API from Passport — 1 operation(s) for tax and duty.
+  humanURL: https://docs.passportglobal.com/
+  baseURL: https://api.passportshipping.com/v3
+  tags:
+  - Tax And Duty
+  properties:
+  - type: OpenAPI
+    url: openapi/passport-tax-and-duty-api-openapi.yml
+  - type: Documentation
+    url: https://docs.passportglobal.com/
+  - type: APIReference
+    url: https://docs.passportglobal.com/
+  - type: GettingStarted
+    url: https://docs.passportglobal.com/
+  - type: Authentication
+    url: authentication/passport-authentication.yml
+  - type: Conventions
+    url: conventions/passport-conventions.yml
+  - type: ErrorCatalog
+    url: errors/passport-problem-types.yml
+  - type: DataModel
+    url: data-model/passport-data-model.yml
+  - type: Examples
+    url: examples/passport-examples.yml
+  - type: Sandbox
+    url: sandbox/passport-sandbox.yml
+  - type: ChangeLog
+    url: changelog/passport-changelog.yml
+- aid: passport:passport-void-api
+  name: Passport Void API
+  description: The Void API from Passport — 1 operation(s) for void.
+  humanURL: https://docs.passportglobal.com/
+  baseURL: https://api.passportshipping.com/v3
+  tags:
+  - Void
+  properties:
+  - type: OpenAPI
+    url: openapi/passport-void-api-openapi.yml
+  - type: Documentation
+    url: https://docs.passportglobal.com/
+  - type: APIReference
+    url: https://docs.passportglobal.com/
+  - type: GettingStarted
+    url: https://docs.passportglobal.com/
   - type: Authentication
     url: authentication/passport-authentication.yml
   - type: Conventions
