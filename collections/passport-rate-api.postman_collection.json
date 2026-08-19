@@ -1,0 +1,311 @@
+{
+  "item": [
+    {
+      "id": "e2d0c6f4-9095-46a3-809f-25a46f44c699",
+      "name": "Rate",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d0583f12-b55c-4a37-8005-ceda4fcc2443",
+          "name": "Request a shipping rate including landed cost",
+          "request": {
+            "name": "Request a shipping rate including landed cost",
+            "description": {},
+            "url": {
+              "path": [
+                "rate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"address_to\": {\n    \"street1\": \"<string>\",\n    \"country\": \"<string>\",\n    \"reference\": \"<string>\",\n    \"street2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zip\": \"<string>\",\n    \"name\": \"<string>\",\n    \"company\": \"<string>\",\n    \"phone\": \"<string>\",\n    \"email\": \"<string>\"\n  },\n  \"address_from\": {\n    \"street1\": \"<string>\",\n    \"country\": \"<string>\",\n    \"company\": \"<string>\",\n    \"reference\": \"<string>\",\n    \"street2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zip\": \"<string>\",\n    \"name\": \"<string>\",\n    \"phone\": \"<string>\",\n    \"email\": \"<string>\"\n  },\n  \"parcel\": {\n    \"length\": \"<number>\",\n    \"width\": \"<number>\",\n    \"height\": \"<number>\",\n    \"reference\": \"<string>\",\n    \"units_length\": \"in\",\n    \"weight\": \"<number>\",\n    \"units_weight\": \"oz\"\n  },\n  \"items\": [\n    {\n      \"description\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"value\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"hs_code\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"units_weight\": \"oz\",\n      \"origin\": \"<string>\",\n      \"currency\": \"USD\"\n    },\n    {\n      \"description\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"value\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"hs_code\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"units_weight\": \"oz\",\n      \"origin\": \"<string>\",\n      \"currency\": \"USD\"\n    }\n  ],\n  \"reference\": \"<string>\",\n  \"duty_paid\": \"<boolean>\",\n  \"contents_type\": \"merchandise\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ad478b1c-b32c-4f62-bbe7-aedeaf73ad10",
+              "name": "(OK) List of available rates for given shipment params",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"address_to\": {\n    \"street1\": \"111 Broadway Ave.\",\n    \"country\": \"GB\",\n    \"reference\": \"To address 1\",\n    \"street2\": \"Floor 7\",\n    \"city\": \"London\",\n    \"state\": \"\",\n    \"zip\": \"B33 8TH\",\n    \"name\": \"John Smith\",\n    \"company\": \"Company Inc\",\n    \"phone\": \"518-111-1111\",\n    \"email\": \"js-myth@example.com\"\n  },\n  \"address_from\": {\n    \"street1\": \"111 sunset blvd.\",\n    \"country\": \"US\",\n    \"company\": \"Lululemon\",\n    \"reference\": \"From address 1\",\n    \"street2\": \"<string>\",\n    \"city\": \"Los angeles\",\n    \"state\": \"CA\",\n    \"zip\": \"90111\",\n    \"name\": \"Allison Fox\",\n    \"phone\": \"518-111-1111\",\n    \"email\": \"js-myth@example.com\"\n  },\n  \"parcel\": {\n    \"length\": 10.5,\n    \"width\": 5.2,\n    \"height\": 1.1,\n    \"reference\": \"Parcel ID\",\n    \"units_length\": \"in\",\n    \"weight\": 100.15,\n    \"units_weight\": \"oz\"\n  },\n  \"items\": [\n    {\n      \"description\": \"Black T-shirt\",\n      \"quantity\": 2,\n      \"value\": 12.34,\n      \"weight\": 0.5,\n      \"hs_code\": \"3304300000\",\n      \"sku\": \"GEN12345\",\n      \"units_weight\": \"oz\",\n      \"origin\": \"US\",\n      \"currency\": \"USD\"\n    },\n    {\n      \"description\": \"Black T-shirt\",\n      \"quantity\": 2,\n      \"value\": 12.34,\n      \"weight\": 0.5,\n      \"hs_code\": \"3304300000\",\n      \"sku\": \"GEN12345\",\n      \"units_weight\": \"oz\",\n      \"origin\": \"US\",\n      \"currency\": \"USD\"\n    }\n  ],\n  \"reference\": \"shipmentref\",\n  \"duty_paid\": true,\n  \"contents_type\": \"merchandise\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"rate\": 10.78,\n  \"duty\": 0,\n  \"tax\": 2.47,\n  \"insurance\": 1.5,\n  \"currency\": \"USD\",\n  \"serviceName\": \"PriorityDdpDelcon\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "58f1db91-a5c8-4e29-ba67-ec3972c13399",
+              "name": "Bad Request (See details in the examples)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"address_to\": {\n    \"street1\": \"111 Broadway Ave.\",\n    \"country\": \"GB\",\n    \"reference\": \"To address 1\",\n    \"street2\": \"Floor 7\",\n    \"city\": \"London\",\n    \"state\": \"\",\n    \"zip\": \"B33 8TH\",\n    \"name\": \"John Smith\",\n    \"company\": \"Company Inc\",\n    \"phone\": \"518-111-1111\",\n    \"email\": \"js-myth@example.com\"\n  },\n  \"address_from\": {\n    \"street1\": \"111 sunset blvd.\",\n    \"country\": \"US\",\n    \"company\": \"Lululemon\",\n    \"reference\": \"From address 1\",\n    \"street2\": \"<string>\",\n    \"city\": \"Los angeles\",\n    \"state\": \"CA\",\n    \"zip\": \"90111\",\n    \"name\": \"Allison Fox\",\n    \"phone\": \"518-111-1111\",\n    \"email\": \"js-myth@example.com\"\n  },\n  \"parcel\": {\n    \"length\": 10.5,\n    \"width\": 5.2,\n    \"height\": 1.1,\n    \"reference\": \"Parcel ID\",\n    \"units_length\": \"in\",\n    \"weight\": 100.15,\n    \"units_weight\": \"oz\"\n  },\n  \"items\": [\n    {\n      \"description\": \"Black T-shirt\",\n      \"quantity\": 2,\n      \"value\": 12.34,\n      \"weight\": 0.5,\n      \"hs_code\": \"3304300000\",\n      \"sku\": \"GEN12345\",\n      \"units_weight\": \"oz\",\n      \"origin\": \"US\",\n      \"currency\": \"USD\"\n    },\n    {\n      \"description\": \"Black T-shirt\",\n      \"quantity\": 2,\n      \"value\": 12.34,\n      \"weight\": 0.5,\n      \"hs_code\": \"3304300000\",\n      \"sku\": \"GEN12345\",\n      \"units_weight\": \"oz\",\n      \"origin\": \"US\",\n      \"currency\": \"USD\"\n    }\n  ],\n  \"reference\": \"shipmentref\",\n  \"duty_paid\": true,\n  \"contents_type\": \"merchandise\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Passport only accepts a single currency for items at a time. Currencies received: ['USD', 'AED', 'GBP']\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "13d2e024-6284-4cc3-9430-39424145b4f7",
+              "name": "(Unauthorized) Unable to access the requested resource, you don't have authorization, please check your API Key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"address_to\": {\n    \"street1\": \"111 Broadway Ave.\",\n    \"country\": \"GB\",\n    \"reference\": \"To address 1\",\n    \"street2\": \"Floor 7\",\n    \"city\": \"London\",\n    \"state\": \"\",\n    \"zip\": \"B33 8TH\",\n    \"name\": \"John Smith\",\n    \"company\": \"Company Inc\",\n    \"phone\": \"518-111-1111\",\n    \"email\": \"js-myth@example.com\"\n  },\n  \"address_from\": {\n    \"street1\": \"111 sunset blvd.\",\n    \"country\": \"US\",\n    \"company\": \"Lululemon\",\n    \"reference\": \"From address 1\",\n    \"street2\": \"<string>\",\n    \"city\": \"Los angeles\",\n    \"state\": \"CA\",\n    \"zip\": \"90111\",\n    \"name\": \"Allison Fox\",\n    \"phone\": \"518-111-1111\",\n    \"email\": \"js-myth@example.com\"\n  },\n  \"parcel\": {\n    \"length\": 10.5,\n    \"width\": 5.2,\n    \"height\": 1.1,\n    \"reference\": \"Parcel ID\",\n    \"units_length\": \"in\",\n    \"weight\": 100.15,\n    \"units_weight\": \"oz\"\n  },\n  \"items\": [\n    {\n      \"description\": \"Black T-shirt\",\n      \"quantity\": 2,\n      \"value\": 12.34,\n      \"weight\": 0.5,\n      \"hs_code\": \"3304300000\",\n      \"sku\": \"GEN12345\",\n      \"units_weight\": \"oz\",\n      \"origin\": \"US\",\n      \"currency\": \"USD\"\n    },\n    {\n      \"description\": \"Black T-shirt\",\n      \"quantity\": 2,\n      \"value\": 12.34,\n      \"weight\": 0.5,\n      \"hs_code\": \"3304300000\",\n      \"sku\": \"GEN12345\",\n      \"units_weight\": \"oz\",\n      \"origin\": \"US\",\n      \"currency\": \"USD\"\n    }\n  ],\n  \"reference\": \"shipmentref\",\n  \"duty_paid\": true,\n  \"contents_type\": \"merchandise\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "48a5ddec-5a08-4c70-a552-181bb26579fa",
+              "name": "Sender's company not found in the list of authorized values, please, contact us if the company name is correct",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"address_to\": {\n    \"street1\": \"111 Broadway Ave.\",\n    \"country\": \"GB\",\n    \"reference\": \"To address 1\",\n    \"street2\": \"Floor 7\",\n    \"city\": \"London\",\n    \"state\": \"\",\n    \"zip\": \"B33 8TH\",\n    \"name\": \"John Smith\",\n    \"company\": \"Company Inc\",\n    \"phone\": \"518-111-1111\",\n    \"email\": \"js-myth@example.com\"\n  },\n  \"address_from\": {\n    \"street1\": \"111 sunset blvd.\",\n    \"country\": \"US\",\n    \"company\": \"Lululemon\",\n    \"reference\": \"From address 1\",\n    \"street2\": \"<string>\",\n    \"city\": \"Los angeles\",\n    \"state\": \"CA\",\n    \"zip\": \"90111\",\n    \"name\": \"Allison Fox\",\n    \"phone\": \"518-111-1111\",\n    \"email\": \"js-myth@example.com\"\n  },\n  \"parcel\": {\n    \"length\": 10.5,\n    \"width\": 5.2,\n    \"height\": 1.1,\n    \"reference\": \"Parcel ID\",\n    \"units_length\": \"in\",\n    \"weight\": 100.15,\n    \"units_weight\": \"oz\"\n  },\n  \"items\": [\n    {\n      \"description\": \"Black T-shirt\",\n      \"quantity\": 2,\n      \"value\": 12.34,\n      \"weight\": 0.5,\n      \"hs_code\": \"3304300000\",\n      \"sku\": \"GEN12345\",\n      \"units_weight\": \"oz\",\n      \"origin\": \"US\",\n      \"currency\": \"USD\"\n    },\n    {\n      \"description\": \"Black T-shirt\",\n      \"quantity\": 2,\n      \"value\": 12.34,\n      \"weight\": 0.5,\n      \"hs_code\": \"3304300000\",\n      \"sku\": \"GEN12345\",\n      \"units_weight\": \"oz\",\n      \"origin\": \"US\",\n      \"currency\": \"USD\"\n    }\n  ],\n  \"reference\": \"shipmentref\",\n  \"duty_paid\": true,\n  \"contents_type\": \"merchandise\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "039c3e85-aeaa-4370-82a7-e1660abbc43d",
+              "name": "If data validation fails, an error description with HTTP status = 422 is returned.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"address_to\": {\n    \"street1\": \"111 Broadway Ave.\",\n    \"country\": \"GB\",\n    \"reference\": \"To address 1\",\n    \"street2\": \"Floor 7\",\n    \"city\": \"London\",\n    \"state\": \"\",\n    \"zip\": \"B33 8TH\",\n    \"name\": \"John Smith\",\n    \"company\": \"Company Inc\",\n    \"phone\": \"518-111-1111\",\n    \"email\": \"js-myth@example.com\"\n  },\n  \"address_from\": {\n    \"street1\": \"111 sunset blvd.\",\n    \"country\": \"US\",\n    \"company\": \"Lululemon\",\n    \"reference\": \"From address 1\",\n    \"street2\": \"<string>\",\n    \"city\": \"Los angeles\",\n    \"state\": \"CA\",\n    \"zip\": \"90111\",\n    \"name\": \"Allison Fox\",\n    \"phone\": \"518-111-1111\",\n    \"email\": \"js-myth@example.com\"\n  },\n  \"parcel\": {\n    \"length\": 10.5,\n    \"width\": 5.2,\n    \"height\": 1.1,\n    \"reference\": \"Parcel ID\",\n    \"units_length\": \"in\",\n    \"weight\": 100.15,\n    \"units_weight\": \"oz\"\n  },\n  \"items\": [\n    {\n      \"description\": \"Black T-shirt\",\n      \"quantity\": 2,\n      \"value\": 12.34,\n      \"weight\": 0.5,\n      \"hs_code\": \"3304300000\",\n      \"sku\": \"GEN12345\",\n      \"units_weight\": \"oz\",\n      \"origin\": \"US\",\n      \"currency\": \"USD\"\n    },\n    {\n      \"description\": \"Black T-shirt\",\n      \"quantity\": 2,\n      \"value\": 12.34,\n      \"weight\": 0.5,\n      \"hs_code\": \"3304300000\",\n      \"sku\": \"GEN12345\",\n      \"units_weight\": \"oz\",\n      \"origin\": \"US\",\n      \"currency\": \"USD\"\n    }\n  ],\n  \"reference\": \"shipmentref\",\n  \"duty_paid\": true,\n  \"contents_type\": \"merchandise\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ebe59111-0fde-48fa-b350-fda2734fb4e0",
+              "name": "Internal Server Error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"address_to\": {\n    \"street1\": \"111 Broadway Ave.\",\n    \"country\": \"GB\",\n    \"reference\": \"To address 1\",\n    \"street2\": \"Floor 7\",\n    \"city\": \"London\",\n    \"state\": \"\",\n    \"zip\": \"B33 8TH\",\n    \"name\": \"John Smith\",\n    \"company\": \"Company Inc\",\n    \"phone\": \"518-111-1111\",\n    \"email\": \"js-myth@example.com\"\n  },\n  \"address_from\": {\n    \"street1\": \"111 sunset blvd.\",\n    \"country\": \"US\",\n    \"company\": \"Lululemon\",\n    \"reference\": \"From address 1\",\n    \"street2\": \"<string>\",\n    \"city\": \"Los angeles\",\n    \"state\": \"CA\",\n    \"zip\": \"90111\",\n    \"name\": \"Allison Fox\",\n    \"phone\": \"518-111-1111\",\n    \"email\": \"js-myth@example.com\"\n  },\n  \"parcel\": {\n    \"length\": 10.5,\n    \"width\": 5.2,\n    \"height\": 1.1,\n    \"reference\": \"Parcel ID\",\n    \"units_length\": \"in\",\n    \"weight\": 100.15,\n    \"units_weight\": \"oz\"\n  },\n  \"items\": [\n    {\n      \"description\": \"Black T-shirt\",\n      \"quantity\": 2,\n      \"value\": 12.34,\n      \"weight\": 0.5,\n      \"hs_code\": \"3304300000\",\n      \"sku\": \"GEN12345\",\n      \"units_weight\": \"oz\",\n      \"origin\": \"US\",\n      \"currency\": \"USD\"\n    },\n    {\n      \"description\": \"Black T-shirt\",\n      \"quantity\": 2,\n      \"value\": 12.34,\n      \"weight\": 0.5,\n      \"hs_code\": \"3304300000\",\n      \"sku\": \"GEN12345\",\n      \"units_weight\": \"oz\",\n      \"origin\": \"US\",\n      \"currency\": \"USD\"\n    }\n  ],\n  \"reference\": \"shipmentref\",\n  \"duty_paid\": true,\n  \"contents_type\": \"merchandise\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api-stg.passportshipping.com/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "a7e01950-cda8-4ee9-95e5-6320782440ba",
+    "name": "Getting Started with Passport Global Rate API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "<h2>Introduction</h2><p>Passport Global's API is designed to allow for quick integration to begin selling and shipping internationally. It offers endpoints for general shipping-related functions, including rate requests and shipping label generation.</p><h2>Prerequisites</h2><p><ul><li>Passport Global API is a REST-like API. All methods must be called using HTTPS.</li><li>Authentication and identification is done by providing an API key on every request as a custom HTTP header \"X-Access-Token\".</li><li>All requests are made using the POST method.</li><li>The API key is provided by our onboarding team. For more details see registration and authentication.</li><li>The API uses JSON formatting for requests and responses.</li><li>Environments<ul><li>Testing Environment:<a href=\"https://api-stg.passportshipping.com/v3\"> api-stg.passportshipping.com/v3</a></li><li>Production Environment:<a href=\"https://api.passportshipping.com/v3\"> api.passportshipping.com/v3</a></li></ul></li></ul></p><h2>Registration and Authentication</h2><p>During the onboarding or integration process, our Onboarding team will create an account for your organization and provide the API key to your designated point of contact, which is typically a member of the operations, development team, or one of the founders.</p><h2>Making Your First Request</h2><p>A typical first request is to obtain a shipping rate. Use the <code>/rate</code> endpoint, providing necessary details like the addresses (<code>address_to</code> and <code>address_from</code>), parcel dimensions, and item descriptions.<br/><br/>Use the documentation below to see an example request body for a rate request</p><h2>Response Handling</h2><p>Successful responses return a 200 status code<br/><br/>Handle error responses (for example 401 Unauthorized, 404 Not Found) according to the provided error messages for each endpoint provided below.</p>",
+      "type": "text/plain"
+    }
+  }
+}

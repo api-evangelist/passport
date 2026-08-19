@@ -1,0 +1,1181 @@
+{
+  "item": [
+    {
+      "id": "1d93992d-a692-42c9-84d8-7c8ef991fe30",
+      "name": "Order",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6e7cdc1c-3b27-46c5-9cca-e658a9210ab8",
+          "name": "Send order information",
+          "request": {
+            "name": "Send order information",
+            "description": {},
+            "url": {
+              "path": [
+                "order"
+              ],
+              "host": [
+                "{{order-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"total_value\": \"<number>\",\n  \"currency_code\": \"<string>\",\n  \"order_name\": \"<string>\",\n  \"created\": \"<number>\",\n  \"shipping\": {\n    \"id\": \"<number>\",\n    \"rate\": \"<number>\",\n    \"duty\": \"<number>\",\n    \"tax\": \"<number>\",\n    \"service_name\": \"<string>\",\n    \"duty_source\": \"<string>\",\n    \"tax_source\": \"<string>\"\n  },\n  \"value\": \"<number>\",\n  \"items\": [\n    {\n      \"name\": \"<string>\",\n      \"requires_shipping\": \"<boolean>\",\n      \"value\": \"<number>\",\n      \"value_discounted\": \"<number>\",\n      \"quantity\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"id\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"hs_code\": \"<string>\",\n      \"country_of_origin\": \"<string>\",\n      \"country_of_fulfillment\": \"<string>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"requires_shipping\": \"<boolean>\",\n      \"value\": \"<number>\",\n      \"value_discounted\": \"<number>\",\n      \"quantity\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"id\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"hs_code\": \"<string>\",\n      \"country_of_origin\": \"<string>\",\n      \"country_of_fulfillment\": \"<string>\",\n      \"description\": \"<string>\"\n    }\n  ],\n  \"address_to\": {\n    \"street1\": \"<string>\",\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"street2\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zip\": \"<string>\",\n    \"name\": \"<string>\",\n    \"phone\": \"<string>\",\n    \"email\": \"<string>\"\n  },\n  \"customer_tax_id\": \"<string>\",\n  \"order_url\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "50c716fc-0359-4294-8cfb-47cd56efe384",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order"
+                  ],
+                  "host": [
+                    "{{order-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"total_value\": 100,\n  \"currency_code\": \"USD\",\n  \"order_name\": \"<in your system>\",\n  \"created\": 1707811200,\n  \"shipping\": {\n    \"id\": 123456,\n    \"rate\": 5,\n    \"duty\": 3,\n    \"tax\": 2,\n    \"service_name\": \"PassportPriorityDdpDelcon\",\n    \"duty_source\": \"Passport\",\n    \"tax_source\": \"Passport\"\n  },\n  \"value\": 120,\n  \"items\": [\n    {\n      \"name\": \"Sample Product\",\n      \"requires_shipping\": true,\n      \"value\": 55,\n      \"value_discounted\": 45,\n      \"quantity\": 2,\n      \"weight\": 123,\n      \"id\": \"<string>\",\n      \"sku\": \"SKU123\",\n      \"hs_code\": \"1234.56.78\",\n      \"country_of_origin\": \"US\",\n      \"country_of_fulfillment\": \"US\",\n      \"description\": \"Product description here\"\n    },\n    {\n      \"name\": \"Sample Product\",\n      \"requires_shipping\": true,\n      \"value\": 55,\n      \"value_discounted\": 45,\n      \"quantity\": 2,\n      \"weight\": 123,\n      \"id\": \"<string>\",\n      \"sku\": \"SKU123\",\n      \"hs_code\": \"1234.56.78\",\n      \"country_of_origin\": \"US\",\n      \"country_of_fulfillment\": \"US\",\n      \"description\": \"Product description here\"\n    }\n  ],\n  \"address_to\": {\n    \"street1\": \"Georg-Leipold-Straße 5\",\n    \"city\": \"Weiden in der Oberpfalz\",\n    \"country\": \"DE\",\n    \"street2\": \"\",\n    \"state\": \"<string>\",\n    \"zip\": \"<string>\",\n    \"name\": \"Daniel Gauer\",\n    \"phone\": \"518-111-1111\",\n    \"email\": \"daniel.gauer@web.de\"\n  },\n  \"customer_tax_id\": \"CHE-123.456.789 HR\",\n  \"order_url\": \"https://passportglobal.com\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c119b857-3889-46df-85c1-cbc468449489",
+              "name": "Bad Request - Brand has not been onboarded within Passport’s system. Please reach out to Passport support.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order"
+                  ],
+                  "host": [
+                    "{{order-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"total_value\": 100,\n  \"currency_code\": \"USD\",\n  \"order_name\": \"<in your system>\",\n  \"created\": 1707811200,\n  \"shipping\": {\n    \"id\": 123456,\n    \"rate\": 5,\n    \"duty\": 3,\n    \"tax\": 2,\n    \"service_name\": \"PassportPriorityDdpDelcon\",\n    \"duty_source\": \"Passport\",\n    \"tax_source\": \"Passport\"\n  },\n  \"value\": 120,\n  \"items\": [\n    {\n      \"name\": \"Sample Product\",\n      \"requires_shipping\": true,\n      \"value\": 55,\n      \"value_discounted\": 45,\n      \"quantity\": 2,\n      \"weight\": 123,\n      \"id\": \"<string>\",\n      \"sku\": \"SKU123\",\n      \"hs_code\": \"1234.56.78\",\n      \"country_of_origin\": \"US\",\n      \"country_of_fulfillment\": \"US\",\n      \"description\": \"Product description here\"\n    },\n    {\n      \"name\": \"Sample Product\",\n      \"requires_shipping\": true,\n      \"value\": 55,\n      \"value_discounted\": 45,\n      \"quantity\": 2,\n      \"weight\": 123,\n      \"id\": \"<string>\",\n      \"sku\": \"SKU123\",\n      \"hs_code\": \"1234.56.78\",\n      \"country_of_origin\": \"US\",\n      \"country_of_fulfillment\": \"US\",\n      \"description\": \"Product description here\"\n    }\n  ],\n  \"address_to\": {\n    \"street1\": \"Georg-Leipold-Straße 5\",\n    \"city\": \"Weiden in der Oberpfalz\",\n    \"country\": \"DE\",\n    \"street2\": \"\",\n    \"state\": \"<string>\",\n    \"zip\": \"<string>\",\n    \"name\": \"Daniel Gauer\",\n    \"phone\": \"518-111-1111\",\n    \"email\": \"daniel.gauer@web.de\"\n  },\n  \"customer_tax_id\": \"CHE-123.456.789 HR\",\n  \"order_url\": \"https://passportglobal.com\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"details\": \"Brand has not been onboarded within Passport’s system. Please reach out to Passport support.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "22f21ac1-31b4-4d4d-b25b-76075b5aa872",
+              "name": "Unauthorized - Unable to access the requested resource, authorization failed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order"
+                  ],
+                  "host": [
+                    "{{order-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"total_value\": 100,\n  \"currency_code\": \"USD\",\n  \"order_name\": \"<in your system>\",\n  \"created\": 1707811200,\n  \"shipping\": {\n    \"id\": 123456,\n    \"rate\": 5,\n    \"duty\": 3,\n    \"tax\": 2,\n    \"service_name\": \"PassportPriorityDdpDelcon\",\n    \"duty_source\": \"Passport\",\n    \"tax_source\": \"Passport\"\n  },\n  \"value\": 120,\n  \"items\": [\n    {\n      \"name\": \"Sample Product\",\n      \"requires_shipping\": true,\n      \"value\": 55,\n      \"value_discounted\": 45,\n      \"quantity\": 2,\n      \"weight\": 123,\n      \"id\": \"<string>\",\n      \"sku\": \"SKU123\",\n      \"hs_code\": \"1234.56.78\",\n      \"country_of_origin\": \"US\",\n      \"country_of_fulfillment\": \"US\",\n      \"description\": \"Product description here\"\n    },\n    {\n      \"name\": \"Sample Product\",\n      \"requires_shipping\": true,\n      \"value\": 55,\n      \"value_discounted\": 45,\n      \"quantity\": 2,\n      \"weight\": 123,\n      \"id\": \"<string>\",\n      \"sku\": \"SKU123\",\n      \"hs_code\": \"1234.56.78\",\n      \"country_of_origin\": \"US\",\n      \"country_of_fulfillment\": \"US\",\n      \"description\": \"Product description here\"\n    }\n  ],\n  \"address_to\": {\n    \"street1\": \"Georg-Leipold-Straße 5\",\n    \"city\": \"Weiden in der Oberpfalz\",\n    \"country\": \"DE\",\n    \"street2\": \"\",\n    \"state\": \"<string>\",\n    \"zip\": \"<string>\",\n    \"name\": \"Daniel Gauer\",\n    \"phone\": \"518-111-1111\",\n    \"email\": \"daniel.gauer@web.de\"\n  },\n  \"customer_tax_id\": \"CHE-123.456.789 HR\",\n  \"order_url\": \"https://passportglobal.com\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Unable to access the requested resource, authorization failed.\",\n  \"details\": \"missing/incorrect authorization data\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6e5a17d3-5a42-422e-928a-81eabb700eff",
+              "name": "Forbidden - Brand is blocked.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order"
+                  ],
+                  "host": [
+                    "{{order-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"total_value\": 100,\n  \"currency_code\": \"USD\",\n  \"order_name\": \"<in your system>\",\n  \"created\": 1707811200,\n  \"shipping\": {\n    \"id\": 123456,\n    \"rate\": 5,\n    \"duty\": 3,\n    \"tax\": 2,\n    \"service_name\": \"PassportPriorityDdpDelcon\",\n    \"duty_source\": \"Passport\",\n    \"tax_source\": \"Passport\"\n  },\n  \"value\": 120,\n  \"items\": [\n    {\n      \"name\": \"Sample Product\",\n      \"requires_shipping\": true,\n      \"value\": 55,\n      \"value_discounted\": 45,\n      \"quantity\": 2,\n      \"weight\": 123,\n      \"id\": \"<string>\",\n      \"sku\": \"SKU123\",\n      \"hs_code\": \"1234.56.78\",\n      \"country_of_origin\": \"US\",\n      \"country_of_fulfillment\": \"US\",\n      \"description\": \"Product description here\"\n    },\n    {\n      \"name\": \"Sample Product\",\n      \"requires_shipping\": true,\n      \"value\": 55,\n      \"value_discounted\": 45,\n      \"quantity\": 2,\n      \"weight\": 123,\n      \"id\": \"<string>\",\n      \"sku\": \"SKU123\",\n      \"hs_code\": \"1234.56.78\",\n      \"country_of_origin\": \"US\",\n      \"country_of_fulfillment\": \"US\",\n      \"description\": \"Product description here\"\n    }\n  ],\n  \"address_to\": {\n    \"street1\": \"Georg-Leipold-Straße 5\",\n    \"city\": \"Weiden in der Oberpfalz\",\n    \"country\": \"DE\",\n    \"street2\": \"\",\n    \"state\": \"<string>\",\n    \"zip\": \"<string>\",\n    \"name\": \"Daniel Gauer\",\n    \"phone\": \"518-111-1111\",\n    \"email\": \"daniel.gauer@web.de\"\n  },\n  \"customer_tax_id\": \"CHE-123.456.789 HR\",\n  \"order_url\": \"https://passportglobal.com\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Brand is blocked\",\n  \"details\": \"Brand is blocked\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ab032dd1-f3a4-429a-947d-954d35ff002f",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order"
+                  ],
+                  "host": [
+                    "{{order-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"total_value\": 100,\n  \"currency_code\": \"USD\",\n  \"order_name\": \"<in your system>\",\n  \"created\": 1707811200,\n  \"shipping\": {\n    \"id\": 123456,\n    \"rate\": 5,\n    \"duty\": 3,\n    \"tax\": 2,\n    \"service_name\": \"PassportPriorityDdpDelcon\",\n    \"duty_source\": \"Passport\",\n    \"tax_source\": \"Passport\"\n  },\n  \"value\": 120,\n  \"items\": [\n    {\n      \"name\": \"Sample Product\",\n      \"requires_shipping\": true,\n      \"value\": 55,\n      \"value_discounted\": 45,\n      \"quantity\": 2,\n      \"weight\": 123,\n      \"id\": \"<string>\",\n      \"sku\": \"SKU123\",\n      \"hs_code\": \"1234.56.78\",\n      \"country_of_origin\": \"US\",\n      \"country_of_fulfillment\": \"US\",\n      \"description\": \"Product description here\"\n    },\n    {\n      \"name\": \"Sample Product\",\n      \"requires_shipping\": true,\n      \"value\": 55,\n      \"value_discounted\": 45,\n      \"quantity\": 2,\n      \"weight\": 123,\n      \"id\": \"<string>\",\n      \"sku\": \"SKU123\",\n      \"hs_code\": \"1234.56.78\",\n      \"country_of_origin\": \"US\",\n      \"country_of_fulfillment\": \"US\",\n      \"description\": \"Product description here\"\n    }\n  ],\n  \"address_to\": {\n    \"street1\": \"Georg-Leipold-Straße 5\",\n    \"city\": \"Weiden in der Oberpfalz\",\n    \"country\": \"DE\",\n    \"street2\": \"\",\n    \"state\": \"<string>\",\n    \"zip\": \"<string>\",\n    \"name\": \"Daniel Gauer\",\n    \"phone\": \"518-111-1111\",\n    \"email\": \"daniel.gauer@web.de\"\n  },\n  \"customer_tax_id\": \"CHE-123.456.789 HR\",\n  \"order_url\": \"https://passportglobal.com\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Not Found\",\n  \"code\": 0,\n  \"details\": \"Bad URL\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ee5f7306-0b94-4712-92bd-f267fe311e99",
+              "name": "Unprocessable Entity (See details in the examples)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order"
+                  ],
+                  "host": [
+                    "{{order-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"total_value\": 100,\n  \"currency_code\": \"USD\",\n  \"order_name\": \"<in your system>\",\n  \"created\": 1707811200,\n  \"shipping\": {\n    \"id\": 123456,\n    \"rate\": 5,\n    \"duty\": 3,\n    \"tax\": 2,\n    \"service_name\": \"PassportPriorityDdpDelcon\",\n    \"duty_source\": \"Passport\",\n    \"tax_source\": \"Passport\"\n  },\n  \"value\": 120,\n  \"items\": [\n    {\n      \"name\": \"Sample Product\",\n      \"requires_shipping\": true,\n      \"value\": 55,\n      \"value_discounted\": 45,\n      \"quantity\": 2,\n      \"weight\": 123,\n      \"id\": \"<string>\",\n      \"sku\": \"SKU123\",\n      \"hs_code\": \"1234.56.78\",\n      \"country_of_origin\": \"US\",\n      \"country_of_fulfillment\": \"US\",\n      \"description\": \"Product description here\"\n    },\n    {\n      \"name\": \"Sample Product\",\n      \"requires_shipping\": true,\n      \"value\": 55,\n      \"value_discounted\": 45,\n      \"quantity\": 2,\n      \"weight\": 123,\n      \"id\": \"<string>\",\n      \"sku\": \"SKU123\",\n      \"hs_code\": \"1234.56.78\",\n      \"country_of_origin\": \"US\",\n      \"country_of_fulfillment\": \"US\",\n      \"description\": \"Product description here\"\n    }\n  ],\n  \"address_to\": {\n    \"street1\": \"Georg-Leipold-Straße 5\",\n    \"city\": \"Weiden in der Oberpfalz\",\n    \"country\": \"DE\",\n    \"street2\": \"\",\n    \"state\": \"<string>\",\n    \"zip\": \"<string>\",\n    \"name\": \"Daniel Gauer\",\n    \"phone\": \"518-111-1111\",\n    \"email\": \"daniel.gauer@web.de\"\n  },\n  \"customer_tax_id\": \"CHE-123.456.789 HR\",\n  \"order_url\": \"https://passportglobal.com\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Body cant be blank\",\n  \"details\": \"Empty body\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "feb93227-760a-4c4c-b8dc-4efb96a55ad6",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order"
+                  ],
+                  "host": [
+                    "{{order-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"total_value\": 100,\n  \"currency_code\": \"USD\",\n  \"order_name\": \"<in your system>\",\n  \"created\": 1707811200,\n  \"shipping\": {\n    \"id\": 123456,\n    \"rate\": 5,\n    \"duty\": 3,\n    \"tax\": 2,\n    \"service_name\": \"PassportPriorityDdpDelcon\",\n    \"duty_source\": \"Passport\",\n    \"tax_source\": \"Passport\"\n  },\n  \"value\": 120,\n  \"items\": [\n    {\n      \"name\": \"Sample Product\",\n      \"requires_shipping\": true,\n      \"value\": 55,\n      \"value_discounted\": 45,\n      \"quantity\": 2,\n      \"weight\": 123,\n      \"id\": \"<string>\",\n      \"sku\": \"SKU123\",\n      \"hs_code\": \"1234.56.78\",\n      \"country_of_origin\": \"US\",\n      \"country_of_fulfillment\": \"US\",\n      \"description\": \"Product description here\"\n    },\n    {\n      \"name\": \"Sample Product\",\n      \"requires_shipping\": true,\n      \"value\": 55,\n      \"value_discounted\": 45,\n      \"quantity\": 2,\n      \"weight\": 123,\n      \"id\": \"<string>\",\n      \"sku\": \"SKU123\",\n      \"hs_code\": \"1234.56.78\",\n      \"country_of_origin\": \"US\",\n      \"country_of_fulfillment\": \"US\",\n      \"description\": \"Product description here\"\n    }\n  ],\n  \"address_to\": {\n    \"street1\": \"Georg-Leipold-Straße 5\",\n    \"city\": \"Weiden in der Oberpfalz\",\n    \"country\": \"DE\",\n    \"street2\": \"\",\n    \"state\": \"<string>\",\n    \"zip\": \"<string>\",\n    \"name\": \"Daniel Gauer\",\n    \"phone\": \"518-111-1111\",\n    \"email\": \"daniel.gauer@web.de\"\n  },\n  \"customer_tax_id\": \"CHE-123.456.789 HR\",\n  \"order_url\": \"https://passportglobal.com\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Sorry, something went wrong while processing your request. We are already working on a solution. RequestId: $RequestId\",\n  \"details\": \"Internal Server Error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "90cea299-8bba-46f2-ac03-6dac759257cf",
+          "name": "Update order information",
+          "request": {
+            "name": "Update order information",
+            "description": {},
+            "url": {
+              "path": [
+                "order"
+              ],
+              "host": [
+                "{{order-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "orderNames",
+                  "value": "<string>",
+                  "description": "(Required) Unique order identifier used to update an order. This is not case sensitive"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"total_value\": \"<number>\",\n  \"currency_code\": \"<string>\",\n  \"order_name\": \"<string>\",\n  \"created\": \"<number>\",\n  \"shipping\": {\n    \"id\": \"<number>\",\n    \"rate\": \"<number>\",\n    \"duty\": \"<number>\",\n    \"tax\": \"<number>\",\n    \"service_code\": \"<string>\",\n    \"service_name\": \"<string>\",\n    \"duty_source\": \"<string>\",\n    \"tax_source\": \"<string>\"\n  },\n  \"value\": \"<number>\",\n  \"items\": [\n    {\n      \"name\": \"<string>\",\n      \"requires_shipping\": \"<boolean>\",\n      \"value\": \"<number>\",\n      \"value_discounted\": \"<number>\",\n      \"quantity\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"id\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"hs_code\": \"<string>\",\n      \"country_of_origin\": \"<string>\",\n      \"country_of_fulfillment\": \"<string>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"requires_shipping\": \"<boolean>\",\n      \"value\": \"<number>\",\n      \"value_discounted\": \"<number>\",\n      \"quantity\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"id\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"hs_code\": \"<string>\",\n      \"country_of_origin\": \"<string>\",\n      \"country_of_fulfillment\": \"<string>\",\n      \"description\": \"<string>\"\n    }\n  ],\n  \"address_to\": {\n    \"street1\": \"<string>\",\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"street2\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zip\": \"<string>\",\n    \"name\": \"<string>\",\n    \"phone\": \"<string>\",\n    \"email\": \"<string>\"\n  },\n  \"customer_tax_id\": \"<string>\",\n  \"order_url\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ae7ddf33-d5e0-404e-a000-c032ad55cd46",
+              "name": "Success, order data has been successfully updated and saved;",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order"
+                  ],
+                  "host": [
+                    "{{order-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "orderNames",
+                      "value": "WEB-1001"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"total_value\": 55.17,\n  \"currency_code\": \"USD\",\n  \"order_name\": \"123123\",\n  \"created\": 1707811200,\n  \"shipping\": {\n    \"id\": 123456,\n    \"rate\": 5,\n    \"duty\": 3,\n    \"tax\": 2,\n    \"service_code\": \"PassportPriorityDdpDelcon\",\n    \"service_name\": \"PassportPriorityDdpDelcon\",\n    \"duty_source\": \"Passport\",\n    \"tax_source\": \"Passport\"\n  },\n  \"value\": 70.8,\n  \"items\": [\n    {\n      \"name\": \"Product #16787\",\n      \"requires_shipping\": true,\n      \"value\": 550,\n      \"value_discounted\": 15,\n      \"quantity\": 2,\n      \"weight\": 88,\n      \"id\": \"123\",\n      \"sku\": \"SKU456\",\n      \"hs_code\": \"125556.78\",\n      \"country_of_origin\": \"FR\",\n      \"country_of_fulfillment\": \"FR\",\n      \"description\": \"Product description here\"\n    },\n    {\n      \"name\": \"Product #16787\",\n      \"requires_shipping\": true,\n      \"value\": 550,\n      \"value_discounted\": 15,\n      \"quantity\": 2,\n      \"weight\": 88,\n      \"id\": \"123\",\n      \"sku\": \"SKU456\",\n      \"hs_code\": \"125556.78\",\n      \"country_of_origin\": \"FR\",\n      \"country_of_fulfillment\": \"FR\",\n      \"description\": \"Product description here\"\n    }\n  ],\n  \"address_to\": {\n    \"street1\": \"Georg\",\n    \"city\": \"Weiden in der Oberpfalz\",\n    \"country\": \"DE\",\n    \"street2\": \"\",\n    \"state\": \"<string>\",\n    \"zip\": \"<string>\",\n    \"name\": \"Daniel Gauer\",\n    \"phone\": \"<string>\",\n    \"email\": \"testorder@randomtest.com\"\n  },\n  \"customer_tax_id\": \"test123\",\n  \"order_url\": \"https://example.com\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2095a015-ae7f-47c4-80f0-58f10555e310",
+              "name": "Unauthorised: Returned when authentication fails",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order"
+                  ],
+                  "host": [
+                    "{{order-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "orderNames",
+                      "value": "WEB-1001"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"total_value\": 55.17,\n  \"currency_code\": \"USD\",\n  \"order_name\": \"123123\",\n  \"created\": 1707811200,\n  \"shipping\": {\n    \"id\": 123456,\n    \"rate\": 5,\n    \"duty\": 3,\n    \"tax\": 2,\n    \"service_code\": \"PassportPriorityDdpDelcon\",\n    \"service_name\": \"PassportPriorityDdpDelcon\",\n    \"duty_source\": \"Passport\",\n    \"tax_source\": \"Passport\"\n  },\n  \"value\": 70.8,\n  \"items\": [\n    {\n      \"name\": \"Product #16787\",\n      \"requires_shipping\": true,\n      \"value\": 550,\n      \"value_discounted\": 15,\n      \"quantity\": 2,\n      \"weight\": 88,\n      \"id\": \"123\",\n      \"sku\": \"SKU456\",\n      \"hs_code\": \"125556.78\",\n      \"country_of_origin\": \"FR\",\n      \"country_of_fulfillment\": \"FR\",\n      \"description\": \"Product description here\"\n    },\n    {\n      \"name\": \"Product #16787\",\n      \"requires_shipping\": true,\n      \"value\": 550,\n      \"value_discounted\": 15,\n      \"quantity\": 2,\n      \"weight\": 88,\n      \"id\": \"123\",\n      \"sku\": \"SKU456\",\n      \"hs_code\": \"125556.78\",\n      \"country_of_origin\": \"FR\",\n      \"country_of_fulfillment\": \"FR\",\n      \"description\": \"Product description here\"\n    }\n  ],\n  \"address_to\": {\n    \"street1\": \"Georg\",\n    \"city\": \"Weiden in der Oberpfalz\",\n    \"country\": \"DE\",\n    \"street2\": \"\",\n    \"state\": \"<string>\",\n    \"zip\": \"<string>\",\n    \"name\": \"Daniel Gauer\",\n    \"phone\": \"<string>\",\n    \"email\": \"testorder@randomtest.com\"\n  },\n  \"customer_tax_id\": \"test123\",\n  \"order_url\": \"https://example.com\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Unauthorised: Returned when authentication fails\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5ed11678-72ea-4c25-b96b-14a055034fa1",
+              "name": "Denied: Returned when orders are past 1 year",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order"
+                  ],
+                  "host": [
+                    "{{order-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "orderNames",
+                      "value": "WEB-1001"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"total_value\": 55.17,\n  \"currency_code\": \"USD\",\n  \"order_name\": \"123123\",\n  \"created\": 1707811200,\n  \"shipping\": {\n    \"id\": 123456,\n    \"rate\": 5,\n    \"duty\": 3,\n    \"tax\": 2,\n    \"service_code\": \"PassportPriorityDdpDelcon\",\n    \"service_name\": \"PassportPriorityDdpDelcon\",\n    \"duty_source\": \"Passport\",\n    \"tax_source\": \"Passport\"\n  },\n  \"value\": 70.8,\n  \"items\": [\n    {\n      \"name\": \"Product #16787\",\n      \"requires_shipping\": true,\n      \"value\": 550,\n      \"value_discounted\": 15,\n      \"quantity\": 2,\n      \"weight\": 88,\n      \"id\": \"123\",\n      \"sku\": \"SKU456\",\n      \"hs_code\": \"125556.78\",\n      \"country_of_origin\": \"FR\",\n      \"country_of_fulfillment\": \"FR\",\n      \"description\": \"Product description here\"\n    },\n    {\n      \"name\": \"Product #16787\",\n      \"requires_shipping\": true,\n      \"value\": 550,\n      \"value_discounted\": 15,\n      \"quantity\": 2,\n      \"weight\": 88,\n      \"id\": \"123\",\n      \"sku\": \"SKU456\",\n      \"hs_code\": \"125556.78\",\n      \"country_of_origin\": \"FR\",\n      \"country_of_fulfillment\": \"FR\",\n      \"description\": \"Product description here\"\n    }\n  ],\n  \"address_to\": {\n    \"street1\": \"Georg\",\n    \"city\": \"Weiden in der Oberpfalz\",\n    \"country\": \"DE\",\n    \"street2\": \"\",\n    \"state\": \"<string>\",\n    \"zip\": \"<string>\",\n    \"name\": \"Daniel Gauer\",\n    \"phone\": \"<string>\",\n    \"email\": \"testorder@randomtest.com\"\n  },\n  \"customer_tax_id\": \"test123\",\n  \"order_url\": \"https://example.com\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Denied: Returned when orders are past 1 year\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dc76f30b-34cb-49b2-b246-a23796d4af02",
+              "name": "Not found: order with ORDER_NAME not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order"
+                  ],
+                  "host": [
+                    "{{order-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "orderNames",
+                      "value": "WEB-1001"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"total_value\": 55.17,\n  \"currency_code\": \"USD\",\n  \"order_name\": \"123123\",\n  \"created\": 1707811200,\n  \"shipping\": {\n    \"id\": 123456,\n    \"rate\": 5,\n    \"duty\": 3,\n    \"tax\": 2,\n    \"service_code\": \"PassportPriorityDdpDelcon\",\n    \"service_name\": \"PassportPriorityDdpDelcon\",\n    \"duty_source\": \"Passport\",\n    \"tax_source\": \"Passport\"\n  },\n  \"value\": 70.8,\n  \"items\": [\n    {\n      \"name\": \"Product #16787\",\n      \"requires_shipping\": true,\n      \"value\": 550,\n      \"value_discounted\": 15,\n      \"quantity\": 2,\n      \"weight\": 88,\n      \"id\": \"123\",\n      \"sku\": \"SKU456\",\n      \"hs_code\": \"125556.78\",\n      \"country_of_origin\": \"FR\",\n      \"country_of_fulfillment\": \"FR\",\n      \"description\": \"Product description here\"\n    },\n    {\n      \"name\": \"Product #16787\",\n      \"requires_shipping\": true,\n      \"value\": 550,\n      \"value_discounted\": 15,\n      \"quantity\": 2,\n      \"weight\": 88,\n      \"id\": \"123\",\n      \"sku\": \"SKU456\",\n      \"hs_code\": \"125556.78\",\n      \"country_of_origin\": \"FR\",\n      \"country_of_fulfillment\": \"FR\",\n      \"description\": \"Product description here\"\n    }\n  ],\n  \"address_to\": {\n    \"street1\": \"Georg\",\n    \"city\": \"Weiden in der Oberpfalz\",\n    \"country\": \"DE\",\n    \"street2\": \"\",\n    \"state\": \"<string>\",\n    \"zip\": \"<string>\",\n    \"name\": \"Daniel Gauer\",\n    \"phone\": \"<string>\",\n    \"email\": \"testorder@randomtest.com\"\n  },\n  \"customer_tax_id\": \"test123\",\n  \"order_url\": \"https://example.com\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Not found: order with ORDER_NAME not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ffe5036d-f816-4a18-8fa8-68b6b8ae8e1d",
+              "name": "Unprocessable Entity: Returned when the request payload is missing mandatory information or contains invalid data.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order"
+                  ],
+                  "host": [
+                    "{{order-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "orderNames",
+                      "value": "WEB-1001"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"total_value\": 55.17,\n  \"currency_code\": \"USD\",\n  \"order_name\": \"123123\",\n  \"created\": 1707811200,\n  \"shipping\": {\n    \"id\": 123456,\n    \"rate\": 5,\n    \"duty\": 3,\n    \"tax\": 2,\n    \"service_code\": \"PassportPriorityDdpDelcon\",\n    \"service_name\": \"PassportPriorityDdpDelcon\",\n    \"duty_source\": \"Passport\",\n    \"tax_source\": \"Passport\"\n  },\n  \"value\": 70.8,\n  \"items\": [\n    {\n      \"name\": \"Product #16787\",\n      \"requires_shipping\": true,\n      \"value\": 550,\n      \"value_discounted\": 15,\n      \"quantity\": 2,\n      \"weight\": 88,\n      \"id\": \"123\",\n      \"sku\": \"SKU456\",\n      \"hs_code\": \"125556.78\",\n      \"country_of_origin\": \"FR\",\n      \"country_of_fulfillment\": \"FR\",\n      \"description\": \"Product description here\"\n    },\n    {\n      \"name\": \"Product #16787\",\n      \"requires_shipping\": true,\n      \"value\": 550,\n      \"value_discounted\": 15,\n      \"quantity\": 2,\n      \"weight\": 88,\n      \"id\": \"123\",\n      \"sku\": \"SKU456\",\n      \"hs_code\": \"125556.78\",\n      \"country_of_origin\": \"FR\",\n      \"country_of_fulfillment\": \"FR\",\n      \"description\": \"Product description here\"\n    }\n  ],\n  \"address_to\": {\n    \"street1\": \"Georg\",\n    \"city\": \"Weiden in der Oberpfalz\",\n    \"country\": \"DE\",\n    \"street2\": \"\",\n    \"state\": \"<string>\",\n    \"zip\": \"<string>\",\n    \"name\": \"Daniel Gauer\",\n    \"phone\": \"<string>\",\n    \"email\": \"testorder@randomtest.com\"\n  },\n  \"customer_tax_id\": \"test123\",\n  \"order_url\": \"https://example.com\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Unprocessable Entity: Returned when the request payload is missing mandatory information or contains invalid data\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "73a6f03c-5db0-4242-969e-0366c820ff01",
+          "name": "Delete order",
+          "request": {
+            "name": "Delete order",
+            "description": {},
+            "url": {
+              "path": [
+                "order"
+              ],
+              "host": [
+                "{{order-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "orderNames",
+                  "value": "<string>",
+                  "description": "(Required) Unique order identifier used to update an order. This is not case sensitive."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ea9c2d67-c614-4945-9709-dfa775000d80",
+              "name": "request successfully processed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order"
+                  ],
+                  "host": [
+                    "{{order-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "orderNames",
+                      "value": "WEB-1001,WEB-1002,WEB-1003"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"deleted\": [\n    \"WEB-1001\",\n    \"WEB-1001\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1f325fcf-6698-4b22-9fa7-ec7f0ed5c1a5",
+              "name": "Bad Request: Returned when order name is not in correct format or brand is not onboarded within Passport’s systems.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order"
+                  ],
+                  "host": [
+                    "{{order-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "orderNames",
+                      "value": "WEB-1001,WEB-1002,WEB-1003"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Returned when order name is not in correct format or brand is not onboarded within Passport’s systems.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c58aebd1-bf91-4331-a8a0-fcc2aebe972b",
+              "name": "Unauthorised: Returned when authentication fails.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order"
+                  ],
+                  "host": [
+                    "{{order-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "orderNames",
+                      "value": "WEB-1001,WEB-1002,WEB-1003"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Unauthorised: Returned when authentication fails.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "29cec896-ff84-4d88-816e-f5491afb74aa",
+              "name": "Forbidden: Brand is blocked",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order"
+                  ],
+                  "host": [
+                    "{{order-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "orderNames",
+                      "value": "WEB-1001,WEB-1002,WEB-1003"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Forbidden: Brand is blocked\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4cea3a93-cdd8-4dfe-8b57-ccfceca7fe2d",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order"
+                  ],
+                  "host": [
+                    "{{order-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "orderNames",
+                      "value": "WEB-1001,WEB-1002,WEB-1003"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Internal Server Error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b652a01f-4715-42c8-842a-fe4c8d716ba1",
+          "name": "Get orders",
+          "request": {
+            "name": "Get orders",
+            "description": {},
+            "url": {
+              "path": [
+                "order"
+              ],
+              "host": [
+                "{{order-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "orderNames",
+                  "value": "<string>",
+                  "description": "(Required) Unique order identifier used to update an order. This is not case sensitive."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f67c4d48-0927-498b-979d-9b4e4f99549b",
+              "name": "Request successfully processed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order"
+                  ],
+                  "host": [
+                    "{{order-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "orderNames",
+                      "value": "WEB-1001,WEB-1002,WEB-1003"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"order_name\": \"store1_order001\",\n    \"created\": 1707811200,\n    \"value\": 120,\n    \"items\": [\n      {\n        \"name\": \"Sample Product\",\n        \"sku\": \"SKU123\",\n        \"requires_shipping\": true,\n        \"value\": 55,\n        \"value_discounted\": 45,\n        \"quantity\": 2,\n        \"hs_code\": \"1234.56.78\",\n        \"country_of_origin\": \"US\",\n        \"description\": \"Product description here\",\n        \"weight\": 123\n      },\n      {\n        \"name\": \"Sample Product\",\n        \"sku\": \"SKU123\",\n        \"requires_shipping\": true,\n        \"value\": 55,\n        \"value_discounted\": 45,\n        \"quantity\": 2,\n        \"hs_code\": \"1234.56.78\",\n        \"country_of_origin\": \"US\",\n        \"description\": \"Product description here\",\n        \"weight\": 123\n      }\n    ],\n    \"address_to\": {\n      \"street1\": \"30 Rue de la Baie\",\n      \"street2\": \"\",\n      \"city\": \"Gatineau\",\n      \"state\": \"QC\",\n      \"zip\": \"J8T 3H5\",\n      \"country\": \"CA\",\n      \"name\": \"Daniel Gauer\",\n      \"phone\": \"string\",\n      \"email\": \"test@test.test\"\n    },\n    \"shipping\": {\n      \"id\": 123456,\n      \"rate\": 5,\n      \"duty\": 3,\n      \"duty_source\": \"Passport\",\n      \"tax\": 2,\n      \"tax_source\": \"Passport\",\n      \"service_name\": \"PassportPriorityDdpDelcon\"\n    },\n    \"customer_tax_id\": \"CHE-123.456.789 HR\",\n    \"integration_id\": 6,\n    \"presentment_currency\": \"USD\",\n    \"value_discounted_presentment_currency\": 150\n  },\n  {\n    \"order_name\": \"store1_order001\",\n    \"created\": 1707811200,\n    \"value\": 120,\n    \"items\": [\n      {\n        \"name\": \"Sample Product\",\n        \"sku\": \"SKU123\",\n        \"requires_shipping\": true,\n        \"value\": 55,\n        \"value_discounted\": 45,\n        \"quantity\": 2,\n        \"hs_code\": \"1234.56.78\",\n        \"country_of_origin\": \"US\",\n        \"description\": \"Product description here\",\n        \"weight\": 123\n      },\n      {\n        \"name\": \"Sample Product\",\n        \"sku\": \"SKU123\",\n        \"requires_shipping\": true,\n        \"value\": 55,\n        \"value_discounted\": 45,\n        \"quantity\": 2,\n        \"hs_code\": \"1234.56.78\",\n        \"country_of_origin\": \"US\",\n        \"description\": \"Product description here\",\n        \"weight\": 123\n      }\n    ],\n    \"address_to\": {\n      \"street1\": \"30 Rue de la Baie\",\n      \"street2\": \"\",\n      \"city\": \"Gatineau\",\n      \"state\": \"QC\",\n      \"zip\": \"J8T 3H5\",\n      \"country\": \"CA\",\n      \"name\": \"Daniel Gauer\",\n      \"phone\": \"string\",\n      \"email\": \"test@test.test\"\n    },\n    \"shipping\": {\n      \"id\": 123456,\n      \"rate\": 5,\n      \"duty\": 3,\n      \"duty_source\": \"Passport\",\n      \"tax\": 2,\n      \"tax_source\": \"Passport\",\n      \"service_name\": \"PassportPriorityDdpDelcon\"\n    },\n    \"customer_tax_id\": \"CHE-123.456.789 HR\",\n    \"integration_id\": 6,\n    \"presentment_currency\": \"USD\",\n    \"value_discounted_presentment_currency\": 150\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d8a74aa9-1b2c-4b48-a8d4-bb19992c0885",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order"
+                  ],
+                  "host": [
+                    "{{order-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "orderNames",
+                      "value": "WEB-1001,WEB-1002,WEB-1003"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Query parameter 'orderNames' is required and must be a non-empty string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "29365bc3-5f1e-4ab2-9346-938a224213a1",
+              "name": "Unauthorised: Missing or invalid credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order"
+                  ],
+                  "host": [
+                    "{{order-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "orderNames",
+                      "value": "WEB-1001,WEB-1002,WEB-1003"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Unauthorised: Missing or invalid credentials\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9270a2cc-3d54-467a-82db-6d3d1050fa6b",
+              "name": "Forbidden: Brand is blocked",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order"
+                  ],
+                  "host": [
+                    "{{order-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "orderNames",
+                      "value": "WEB-1001,WEB-1002,WEB-1003"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Forbidden: Brand is blocked\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8ee1c37d-b423-4fcc-b33a-8deae629f925",
+              "name": "Not Found: Orders were not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order"
+                  ],
+                  "host": [
+                    "{{order-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "orderNames",
+                      "value": "WEB-1001,WEB-1002,WEB-1003"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Not found: Orders were not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "539e1064-0a19-4e41-9c34-d385eb2fcd2d",
+              "name": "Internal Server Error: Generic failure while processing the request. The response contains a message with a `RequestId` you can share with support",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order"
+                  ],
+                  "host": [
+                    "{{order-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "orderNames",
+                      "value": "WEB-1001,WEB-1002,WEB-1003"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Internal Server Error: Generic failure while processing the request. The response contains a message with a `RequestId` you can share with support\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api-stg.passportshipping.com/v3",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://api-stg.passportshipping.com/custom/v1",
+      "key": "order-Url"
+    }
+  ],
+  "info": {
+    "_postman_id": "7e15fb5f-b2df-46d3-8641-e68873a0cda5",
+    "name": "Getting Started with Passport Global Order API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "<h2>Introduction</h2><p>Passport Global's API is designed to allow for quick integration to begin selling and shipping internationally. It offers endpoints for general shipping-related functions, including rate requests and shipping label generation.</p><h2>Prerequisites</h2><p><ul><li>Passport Global API is a REST-like API. All methods must be called using HTTPS.</li><li>Authentication and identification is done by providing an API key on every request as a custom HTTP header \"X-Access-Token\".</li><li>All requests are made using the POST method.</li><li>The API key is provided by our onboarding team. For more details see registration and authentication.</li><li>The API uses JSON formatting for requests and responses.</li><li>Environments<ul><li>Testing Environment:<a href=\"https://api-stg.passportshipping.com/v3\"> api-stg.passportshipping.com/v3</a></li><li>Production Environment:<a href=\"https://api.passportshipping.com/v3\"> api.passportshipping.com/v3</a></li></ul></li></ul></p><h2>Registration and Authentication</h2><p>During the onboarding or integration process, our Onboarding team will create an account for your organization and provide the API key to your designated point of contact, which is typically a member of the operations, development team, or one of the founders.</p><h2>Making Your First Request</h2><p>A typical first request is to obtain a shipping rate. Use the <code>/rate</code> endpoint, providing necessary details like the addresses (<code>address_to</code> and <code>address_from</code>), parcel dimensions, and item descriptions.<br/><br/>Use the documentation below to see an example request body for a rate request</p><h2>Response Handling</h2><p>Successful responses return a 200 status code<br/><br/>Handle error responses (for example 401 Unauthorized, 404 Not Found) according to the provided error messages for each endpoint provided below.</p>",
+      "type": "text/plain"
+    }
+  }
+}

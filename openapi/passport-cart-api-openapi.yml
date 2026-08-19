@@ -1,0 +1,388 @@
+openapi: 3.2.0
+info:
+  title: Getting Started with Passport Global Cart API
+  description: <h2>Introduction</h2><p>Passport Global's API is designed to allow for quick integration to begin selling and shipping internationally. It offers endpoints for general shipping-related functions, including rate requests and shipping label generation.</p><h2>Prerequisites</h2><p><ul><li>Passport Global API is a REST-like API. All methods must be called using HTTPS.</li><li>Authentication and identification is done by providing an API key on every request as a custom HTTP header "X-Access-Token".</li><li>All requests are made using the POST method.</li><li>The API key is provided by our onboarding team. For more details see registration and authentication.</li><li>The API uses JSON formatting for requests and responses.</li><li>Environments<ul><li>Testing Environment:<a href="https://api-stg.passportshipping.com/v3"> api-stg.passportshipping.com/v3</a></li><li>Production Environment:<a href="https://api.passportshipping.com/v3"> api.passportshipping.com/v3</a></li></ul></li></ul></p><h2>Registration and Authentication</h2><p>During the onboarding or integration process, our Onboarding team will create an account for your organization and provide the API key to your designated point of contact, which is typically a member of the operations, development team, or one of the founders.</p><h2>Making Your First Request</h2><p>A typical first request is to obtain a shipping rate. Use the <code>/rate</code> endpoint, providing necessary details like the addresses (<code>address_to</code> and <code>address_from</code>), parcel dimensions, and item descriptions.<br/><br/>Use the documentation below to see an example request body for a rate request</p><h2>Response Handling</h2><p>Successful responses return a 200 status code<br/><br/>Handle error responses (for example 401 Unauthorized, 404 Not Found) according to the provided error messages for each endpoint provided below.</p>
+  version: '3.15'
+  x-logo:
+    url: PassportLogo.svg
+    background: '#FAFAFA'
+    altText: Logo Passport added via API Definition
+servers:
+- url: https://api-stg.passportshipping.com/v3
+tags:
+- name: Cart
+paths:
+  /cart:
+    servers:
+    - url: https://api-stg.passportshipping.com/custom/v1
+    post:
+      tags:
+      - Cart
+      summary: Request rates for shipping, duties, and taxes for an order
+      description: 'Brands can send information to this endpoint to receive rates (shipping, duties & taxes) for an order.
+
+        Rates can be configured by contacting Passport for each country & service level:
+
+        - Shipping: Live, flat, free, free with threshold
+
+        - Duties: Live, free
+
+        - Taxes: Live, free
+
+
+        Rates can also be received in the desired local currency.
+
+        '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cart_Request'
+        required: true
+      responses:
+        200:
+          description: (OK) Rates calculated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cart_Response'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          description: Forbidden - Merchant is blocked
+        404:
+          $ref: '#/components/responses/NotFound'
+        422:
+          description: Request payload is missing mandatory data or contains invalid data
+        500:
+          $ref: '#/components/responses/ServerError'
+components:
+  responses:
+    NotFound:
+      description: Sender's company not found in the list of authorized values, please, contact us if the company name is correct
+    BadRequest:
+      description: Brand has not been onboarded within Passport’s system. Please reach out to Passport support.
+    Unauthorized:
+      description: (Unauthorized) Unable to access the requested resource, you don't have authorization, please check your API Key
+    ServerError:
+      description: Internal Server Error.
+  schemas:
+    Cart_Response:
+      type: object
+      required:
+      - request_id
+      - currency
+      - rates
+      properties:
+        request_id:
+          type: string
+          description: Unique identifier for tracking the API request.
+          example: 682302a7-6c05-438f-ae8e-9b8cffc054b2
+        currency:
+          type: string
+          description: The currency in which all returned prices are converted.
+          example: EUR
+        rates:
+          type: array
+          description: List of available shipping rates.
+          items:
+            type: object
+            required:
+            - service_name
+            - service_code
+            - rate
+            - tax
+            - duty
+            - total
+            - edd
+            properties:
+              service_name:
+                type: string
+                description: The name of the shipping service offered.
+                example: Passport Priority Duties and Taxes Paid
+              service_code:
+                type: string
+                description: The service code of the shipping service.
+                example: PriorityDdpDelcon
+              rate:
+                type: number
+                description: Shipping cost before additional charges.
+                example: 9
+              tax:
+                type: number
+                description: Tax amount applied to the shipping cost.
+                example: 0
+              duty:
+                type: number
+                description: Customs duty applied to the shipping cost.
+                example: 6
+              insurance:
+                type: number
+                description: Cost of insurance for the shipment.
+                example: 1
+              formatted:
+                type: object
+                description: Default formatted (e.g. currency symbol, placement etc) string values for amounts. Format can be customized by contacting Passport.
+                properties:
+                  rate:
+                    type: string
+                    example: €9
+                  tax:
+                    type: string
+                    example: €0
+                  duty:
+                    type: string
+                    example: €6
+                  insurance:
+                    type: string
+                    example: €1
+              description:
+                type: string
+                description: Description of service level
+                example: The total amount is inclusive of all local duties, taxes and fees. We guarantee no additional charges on delivery.
+              total:
+                type: number
+                description: Total shipping, tax, duty, and insurance amounts.
+                example: 16
+              edd:
+                type: object
+                required:
+                - min_days
+                - max_days
+                properties:
+                  min_days:
+                    type: number
+                    description: Minimum estimated delivery time in days.
+                    example: 7
+                  max_days:
+                    type: number
+                    description: Maximum estimated delivery time in days.
+                    example: 11
+                  message:
+                    type: string
+                    description: A user-friendly delivery message.
+                    example: 7-11 business days.
+              duty_tax_breakdown:
+                type: array
+                description: Item level breakdown of duties and taxes calculated for each item.
+                items:
+                  type: object
+                  properties:
+                    sku:
+                      type: string
+                      description: SKU of the item.
+                      example: TSHIRT123
+                    description:
+                      type: string
+                      description: Description of the item.
+                      example: Black T-Shirt
+                    tax:
+                      type: number
+                      description: Tax amount for the item.
+                      example: 0
+                    duty:
+                      type: number
+                      description: Duty amount for the item.
+                      example: 6
+    Cart_Request:
+      type: object
+      required:
+      - address_from
+      - address_to
+      - items
+      properties:
+        reference:
+          type: string
+          description: Unique identifier for the request.
+          example: ORDER12345
+        service_name:
+          type: string
+          description: The name of shipping service requested. If left empty, will return all shipping services configured for the brand.
+          enum:
+          - StandardDdu
+          - StandardDduDelcon
+          - PriorityDdu
+          - PriorityDduDelcon
+          - PriorityDdp
+          - PriorityDdpDelcon
+          - epacketDdp
+          - ExpressDdp
+          - GlobalPlus
+          - ExpeditedDdpDelcon
+          - ExpressDdpDelcon
+          - ExpeditedDduDelcon
+          - ExpressDduDelcon
+          example: Express
+        contents_type:
+          type: string
+          description: Describes the type of shipment content for goods clarification at customs.
+          enum:
+          - merchandise
+          - returned_goods
+          - documents
+          - gift
+          - goods
+          - other
+          - sample
+          example: merchandise
+        presentment_currency:
+          type: string
+          description: The currency to which all amounts should be converted to.
+          example: EUR
+        address_from:
+          type: object
+          required:
+          - street1
+          - city
+          - state
+          - zip
+          - country
+          - company
+          properties:
+            street1:
+              type: string
+              description: The primary address line of the sender.
+              example: 123 Main St
+            street2:
+              type: string
+              description: Additional address details such as floor or apartment.
+              example: Apt 4B
+            city:
+              type: string
+              description: City of the sender's address.
+              example: Los Angeles
+            state:
+              type: string
+              description: 'State or region of the sender''s address.
+
+                Mandatory for CA (Canada), optional for other countries.
+
+                '
+              example: CA
+            zip:
+              type: string
+              description: 'ZIP or postal code of the sender''s address.
+
+                Mandatory for CA (Canada), optional for other countries.
+
+                '
+              example: '90045'
+            country:
+              type: string
+              description: Country code (ISO 2-letter) of the sender's address.
+              example: US
+            company:
+              type: string
+              description: Company name of the sender.
+              example: Sender Inc.
+            name:
+              type: string
+              description: Name of the sender contact person.
+              example: Alice Johnson
+        address_to:
+          type: object
+          required:
+          - street1
+          - city
+          - state
+          - zip
+          - country
+          properties:
+            street1:
+              type: string
+              description: The primary address line of the recipient.
+              example: 81 Bay Street
+            street2:
+              type: string
+              description: Additional address details such as floor or apartment.
+              example: ''
+            city:
+              type: string
+              description: City of the recipient's address.
+              example: Toronto
+            state:
+              type: string
+              description: 'State or region of the recipient''s address. Mandatory for Canada, United States, Spain; optional for other countries.
+
+                '
+              example: 'ON'
+            zip:
+              type: string
+              description: ZIP or postal code of the recipient's address. Mandatory for Canada, United States, Spain; optional for other countries.
+              example: M5J0E7
+            country:
+              type: string
+              description: Country code (ISO 2-letter) of the recipient's address.
+              example: Canada
+            name:
+              type: string
+              description: Name of the recipient.
+              example: Bob Smith
+            phone:
+              type: string
+              description: Phone number of the recipient.
+              example: 555-987-6543
+            email:
+              type: string
+              description: Email address of the recipient.
+              example: bob@example.com
+        parcel:
+          type: object
+          description: Parcel details. This is optional, but highly recommended. If not provided, will use dimensions provided during onboarding.
+          properties:
+            length:
+              type: number
+              description: Length of the parcel. Length unit to be set up during onboarding (cm/ in)
+              example: 10.5
+            width:
+              type: number
+              description: Width of the parcel. Width unit to be set up during onboarding (cm/ in)
+              example: 5.2
+            height:
+              type: number
+              description: Height of the parcel. Height unit to be set up during onboarding (cm/ in)
+              example: 1.1
+            weight:
+              type: number
+              description: Weight of the parcel. Weight unit to be set up during onboarding (oz / lb / kg / g)
+              example: 10.15
+        items:
+          type: array
+          description: Array of items to be shipped.
+          items:
+            type: object
+            required:
+            - quantity
+            - value
+            - weight
+            properties:
+              description:
+                type: string
+                description: Description of the item.
+                example: Black T-Shirt
+              hs_code:
+                type: string
+                description: Harmonized System (HS) code for customs declaration.
+                example: '9505900000'
+              sku:
+                type: string
+                description: Stock Keeping Unit (SKU) identifier for the item.
+                example: TSHIRT123
+              quantity:
+                type: number
+                description: Number of units of the item.
+                example: 2
+              value:
+                type: number
+                description: Total value of the item. This is the post-discounted value in store currency.
+                example: 24.68
+              weight:
+                type: number
+                description: Total weight of the item. Weight unit to be set up during onboarding (oz / lb / kg / g)
+                example: 1.0
+              origin:
+                type: string
+                description: Origin country of item.
+                example: US

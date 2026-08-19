@@ -1,0 +1,33 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Getting Started with Passport Global Product Price API",
+    "version": "3.15"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Product Price",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get converted product prices in selected currency",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api-stg.passportshipping.com/v3/product-price",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "E-commerce brands can use the product price endpoint to request product prices in the currency of their choosing. API details:\n- Exchange rates are updated 1/day to ensure product price stability through the day. Brands can also choose to configure static exchange rates of their choosing.\n- Product prices are rounded to 0 decimal places by default, but can be customized on a per currency basis.\n- Product prices use a default display format, but can be customized on a per currency basis.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

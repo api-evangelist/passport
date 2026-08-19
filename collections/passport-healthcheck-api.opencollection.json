@@ -1,0 +1,29 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Getting Started with Passport Global Healthcheck API",
+    "version": "3.15"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Healthcheck",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Healtcheck",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api-stg.passportshipping.com/v3/ping"
+          },
+          "docs": "Check if the API Server is up and running"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

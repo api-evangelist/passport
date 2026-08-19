@@ -1,0 +1,386 @@
+{
+  "item": [
+    {
+      "id": "f2936392-cab2-4b70-8468-55abadb5f6c3",
+      "name": "Product Price",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ef59697b-5fd8-49cf-b085-776f62200a82",
+          "name": "Get converted product prices in selected currency",
+          "request": {
+            "name": "Get converted product prices in selected currency",
+            "description": {
+              "content": "E-commerce brands can use the product price endpoint to request product prices in the currency of their choosing. API details:\n- Exchange rates are updated 1/day to ensure product price stability through the day. Brands can also choose to configure static exchange rates of their choosing.\n- Product prices are rounded to 0 decimal places by default, but can be customized on a per currency basis.\n- Product prices use a default display format, but can be customized on a per currency basis.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "product-price"
+              ],
+              "host": [
+                "{{product-price-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"base_currency\": \"<string>\",\n  \"presentment_currency\": \"<string>\",\n  \"country\": \"<string>\",\n  \"values\": [\n    {\n      \"reference\": \"<string>\",\n      \"value\": \"<number>\"\n    },\n    {\n      \"reference\": \"<string>\",\n      \"value\": \"<number>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5193e2c0-baa9-43c5-b355-a76af132a2b3",
+              "name": "Successful response with converted product prices",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "product-price"
+                  ],
+                  "host": [
+                    "{{product-price-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"base_currency\": \"USD\",\n  \"presentment_currency\": \"CAD\",\n  \"country\": \"CA\",\n  \"values\": [\n    {\n      \"reference\": \"Product_1_USD_CAD\",\n      \"value\": 1\n    },\n    {\n      \"reference\": \"Product_2_USD_CAD\",\n      \"value\": 2.35\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"base_currency\": \"USD\",\n  \"presentment_currency\": \"CAD\",\n  \"currency_symbol\": \"CAD\",\n  \"currency_code\": \"CAD\",\n  \"currency_text\": \"Canadian Dollar\",\n  \"country\": \"CA\",\n  \"converted_values\": [\n    {\n      \"reference\": \"Product_1_USD_CAD\",\n      \"value\": 1,\n      \"converted_value\": \"1.31234\",\n      \"conversion_rate\": \"1.31234\",\n      \"converted_value_with_fee\": \"1.44357\",\n      \"conversion_fee\": \"0.1\",\n      \"converted_value_with_fee_rounded\": \"1.44\",\n      \"converted_value_formatted\": \"1.44 CAD\"\n    },\n    {\n      \"reference\": \"Product_2_USD_CAD\",\n      \"value\": 2.35,\n      \"converted_value\": \"3.08400\",\n      \"conversion_rate\": \"1.31234\",\n      \"converted_value_with_fee\": \"3.39240\",\n      \"conversion_fee\": \"0.1\",\n      \"converted_value_with_fee_rounded\": \"3.39\",\n      \"converted_value_formatted\": \"3.39 CAD\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3ea619ac-bd12-40f4-9f7d-4d60ff6e0208",
+              "name": "Bad Request - Currency not supported or other validation errors",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "product-price"
+                  ],
+                  "host": [
+                    "{{product-price-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"base_currency\": \"USD\",\n  \"presentment_currency\": \"CAD\",\n  \"country\": \"CA\",\n  \"values\": [\n    {\n      \"reference\": \"Product_1_USD_CAD\",\n      \"value\": 1\n    },\n    {\n      \"reference\": \"Product_2_USD_CAD\",\n      \"value\": 2.35\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"presentment_currency EUR is not supported.\",\n  \"details\": \"Currency is not supported\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e1905645-b67f-40ac-bd9c-753d42c34273",
+              "name": "Unauthorized - Unable to access the requested resource, authorization failed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "product-price"
+                  ],
+                  "host": [
+                    "{{product-price-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"base_currency\": \"USD\",\n  \"presentment_currency\": \"CAD\",\n  \"country\": \"CA\",\n  \"values\": [\n    {\n      \"reference\": \"Product_1_USD_CAD\",\n      \"value\": 1\n    },\n    {\n      \"reference\": \"Product_2_USD_CAD\",\n      \"value\": 2.35\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Unable to access the requested resource, authorization failed.\",\n  \"details\": \"missing/incorrect authorization data\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3a3b99ef-384a-4487-84f5-b05ef42073c2",
+              "name": "Forbidden - Merchant is blocked",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "product-price"
+                  ],
+                  "host": [
+                    "{{product-price-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"base_currency\": \"USD\",\n  \"presentment_currency\": \"CAD\",\n  \"country\": \"CA\",\n  \"values\": [\n    {\n      \"reference\": \"Product_1_USD_CAD\",\n      \"value\": 1\n    },\n    {\n      \"reference\": \"Product_2_USD_CAD\",\n      \"value\": 2.35\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Merchant is blocked\",\n  \"details\": \"Merchant is blocked\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "180b9446-3942-4fbd-a958-b713b88089db",
+              "name": "Not Found - Bad URL",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "product-price"
+                  ],
+                  "host": [
+                    "{{product-price-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"base_currency\": \"USD\",\n  \"presentment_currency\": \"CAD\",\n  \"country\": \"CA\",\n  \"values\": [\n    {\n      \"reference\": \"Product_1_USD_CAD\",\n      \"value\": 1\n    },\n    {\n      \"reference\": \"Product_2_USD_CAD\",\n      \"value\": 2.35\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Not Found\",\n  \"code\": 0,\n  \"details\": \"Bad URL\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bf00f3dc-220d-4b29-87a5-1bcce074132f",
+              "name": "Unprocessable Entity - Body validation errors",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "product-price"
+                  ],
+                  "host": [
+                    "{{product-price-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"base_currency\": \"USD\",\n  \"presentment_currency\": \"CAD\",\n  \"country\": \"CA\",\n  \"values\": [\n    {\n      \"reference\": \"Product_1_USD_CAD\",\n      \"value\": 1\n    },\n    {\n      \"reference\": \"Product_2_USD_CAD\",\n      \"value\": 2.35\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Body validation errors\",\n  \"details\": {\n    \"body\": {\n      \"base_currency\": [\n        \"Base currency cannot be blank.\"\n      ],\n      \"presentment_currency\": [\n        \"Presentment currency cannot be blank.\"\n      ],\n      \"values\": [\n        \"Values cannot be blank.\"\n      ],\n      \"reference\": [\n        \"Reference cannot be blank.\"\n      ],\n      \"value\": [\n        \"Value cannot be blank.\",\n        \"Value must be no less than 0.01.\",\n        \"Value must be no greater than 9999999.99.\",\n        \"Value must be a number.\"\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5ba3b223-9830-45a6-81af-3c8dd1e675de",
+              "name": "Internal Server Error - Other errors or unprocessed exceptions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "product-price"
+                  ],
+                  "host": [
+                    "{{product-price-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"base_currency\": \"USD\",\n  \"presentment_currency\": \"CAD\",\n  \"country\": \"CA\",\n  \"values\": [\n    {\n      \"reference\": \"Product_1_USD_CAD\",\n      \"value\": 1\n    },\n    {\n      \"reference\": \"Product_2_USD_CAD\",\n      \"value\": 2.35\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Sorry, something went wrong while processing your request. We are already working on a solution. RequestId: $RequestId\",\n  \"details\": \"Other errors or unprocessed exceptions.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api-stg.passportshipping.com/v3",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://api-stg.passportshipping.com/custom/v1",
+      "key": "product-price-Url"
+    }
+  ],
+  "info": {
+    "_postman_id": "06b10f55-574f-4157-bc6b-a0402c3bd81b",
+    "name": "Getting Started with Passport Global Product Price API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "<h2>Introduction</h2><p>Passport Global's API is designed to allow for quick integration to begin selling and shipping internationally. It offers endpoints for general shipping-related functions, including rate requests and shipping label generation.</p><h2>Prerequisites</h2><p><ul><li>Passport Global API is a REST-like API. All methods must be called using HTTPS.</li><li>Authentication and identification is done by providing an API key on every request as a custom HTTP header \"X-Access-Token\".</li><li>All requests are made using the POST method.</li><li>The API key is provided by our onboarding team. For more details see registration and authentication.</li><li>The API uses JSON formatting for requests and responses.</li><li>Environments<ul><li>Testing Environment:<a href=\"https://api-stg.passportshipping.com/v3\"> api-stg.passportshipping.com/v3</a></li><li>Production Environment:<a href=\"https://api.passportshipping.com/v3\"> api.passportshipping.com/v3</a></li></ul></li></ul></p><h2>Registration and Authentication</h2><p>During the onboarding or integration process, our Onboarding team will create an account for your organization and provide the API key to your designated point of contact, which is typically a member of the operations, development team, or one of the founders.</p><h2>Making Your First Request</h2><p>A typical first request is to obtain a shipping rate. Use the <code>/rate</code> endpoint, providing necessary details like the addresses (<code>address_to</code> and <code>address_from</code>), parcel dimensions, and item descriptions.<br/><br/>Use the documentation below to see an example request body for a rate request</p><h2>Response Handling</h2><p>Successful responses return a 200 status code<br/><br/>Handle error responses (for example 401 Unauthorized, 404 Not Found) according to the provided error messages for each endpoint provided below.</p>",
+      "type": "text/plain"
+    }
+  }
+}

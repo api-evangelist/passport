@@ -1,0 +1,37 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Getting Started with Passport Global Void API",
+    "version": "3.15"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Void",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Void an existing shipping label",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api-stg.passportshipping.com/v3/void/:code",
+            "params": [
+              {
+                "name": "code",
+                "value": "",
+                "type": "path",
+                "description": "Uses the tracking code returned by /ship endpoint"
+              }
+            ]
+          },
+          "docs": "Void an existing shipping label"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

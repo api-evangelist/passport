@@ -3,15 +3,18 @@ method: derived
 status: candidate
 source: openapi/passport-public-api-openapi.yml (v3.15)
 searched:
-  registries: [npm, PyPI, GitHub, MCP registry listings]
+  registries:
+  - npm
+  - PyPI
+  - GitHub
+  - MCP registry listings
   hosts_probed:
   - https://api.passportshipping.com/ (404 JSON)
   - https://docs.passportglobal.com/ (Redoc docs only)
   - https://passportglobal.com/.well-known/ai-plugin.json (404)
-  result: >-
-    No official hosted or remote Passport MCP server was found, no first-party MCP package is published on any
-    registry, and Passport has no discoverable GitHub organization. This is a CANDIDATE tool list derived from the
-    published REST operations — it is not something Passport operates.
+  result: No official hosted or remote Passport MCP server was found, no first-party MCP package is published
+    on any registry, and Passport has no discoverable GitHub organization. This is a CANDIDATE tool list
+    derived from the published REST operations — it is not something Passport operates.
 server:
   name: passport
   transport: null
@@ -24,20 +27,21 @@ tools:
   input_schema_ref: '#/components/schemas/Rate_Request'
   consequence: read
 - name: createShipment
-  description: Purchase an international shipping label; returns a tracking code, label image URL, and tracking URL.
+  description: Purchase an international shipping label; returns a tracking code, label image URL, and
+    tracking URL.
   source_operation: openapi/passport-public-api-openapi.yml#POST /ship
   input_schema_ref: '#/components/schemas/Ship_Request'
   consequence: write-billable
-  note: >-
-    Money-moving and NOT idempotent — there is no Idempotency-Key mechanism. An agent must not blind-retry this
-    tool; recovery is voidShipment.
+  note: Money-moving and NOT idempotent — there is no Idempotency-Key mechanism. An agent must not blind-retry
+    this tool; recovery is voidShipment.
 - name: voidShipment
   description: Void an existing shipping label by its Passport tracking code.
   source_operation: openapi/passport-public-api-openapi.yml#POST /void/{code}
   input_schema_ref: 'path parameter: code (string, required)'
   consequence: write-destructive
 - name: createOrder
-  description: Submit order information (totals, line items with HS codes, destination address, chosen shipping) to Passport.
+  description: Submit order information (totals, line items with HS codes, destination address, chosen
+    shipping) to Passport.
   source_operation: openapi/passport-public-api-openapi.yml#POST /order
   input_schema_ref: '#/components/schemas/Order_POST_Request'
   consequence: write
@@ -57,17 +61,20 @@ tools:
   input_schema_ref: 'query parameter: orderNames (string, required)'
   consequence: read
 - name: createCartQuote
-  description: Request shipping, duty and tax rates for a whole cart at checkout, returning selectable service options.
+  description: Request shipping, duty and tax rates for a whole cart at checkout, returning selectable
+    service options.
   source_operation: openapi/passport-public-api-openapi.yml#POST /cart
   input_schema_ref: '#/components/schemas/Cart_Request'
   consequence: read
 - name: getProductPrice
-  description: Convert product values into a presentment currency with conversion rate, fee, and formatted display values.
+  description: Convert product values into a presentment currency with conversion rate, fee, and formatted
+    display values.
   source_operation: openapi/passport-public-api-openapi.yml#POST /product-price
   input_schema_ref: '#/components/schemas/ProductPrice_Request'
   consequence: read
 - name: calculateTaxAndDuty
-  description: Calculate duty and tax for a set of items given a shipping rate and origin/destination addresses.
+  description: Calculate duty and tax for a set of items given a shipping rate and origin/destination
+    addresses.
   source_operation: openapi/passport-public-api-openapi.yml#POST /tax-and-duty
   input_schema_ref: '#/components/schemas/TaxAndDuty_Request'
   consequence: read
@@ -79,10 +86,17 @@ authentication:
   style: api_key_header
   header: X-Access-Token
   self_service: false
-  note: >-
-    Any MCP server fronting this API must carry a per-tenant Passport key issued by the onboarding team; there is
-    no OAuth flow and no scope model, so tool-level authorization cannot be delegated to the provider.
+  note: Any MCP server fronting this API must carry a per-tenant Passport key issued by the onboarding
+    team; there is no OAuth flow and no scope model, so tool-level authorization cannot be delegated to
+    the provider.
   see: authentication/passport-authentication.yml
 gaps:
-- No official MCP server, no llms.txt, and no agent card — Passport publishes no agent-facing surface at all.
+- No official MCP server, no llms.txt, and no agent card — Passport publishes no agent-facing surface
+  at all.
 - Ten of eleven operations carry no operationId, so tool names above are proposed, not provider-sanctioned.
+deployment:
+  mode: none
+  verified: derived
+  tools: 11
+  checked: '2026-08-12'
+  source: catalog MCP census

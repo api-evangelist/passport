@@ -1,0 +1,350 @@
+{
+  "item": [
+    {
+      "id": "4792992a-97b3-4a1d-867c-4d2c7d7a9ab7",
+      "name": "Cart",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6de7a1a2-c4ce-4169-9768-537bedd5e198",
+          "name": "Request rates for shipping, duties, and taxes for an order",
+          "request": {
+            "name": "Request rates for shipping, duties, and taxes for an order",
+            "description": {
+              "content": "Brands can send information to this endpoint to receive rates (shipping, duties & taxes) for an order.\nRates can be configured by contacting Passport for each country & service level:\n- Shipping: Live, flat, free, free with threshold\n- Duties: Live, free\n- Taxes: Live, free\n\nRates can also be received in the desired local currency.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cart"
+              ],
+              "host": [
+                "{{cart-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"address_from\": {\n    \"street1\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zip\": \"<string>\",\n    \"country\": \"<string>\",\n    \"company\": \"<string>\",\n    \"street2\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"address_to\": {\n    \"street1\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zip\": \"<string>\",\n    \"country\": \"<string>\",\n    \"street2\": \"<string>\",\n    \"name\": \"<string>\",\n    \"phone\": \"<string>\",\n    \"email\": \"<string>\"\n  },\n  \"items\": [\n    {\n      \"quantity\": \"<number>\",\n      \"value\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"description\": \"<string>\",\n      \"hs_code\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"origin\": \"<string>\"\n    },\n    {\n      \"quantity\": \"<number>\",\n      \"value\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"description\": \"<string>\",\n      \"hs_code\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"origin\": \"<string>\"\n    }\n  ],\n  \"reference\": \"<string>\",\n  \"service_name\": \"<string>\",\n  \"contents_type\": \"<string>\",\n  \"presentment_currency\": \"<string>\",\n  \"parcel\": {\n    \"length\": \"<number>\",\n    \"width\": \"<number>\",\n    \"height\": \"<number>\",\n    \"weight\": \"<number>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d53b68f2-0f0a-4b2c-986a-d42243982e65",
+              "name": "(OK) Rates calculated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cart"
+                  ],
+                  "host": [
+                    "{{cart-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"address_from\": {\n    \"street1\": \"123 Main St\",\n    \"city\": \"Los Angeles\",\n    \"state\": \"CA\",\n    \"zip\": \"90045\",\n    \"country\": \"US\",\n    \"company\": \"Sender Inc.\",\n    \"street2\": \"Apt 4B\",\n    \"name\": \"Alice Johnson\"\n  },\n  \"address_to\": {\n    \"street1\": \"81 Bay Street\",\n    \"city\": \"Toronto\",\n    \"state\": \"ON\",\n    \"zip\": \"M5J0E7\",\n    \"country\": \"Canada\",\n    \"street2\": \"\",\n    \"name\": \"Bob Smith\",\n    \"phone\": \"555-987-6543\",\n    \"email\": \"bob@example.com\"\n  },\n  \"items\": [\n    {\n      \"quantity\": 2,\n      \"value\": 24.68,\n      \"weight\": 1,\n      \"description\": \"Black T-Shirt\",\n      \"hs_code\": \"9505900000\",\n      \"sku\": \"TSHIRT123\",\n      \"origin\": \"US\"\n    },\n    {\n      \"quantity\": 2,\n      \"value\": 24.68,\n      \"weight\": 1,\n      \"description\": \"Black T-Shirt\",\n      \"hs_code\": \"9505900000\",\n      \"sku\": \"TSHIRT123\",\n      \"origin\": \"US\"\n    }\n  ],\n  \"reference\": \"ORDER12345\",\n  \"service_name\": \"<string>\",\n  \"contents_type\": \"merchandise\",\n  \"presentment_currency\": \"EUR\",\n  \"parcel\": {\n    \"length\": 10.5,\n    \"width\": 5.2,\n    \"height\": 1.1,\n    \"weight\": 10.15\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"request_id\": \"682302a7-6c05-438f-ae8e-9b8cffc054b2\",\n  \"currency\": \"EUR\",\n  \"rates\": [\n    {\n      \"service_name\": \"Passport Priority Duties and Taxes Paid\",\n      \"service_code\": \"PriorityDdpDelcon\",\n      \"rate\": 9,\n      \"tax\": 0,\n      \"duty\": 6,\n      \"total\": 16,\n      \"edd\": {\n        \"min_days\": 7,\n        \"max_days\": 11,\n        \"message\": \"7-11 business days.\"\n      },\n      \"insurance\": 1,\n      \"formatted\": {\n        \"rate\": \"€9\",\n        \"tax\": \"€0\",\n        \"duty\": \"€6\",\n        \"insurance\": \"€1\"\n      },\n      \"description\": \"The total amount is inclusive of all local duties, taxes and fees. We guarantee no additional charges on delivery.\",\n      \"duty_tax_breakdown\": [\n        {\n          \"sku\": \"TSHIRT123\",\n          \"description\": \"Black T-Shirt\",\n          \"tax\": 0,\n          \"duty\": 6\n        },\n        {\n          \"sku\": \"TSHIRT123\",\n          \"description\": \"Black T-Shirt\",\n          \"tax\": 0,\n          \"duty\": 6\n        }\n      ]\n    },\n    {\n      \"service_name\": \"Passport Priority Duties and Taxes Paid\",\n      \"service_code\": \"PriorityDdpDelcon\",\n      \"rate\": 9,\n      \"tax\": 0,\n      \"duty\": 6,\n      \"total\": 16,\n      \"edd\": {\n        \"min_days\": 7,\n        \"max_days\": 11,\n        \"message\": \"7-11 business days.\"\n      },\n      \"insurance\": 1,\n      \"formatted\": {\n        \"rate\": \"€9\",\n        \"tax\": \"€0\",\n        \"duty\": \"€6\",\n        \"insurance\": \"€1\"\n      },\n      \"description\": \"The total amount is inclusive of all local duties, taxes and fees. We guarantee no additional charges on delivery.\",\n      \"duty_tax_breakdown\": [\n        {\n          \"sku\": \"TSHIRT123\",\n          \"description\": \"Black T-Shirt\",\n          \"tax\": 0,\n          \"duty\": 6\n        },\n        {\n          \"sku\": \"TSHIRT123\",\n          \"description\": \"Black T-Shirt\",\n          \"tax\": 0,\n          \"duty\": 6\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8735d4fa-536c-40de-a97a-d24644ab0406",
+              "name": "Brand has not been onboarded within Passport’s system. Please reach out to Passport support.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cart"
+                  ],
+                  "host": [
+                    "{{cart-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"address_from\": {\n    \"street1\": \"123 Main St\",\n    \"city\": \"Los Angeles\",\n    \"state\": \"CA\",\n    \"zip\": \"90045\",\n    \"country\": \"US\",\n    \"company\": \"Sender Inc.\",\n    \"street2\": \"Apt 4B\",\n    \"name\": \"Alice Johnson\"\n  },\n  \"address_to\": {\n    \"street1\": \"81 Bay Street\",\n    \"city\": \"Toronto\",\n    \"state\": \"ON\",\n    \"zip\": \"M5J0E7\",\n    \"country\": \"Canada\",\n    \"street2\": \"\",\n    \"name\": \"Bob Smith\",\n    \"phone\": \"555-987-6543\",\n    \"email\": \"bob@example.com\"\n  },\n  \"items\": [\n    {\n      \"quantity\": 2,\n      \"value\": 24.68,\n      \"weight\": 1,\n      \"description\": \"Black T-Shirt\",\n      \"hs_code\": \"9505900000\",\n      \"sku\": \"TSHIRT123\",\n      \"origin\": \"US\"\n    },\n    {\n      \"quantity\": 2,\n      \"value\": 24.68,\n      \"weight\": 1,\n      \"description\": \"Black T-Shirt\",\n      \"hs_code\": \"9505900000\",\n      \"sku\": \"TSHIRT123\",\n      \"origin\": \"US\"\n    }\n  ],\n  \"reference\": \"ORDER12345\",\n  \"service_name\": \"<string>\",\n  \"contents_type\": \"merchandise\",\n  \"presentment_currency\": \"EUR\",\n  \"parcel\": {\n    \"length\": 10.5,\n    \"width\": 5.2,\n    \"height\": 1.1,\n    \"weight\": 10.15\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c97a94c0-a154-4404-96fd-316c3c6dddfe",
+              "name": "(Unauthorized) Unable to access the requested resource, you don't have authorization, please check your API Key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cart"
+                  ],
+                  "host": [
+                    "{{cart-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"address_from\": {\n    \"street1\": \"123 Main St\",\n    \"city\": \"Los Angeles\",\n    \"state\": \"CA\",\n    \"zip\": \"90045\",\n    \"country\": \"US\",\n    \"company\": \"Sender Inc.\",\n    \"street2\": \"Apt 4B\",\n    \"name\": \"Alice Johnson\"\n  },\n  \"address_to\": {\n    \"street1\": \"81 Bay Street\",\n    \"city\": \"Toronto\",\n    \"state\": \"ON\",\n    \"zip\": \"M5J0E7\",\n    \"country\": \"Canada\",\n    \"street2\": \"\",\n    \"name\": \"Bob Smith\",\n    \"phone\": \"555-987-6543\",\n    \"email\": \"bob@example.com\"\n  },\n  \"items\": [\n    {\n      \"quantity\": 2,\n      \"value\": 24.68,\n      \"weight\": 1,\n      \"description\": \"Black T-Shirt\",\n      \"hs_code\": \"9505900000\",\n      \"sku\": \"TSHIRT123\",\n      \"origin\": \"US\"\n    },\n    {\n      \"quantity\": 2,\n      \"value\": 24.68,\n      \"weight\": 1,\n      \"description\": \"Black T-Shirt\",\n      \"hs_code\": \"9505900000\",\n      \"sku\": \"TSHIRT123\",\n      \"origin\": \"US\"\n    }\n  ],\n  \"reference\": \"ORDER12345\",\n  \"service_name\": \"<string>\",\n  \"contents_type\": \"merchandise\",\n  \"presentment_currency\": \"EUR\",\n  \"parcel\": {\n    \"length\": 10.5,\n    \"width\": 5.2,\n    \"height\": 1.1,\n    \"weight\": 10.15\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3d55c942-2961-4017-abfa-e23b450c8097",
+              "name": "Forbidden - Merchant is blocked",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cart"
+                  ],
+                  "host": [
+                    "{{cart-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"address_from\": {\n    \"street1\": \"123 Main St\",\n    \"city\": \"Los Angeles\",\n    \"state\": \"CA\",\n    \"zip\": \"90045\",\n    \"country\": \"US\",\n    \"company\": \"Sender Inc.\",\n    \"street2\": \"Apt 4B\",\n    \"name\": \"Alice Johnson\"\n  },\n  \"address_to\": {\n    \"street1\": \"81 Bay Street\",\n    \"city\": \"Toronto\",\n    \"state\": \"ON\",\n    \"zip\": \"M5J0E7\",\n    \"country\": \"Canada\",\n    \"street2\": \"\",\n    \"name\": \"Bob Smith\",\n    \"phone\": \"555-987-6543\",\n    \"email\": \"bob@example.com\"\n  },\n  \"items\": [\n    {\n      \"quantity\": 2,\n      \"value\": 24.68,\n      \"weight\": 1,\n      \"description\": \"Black T-Shirt\",\n      \"hs_code\": \"9505900000\",\n      \"sku\": \"TSHIRT123\",\n      \"origin\": \"US\"\n    },\n    {\n      \"quantity\": 2,\n      \"value\": 24.68,\n      \"weight\": 1,\n      \"description\": \"Black T-Shirt\",\n      \"hs_code\": \"9505900000\",\n      \"sku\": \"TSHIRT123\",\n      \"origin\": \"US\"\n    }\n  ],\n  \"reference\": \"ORDER12345\",\n  \"service_name\": \"<string>\",\n  \"contents_type\": \"merchandise\",\n  \"presentment_currency\": \"EUR\",\n  \"parcel\": {\n    \"length\": 10.5,\n    \"width\": 5.2,\n    \"height\": 1.1,\n    \"weight\": 10.15\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5c9b752c-1930-472b-be29-8111ffc0be48",
+              "name": "Sender's company not found in the list of authorized values, please, contact us if the company name is correct",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cart"
+                  ],
+                  "host": [
+                    "{{cart-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"address_from\": {\n    \"street1\": \"123 Main St\",\n    \"city\": \"Los Angeles\",\n    \"state\": \"CA\",\n    \"zip\": \"90045\",\n    \"country\": \"US\",\n    \"company\": \"Sender Inc.\",\n    \"street2\": \"Apt 4B\",\n    \"name\": \"Alice Johnson\"\n  },\n  \"address_to\": {\n    \"street1\": \"81 Bay Street\",\n    \"city\": \"Toronto\",\n    \"state\": \"ON\",\n    \"zip\": \"M5J0E7\",\n    \"country\": \"Canada\",\n    \"street2\": \"\",\n    \"name\": \"Bob Smith\",\n    \"phone\": \"555-987-6543\",\n    \"email\": \"bob@example.com\"\n  },\n  \"items\": [\n    {\n      \"quantity\": 2,\n      \"value\": 24.68,\n      \"weight\": 1,\n      \"description\": \"Black T-Shirt\",\n      \"hs_code\": \"9505900000\",\n      \"sku\": \"TSHIRT123\",\n      \"origin\": \"US\"\n    },\n    {\n      \"quantity\": 2,\n      \"value\": 24.68,\n      \"weight\": 1,\n      \"description\": \"Black T-Shirt\",\n      \"hs_code\": \"9505900000\",\n      \"sku\": \"TSHIRT123\",\n      \"origin\": \"US\"\n    }\n  ],\n  \"reference\": \"ORDER12345\",\n  \"service_name\": \"<string>\",\n  \"contents_type\": \"merchandise\",\n  \"presentment_currency\": \"EUR\",\n  \"parcel\": {\n    \"length\": 10.5,\n    \"width\": 5.2,\n    \"height\": 1.1,\n    \"weight\": 10.15\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "869599a2-c854-412b-b6be-5563101cfe32",
+              "name": "Request payload is missing mandatory data or contains invalid data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cart"
+                  ],
+                  "host": [
+                    "{{cart-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"address_from\": {\n    \"street1\": \"123 Main St\",\n    \"city\": \"Los Angeles\",\n    \"state\": \"CA\",\n    \"zip\": \"90045\",\n    \"country\": \"US\",\n    \"company\": \"Sender Inc.\",\n    \"street2\": \"Apt 4B\",\n    \"name\": \"Alice Johnson\"\n  },\n  \"address_to\": {\n    \"street1\": \"81 Bay Street\",\n    \"city\": \"Toronto\",\n    \"state\": \"ON\",\n    \"zip\": \"M5J0E7\",\n    \"country\": \"Canada\",\n    \"street2\": \"\",\n    \"name\": \"Bob Smith\",\n    \"phone\": \"555-987-6543\",\n    \"email\": \"bob@example.com\"\n  },\n  \"items\": [\n    {\n      \"quantity\": 2,\n      \"value\": 24.68,\n      \"weight\": 1,\n      \"description\": \"Black T-Shirt\",\n      \"hs_code\": \"9505900000\",\n      \"sku\": \"TSHIRT123\",\n      \"origin\": \"US\"\n    },\n    {\n      \"quantity\": 2,\n      \"value\": 24.68,\n      \"weight\": 1,\n      \"description\": \"Black T-Shirt\",\n      \"hs_code\": \"9505900000\",\n      \"sku\": \"TSHIRT123\",\n      \"origin\": \"US\"\n    }\n  ],\n  \"reference\": \"ORDER12345\",\n  \"service_name\": \"<string>\",\n  \"contents_type\": \"merchandise\",\n  \"presentment_currency\": \"EUR\",\n  \"parcel\": {\n    \"length\": 10.5,\n    \"width\": 5.2,\n    \"height\": 1.1,\n    \"weight\": 10.15\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7135e2d8-f37a-4866-bc7d-84e6e4956e11",
+              "name": "Internal Server Error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cart"
+                  ],
+                  "host": [
+                    "{{cart-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"address_from\": {\n    \"street1\": \"123 Main St\",\n    \"city\": \"Los Angeles\",\n    \"state\": \"CA\",\n    \"zip\": \"90045\",\n    \"country\": \"US\",\n    \"company\": \"Sender Inc.\",\n    \"street2\": \"Apt 4B\",\n    \"name\": \"Alice Johnson\"\n  },\n  \"address_to\": {\n    \"street1\": \"81 Bay Street\",\n    \"city\": \"Toronto\",\n    \"state\": \"ON\",\n    \"zip\": \"M5J0E7\",\n    \"country\": \"Canada\",\n    \"street2\": \"\",\n    \"name\": \"Bob Smith\",\n    \"phone\": \"555-987-6543\",\n    \"email\": \"bob@example.com\"\n  },\n  \"items\": [\n    {\n      \"quantity\": 2,\n      \"value\": 24.68,\n      \"weight\": 1,\n      \"description\": \"Black T-Shirt\",\n      \"hs_code\": \"9505900000\",\n      \"sku\": \"TSHIRT123\",\n      \"origin\": \"US\"\n    },\n    {\n      \"quantity\": 2,\n      \"value\": 24.68,\n      \"weight\": 1,\n      \"description\": \"Black T-Shirt\",\n      \"hs_code\": \"9505900000\",\n      \"sku\": \"TSHIRT123\",\n      \"origin\": \"US\"\n    }\n  ],\n  \"reference\": \"ORDER12345\",\n  \"service_name\": \"<string>\",\n  \"contents_type\": \"merchandise\",\n  \"presentment_currency\": \"EUR\",\n  \"parcel\": {\n    \"length\": 10.5,\n    \"width\": 5.2,\n    \"height\": 1.1,\n    \"weight\": 10.15\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api-stg.passportshipping.com/v3",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://api-stg.passportshipping.com/custom/v1",
+      "key": "cart-Url"
+    }
+  ],
+  "info": {
+    "_postman_id": "664c6708-4062-4081-a568-458ec4c1f475",
+    "name": "Getting Started with Passport Global Cart API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "<h2>Introduction</h2><p>Passport Global's API is designed to allow for quick integration to begin selling and shipping internationally. It offers endpoints for general shipping-related functions, including rate requests and shipping label generation.</p><h2>Prerequisites</h2><p><ul><li>Passport Global API is a REST-like API. All methods must be called using HTTPS.</li><li>Authentication and identification is done by providing an API key on every request as a custom HTTP header \"X-Access-Token\".</li><li>All requests are made using the POST method.</li><li>The API key is provided by our onboarding team. For more details see registration and authentication.</li><li>The API uses JSON formatting for requests and responses.</li><li>Environments<ul><li>Testing Environment:<a href=\"https://api-stg.passportshipping.com/v3\"> api-stg.passportshipping.com/v3</a></li><li>Production Environment:<a href=\"https://api.passportshipping.com/v3\"> api.passportshipping.com/v3</a></li></ul></li></ul></p><h2>Registration and Authentication</h2><p>During the onboarding or integration process, our Onboarding team will create an account for your organization and provide the API key to your designated point of contact, which is typically a member of the operations, development team, or one of the founders.</p><h2>Making Your First Request</h2><p>A typical first request is to obtain a shipping rate. Use the <code>/rate</code> endpoint, providing necessary details like the addresses (<code>address_to</code> and <code>address_from</code>), parcel dimensions, and item descriptions.<br/><br/>Use the documentation below to see an example request body for a rate request</p><h2>Response Handling</h2><p>Successful responses return a 200 status code<br/><br/>Handle error responses (for example 401 Unauthorized, 404 Not Found) according to the provided error messages for each endpoint provided below.</p>",
+      "type": "text/plain"
+    }
+  }
+}

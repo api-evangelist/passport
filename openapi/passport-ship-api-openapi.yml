@@ -1,0 +1,364 @@
+openapi: 3.2.0
+info:
+  title: Getting Started with Passport Global Ship API
+  description: <h2>Introduction</h2><p>Passport Global's API is designed to allow for quick integration to begin selling and shipping internationally. It offers endpoints for general shipping-related functions, including rate requests and shipping label generation.</p><h2>Prerequisites</h2><p><ul><li>Passport Global API is a REST-like API. All methods must be called using HTTPS.</li><li>Authentication and identification is done by providing an API key on every request as a custom HTTP header "X-Access-Token".</li><li>All requests are made using the POST method.</li><li>The API key is provided by our onboarding team. For more details see registration and authentication.</li><li>The API uses JSON formatting for requests and responses.</li><li>Environments<ul><li>Testing Environment:<a href="https://api-stg.passportshipping.com/v3"> api-stg.passportshipping.com/v3</a></li><li>Production Environment:<a href="https://api.passportshipping.com/v3"> api.passportshipping.com/v3</a></li></ul></li></ul></p><h2>Registration and Authentication</h2><p>During the onboarding or integration process, our Onboarding team will create an account for your organization and provide the API key to your designated point of contact, which is typically a member of the operations, development team, or one of the founders.</p><h2>Making Your First Request</h2><p>A typical first request is to obtain a shipping rate. Use the <code>/rate</code> endpoint, providing necessary details like the addresses (<code>address_to</code> and <code>address_from</code>), parcel dimensions, and item descriptions.<br/><br/>Use the documentation below to see an example request body for a rate request</p><h2>Response Handling</h2><p>Successful responses return a 200 status code<br/><br/>Handle error responses (for example 401 Unauthorized, 404 Not Found) according to the provided error messages for each endpoint provided below.</p>
+  version: '3.15'
+  x-logo:
+    url: PassportLogo.svg
+    background: '#FAFAFA'
+    altText: Logo Passport added via API Definition
+servers:
+- url: https://api-stg.passportshipping.com/v3
+tags:
+- name: Ship
+paths:
+  /ship:
+    post:
+      tags:
+      - Ship
+      summary: Request a shipping label
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Ship_Request'
+        required: true
+      responses:
+        200:
+          description: (OK) List of available rates for given shipment params
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ship_Response'
+        400:
+          description: Bad Request (See details in the examples)
+          content:
+            application/json:
+              examples:
+                BadRequest:
+                  value:
+                    message: Brand has not been onboarded within Passport’s system. Please reach out to Passport support.
+                MixedCurrency:
+                  value:
+                    message: 'Passport only accepts a single currency for items at a time. Currencies received: [''USD'', ''AED'', ''GBP'']'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        422:
+          $ref: '#/components/responses/InvalidData'
+        500:
+          $ref: '#/components/responses/ServerError'
+components:
+  schemas:
+    Ship_Response:
+      type: object
+      properties:
+        code:
+          type: number
+          example: PG3450126846CA
+        rate:
+          type: number
+          example: 18.62
+        duty:
+          type: number
+          example: 0
+        tax:
+          type: number
+          example: 2.47
+        insurance:
+          type: number
+          example: 1.3
+          description: 0 or NULL if no insurance
+        currency:
+          type: string
+          description: Accepted values are three-letter ISO 4217 codes
+          example: USD
+        label:
+          type: string
+          example: https://s3-us-west-2.amazonaws.com/stg-postage-label/20180731/b64515eaf3a7a7729dc40fc07d1e88dc1532985659248.png
+          description: Link to the amazon S3 bucket with the file
+        tracking_url:
+          type: string
+          example: https://track-stg.passportshipping.com/PG3450126846CA
+    Ship_Request:
+      type: object
+      required:
+      - address_to
+      - address_from
+      - parcel
+      - items
+      - service_name
+      properties:
+        reference:
+          type: string
+          description: The ID you are using for identifying the order for who you are requesting the rate, optional but strongly encouraged
+        address_to:
+          type: object
+          required:
+          - street1
+          - country
+          properties:
+            reference:
+              type: string
+              example: To address 1
+            street1:
+              type: string
+              maxLength: 40
+              description: Must contain a street number.
+              example: 111 Broadway Ave.
+            street2:
+              type: string
+              maxLength: 40
+              example: Floor 7
+            city:
+              type: string
+              maxLength: 32
+              example: London
+            state:
+              type: string
+              maxLength: 100
+              example: ''
+              description: Required for most destination countries. Optional but strongly encouraged to ensure smooth delivery.
+            zip:
+              type: string
+              example: B33 8TH
+            country:
+              type: string
+              example: GB
+              description: Use 2-letter ISO country code
+              externalDocs:
+                url: http://www.worlddata.info/countrycodes.php
+            name:
+              type: string
+              maxLength: 100
+              example: John Smith
+            company:
+              type: string
+              maxLength: 100
+              example: Company Inc
+            phone:
+              type: string
+              maxLength: 100
+              example: 518-111-1111
+              description: Optional but strongly encouraged to ensure smooth delivery.
+            email:
+              type: string
+              maxLength: 100
+              example: js-myth@example.com
+              description: Optional but strongly encouraged to ensure smooth delivery.
+            customer_tax_id:
+              type: string
+              maxLength: 20
+              example: CHE-123.456.789 HR
+              description: Optional field to include the customer's tax ID if available. Used for customs clearance in certain countries where a local identification number is required (e.g., Brazil CPF/CNPJ, South Korea PCC, Chile RUT, etc.).
+        address_from:
+          type: object
+          required:
+          - street1
+          - country
+          - company
+          properties:
+            reference:
+              type: string
+              maxLength: 100
+              example: From address 1
+            street1:
+              type: string
+              maxLength: 40
+              example: 111 sunset blvd.
+            street2:
+              type: string
+              maxLength: 40
+              example: null
+            city:
+              type: string
+              maxLength: 32
+              example: Los angeles
+            state:
+              type: string
+              maxLength: 100
+              example: CA
+              description: Required for most destination countries. Optional but strongly encouraged to ensure smooth delivery.
+            zip:
+              type: string
+              example: '90111'
+            country:
+              type: string
+              example: US
+              description: Use 2-letter ISO country code
+              externalDocs:
+                url: http://www.worlddata.info/countrycodes.php
+            name:
+              type: string
+              maxLength: 100
+              example: Allison Fox
+            company:
+              type: string
+              maxLength: 100
+              example: ProShip
+            phone:
+              type: string
+              maxLength: 100
+              example: 518-111-1111
+              description: Optional but strongly encouraged to ensure smooth delivery.
+            email:
+              type: string
+              maxLength: 100
+              example: js-myth@example.com
+              description: Optional but strongly encouraged to ensure smooth delivery.
+        parcel:
+          type: object
+          required:
+          - length
+          - width
+          - height
+          properties:
+            reference:
+              type: string
+              example: Parcel ID
+            length:
+              type: number
+              example: 10.5
+            units_length:
+              type: string
+              enum:
+              - in
+              - ft
+              - mm
+              - cm
+              - m
+              default: in
+              example: in
+            width:
+              type: number
+              description: 'Units: “in”.'
+              example: 5.2
+            height:
+              type: number
+              description: 'Units: “in”.'
+              example: 1.1
+            weight:
+              type: number
+              example: 100.15
+              exclusiveMinimum: 0
+            units_weight:
+              type: string
+              enum:
+              - oz
+              - lb
+              - mcg
+              - mg
+              - g
+              - kg
+              default: oz
+              example: oz
+        items:
+          type: array
+          items:
+            type: object
+            required:
+            - description
+            - quantity
+            - value
+            - weight
+            - service_name
+            properties:
+              description:
+                type: string
+                maxLength: 255
+                example: Blackt T-shirt
+              hs_code:
+                type: string
+                example: '3304300000'
+                minLength: 6
+                maxLength: 12
+                description: Required for most destination countries. Optional but strongly encouraged to ensure smooth delivery.
+              sku:
+                type: string
+                maxLength: 100
+                example: GEN12345
+                description: Required for some destination countries
+              quantity:
+                type: number
+                example: 2
+              value:
+                type: number
+                example: 12.34
+                description: Value is equivalent to total value of the items = (single item value) x quantity. In this example unit price is $6.17, $6.17 x 2 = $12.34. In other words, if you ship three T-shirts worth $10 each, quantity = 3, value = 30.
+                exclusiveMinimum: 0
+              weight:
+                type: number
+                example: 0.5
+                description: 'Units: “oz”. <br> Weight is equivalent to total weight of the items = (single item weight) x quantity. In this example unit weight is 0.25 oz, 0.25 x 2 = 0.5. In other words, if you ship three T-shirts 3 oz each, you should put quantity = 3 and weight = 9.'
+                exclusiveMinimum: 0
+              units_weight:
+                type: string
+                enum:
+                - oz
+                - lb
+                - mcg
+                - mg
+                - g
+                - kg
+                default: oz
+                example: oz
+              origin:
+                type: string
+                example: US
+                description: Country of item origin. Use 2-letter ISO country code
+                externalDocs:
+                  url: http://www.worlddata.info/countrycodes.php
+              currency:
+                type: string
+                default: USD
+                example: USD
+                description: Currency of item. Use 3-letter ISO currency code
+                externalDocs:
+                  url: https://www.worlddata.info/currencies/
+        contents_type:
+          type: string
+          enum:
+          - merchandise
+          - documents
+          - gift
+          - goods
+          - other
+          - returned_goods
+          - returnedgoods
+          - sample
+          default: merchandise
+          description: Indication of the goods classification for customs
+        label_image_format:
+          type: string
+          enum:
+          - png
+          - zpl
+          - pdf
+          default: png
+        service_name:
+          type: string
+          example: PriorityDdpDelcon
+          enum:
+          - StandardDdu
+          - StandardDduDelcon
+          - PriorityDdu
+          - PriorityDduDelcon
+          - PriorityDdp
+          - PriorityDdpDelcon
+          - epacketDdp
+          - ExpressDdp
+          - GlobalPlus
+          - ExpeditedDdpDelcon
+          - ExpressDdpDelcon
+          - ExpeditedDduDelcon
+          - ExpressDduDelcon
+  responses:
+    NotFound:
+      description: Sender's company not found in the list of authorized values, please, contact us if the company name is correct
+    InvalidData:
+      description: If data validation fails, an error description with HTTP status = 422 is returned.
+    Unauthorized:
+      description: (Unauthorized) Unable to access the requested resource, you don't have authorization, please check your API Key
+    ServerError:
+      description: Internal Server Error.

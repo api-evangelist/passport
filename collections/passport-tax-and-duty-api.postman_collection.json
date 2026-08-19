@@ -1,0 +1,386 @@
+{
+  "item": [
+    {
+      "id": "42bd33ad-ee70-4aad-a857-a0b6cef0644e",
+      "name": "Tax And Duty",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "10cfe16f-af51-4fb2-ab88-997fb8bbb283",
+          "name": "Calculate tax and duty for an order",
+          "request": {
+            "name": "Calculate tax and duty for an order",
+            "description": {
+              "content": "Brands can send information to this endpoint to receive landed costs (duties & taxes), in their desired currency for an order.\n\nThis API supports all landed cost calculations for any physical products from any country to any country, with a few exceptions:\n- Domestic tax calculations (except for Canada, Australia)\n- US inbound taxes\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "tax-and-duty"
+              ],
+              "host": [
+                "{{tax-and-duty-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"shipping_rate\": \"<number>\",\n  \"address_from\": {\n    \"country\": \"<string>\",\n    \"street1\": \"<string>\",\n    \"street2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zip\": \"<string>\"\n  },\n  \"address_to\": {\n    \"country\": \"<string>\",\n    \"street1\": \"<string>\",\n    \"street2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zip\": \"<string>\"\n  },\n  \"items\": [\n    {\n      \"quantity\": \"<number>\",\n      \"value\": \"<number>\",\n      \"description\": \"<string>\",\n      \"hs_code\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"weight\": \"<number>\",\n      \"origin\": \"<string>\"\n    },\n    {\n      \"quantity\": \"<number>\",\n      \"value\": \"<number>\",\n      \"description\": \"<string>\",\n      \"hs_code\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"weight\": \"<number>\",\n      \"origin\": \"<string>\"\n    }\n  ],\n  \"reference\": \"<string>\",\n  \"presentment_currency\": \"<string>\",\n  \"insurance\": \"<number>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9a5cead1-994f-4b9a-97b0-716b8d00655d",
+              "name": "(OK) Tax and duty calculated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tax-and-duty"
+                  ],
+                  "host": [
+                    "{{tax-and-duty-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"shipping_rate\": 0,\n  \"address_from\": {\n    \"country\": \"US\",\n    \"street1\": \"123 Main St\",\n    \"street2\": \"Apt 4B\",\n    \"city\": \"Los Angeles\",\n    \"state\": \"CA\",\n    \"zip\": \"90045\"\n  },\n  \"address_to\": {\n    \"country\": \"CA\",\n    \"street1\": \"81 Bay Street\",\n    \"street2\": \"\",\n    \"city\": \"Toronto\",\n    \"state\": \"ON\",\n    \"zip\": \"M5J0E7\"\n  },\n  \"items\": [\n    {\n      \"quantity\": 2,\n      \"value\": 24.68,\n      \"description\": \"Black T-Shirt\",\n      \"hs_code\": \"9505900000\",\n      \"sku\": \"TSHIRT123\",\n      \"weight\": 1,\n      \"origin\": \"US\"\n    },\n    {\n      \"quantity\": 2,\n      \"value\": 24.68,\n      \"description\": \"Black T-Shirt\",\n      \"hs_code\": \"9505900000\",\n      \"sku\": \"TSHIRT123\",\n      \"weight\": 1,\n      \"origin\": \"US\"\n    }\n  ],\n  \"reference\": \"ORDER12345\",\n  \"presentment_currency\": \"EUR\",\n  \"insurance\": 0\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"request_id\": \"682302a7-6c05-438f-ae8e-9b8cffc054b2\",\n  \"currency\": \"EUR\",\n  \"rates\": [\n    {\n      \"tax\": 0,\n      \"duty\": 6,\n      \"total\": 16,\n      \"formatted\": {\n        \"tax\": \"€0\",\n        \"duty\": \"€6\"\n      },\n      \"duty_tax_breakdown\": [\n        {\n          \"sku\": \"TSHIRT123\",\n          \"description\": \"Black T-Shirt\",\n          \"tax\": 0,\n          \"duty\": 6\n        },\n        {\n          \"sku\": \"TSHIRT123\",\n          \"description\": \"Black T-Shirt\",\n          \"tax\": 0,\n          \"duty\": 6\n        }\n      ]\n    },\n    {\n      \"tax\": 0,\n      \"duty\": 6,\n      \"total\": 16,\n      \"formatted\": {\n        \"tax\": \"€0\",\n        \"duty\": \"€6\"\n      },\n      \"duty_tax_breakdown\": [\n        {\n          \"sku\": \"TSHIRT123\",\n          \"description\": \"Black T-Shirt\",\n          \"tax\": 0,\n          \"duty\": 6\n        },\n        {\n          \"sku\": \"TSHIRT123\",\n          \"description\": \"Black T-Shirt\",\n          \"tax\": 0,\n          \"duty\": 6\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d38e8bd4-f5f4-46ee-b785-04c897db5c66",
+              "name": "Bad Request - Brand has not been onboarded within Passport's system. Please reach out to Passport support.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tax-and-duty"
+                  ],
+                  "host": [
+                    "{{tax-and-duty-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"shipping_rate\": 0,\n  \"address_from\": {\n    \"country\": \"US\",\n    \"street1\": \"123 Main St\",\n    \"street2\": \"Apt 4B\",\n    \"city\": \"Los Angeles\",\n    \"state\": \"CA\",\n    \"zip\": \"90045\"\n  },\n  \"address_to\": {\n    \"country\": \"CA\",\n    \"street1\": \"81 Bay Street\",\n    \"street2\": \"\",\n    \"city\": \"Toronto\",\n    \"state\": \"ON\",\n    \"zip\": \"M5J0E7\"\n  },\n  \"items\": [\n    {\n      \"quantity\": 2,\n      \"value\": 24.68,\n      \"description\": \"Black T-Shirt\",\n      \"hs_code\": \"9505900000\",\n      \"sku\": \"TSHIRT123\",\n      \"weight\": 1,\n      \"origin\": \"US\"\n    },\n    {\n      \"quantity\": 2,\n      \"value\": 24.68,\n      \"description\": \"Black T-Shirt\",\n      \"hs_code\": \"9505900000\",\n      \"sku\": \"TSHIRT123\",\n      \"weight\": 1,\n      \"origin\": \"US\"\n    }\n  ],\n  \"reference\": \"ORDER12345\",\n  \"presentment_currency\": \"EUR\",\n  \"insurance\": 0\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Brand has not been onboarded within Passport's system. Please reach out to Passport support.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d7a46d91-f7e5-4469-9066-9f543df7a559",
+              "name": "Unauthorized - Unable to access the requested resource, authorization failed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tax-and-duty"
+                  ],
+                  "host": [
+                    "{{tax-and-duty-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"shipping_rate\": 0,\n  \"address_from\": {\n    \"country\": \"US\",\n    \"street1\": \"123 Main St\",\n    \"street2\": \"Apt 4B\",\n    \"city\": \"Los Angeles\",\n    \"state\": \"CA\",\n    \"zip\": \"90045\"\n  },\n  \"address_to\": {\n    \"country\": \"CA\",\n    \"street1\": \"81 Bay Street\",\n    \"street2\": \"\",\n    \"city\": \"Toronto\",\n    \"state\": \"ON\",\n    \"zip\": \"M5J0E7\"\n  },\n  \"items\": [\n    {\n      \"quantity\": 2,\n      \"value\": 24.68,\n      \"description\": \"Black T-Shirt\",\n      \"hs_code\": \"9505900000\",\n      \"sku\": \"TSHIRT123\",\n      \"weight\": 1,\n      \"origin\": \"US\"\n    },\n    {\n      \"quantity\": 2,\n      \"value\": 24.68,\n      \"description\": \"Black T-Shirt\",\n      \"hs_code\": \"9505900000\",\n      \"sku\": \"TSHIRT123\",\n      \"weight\": 1,\n      \"origin\": \"US\"\n    }\n  ],\n  \"reference\": \"ORDER12345\",\n  \"presentment_currency\": \"EUR\",\n  \"insurance\": 0\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Unable to access the requested resource, authorization failed.\",\n  \"details\": \"missing/incorrect authorization data\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4ddcac7c-0fc7-49d4-8a13-e936d22f8271",
+              "name": "Forbidden - Brand is blocked.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tax-and-duty"
+                  ],
+                  "host": [
+                    "{{tax-and-duty-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"shipping_rate\": 0,\n  \"address_from\": {\n    \"country\": \"US\",\n    \"street1\": \"123 Main St\",\n    \"street2\": \"Apt 4B\",\n    \"city\": \"Los Angeles\",\n    \"state\": \"CA\",\n    \"zip\": \"90045\"\n  },\n  \"address_to\": {\n    \"country\": \"CA\",\n    \"street1\": \"81 Bay Street\",\n    \"street2\": \"\",\n    \"city\": \"Toronto\",\n    \"state\": \"ON\",\n    \"zip\": \"M5J0E7\"\n  },\n  \"items\": [\n    {\n      \"quantity\": 2,\n      \"value\": 24.68,\n      \"description\": \"Black T-Shirt\",\n      \"hs_code\": \"9505900000\",\n      \"sku\": \"TSHIRT123\",\n      \"weight\": 1,\n      \"origin\": \"US\"\n    },\n    {\n      \"quantity\": 2,\n      \"value\": 24.68,\n      \"description\": \"Black T-Shirt\",\n      \"hs_code\": \"9505900000\",\n      \"sku\": \"TSHIRT123\",\n      \"weight\": 1,\n      \"origin\": \"US\"\n    }\n  ],\n  \"reference\": \"ORDER12345\",\n  \"presentment_currency\": \"EUR\",\n  \"insurance\": 0\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Brand is blocked\",\n  \"details\": \"Brand is blocked\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e778d830-aa9d-4744-984a-2c8af2dc6b0b",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tax-and-duty"
+                  ],
+                  "host": [
+                    "{{tax-and-duty-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"shipping_rate\": 0,\n  \"address_from\": {\n    \"country\": \"US\",\n    \"street1\": \"123 Main St\",\n    \"street2\": \"Apt 4B\",\n    \"city\": \"Los Angeles\",\n    \"state\": \"CA\",\n    \"zip\": \"90045\"\n  },\n  \"address_to\": {\n    \"country\": \"CA\",\n    \"street1\": \"81 Bay Street\",\n    \"street2\": \"\",\n    \"city\": \"Toronto\",\n    \"state\": \"ON\",\n    \"zip\": \"M5J0E7\"\n  },\n  \"items\": [\n    {\n      \"quantity\": 2,\n      \"value\": 24.68,\n      \"description\": \"Black T-Shirt\",\n      \"hs_code\": \"9505900000\",\n      \"sku\": \"TSHIRT123\",\n      \"weight\": 1,\n      \"origin\": \"US\"\n    },\n    {\n      \"quantity\": 2,\n      \"value\": 24.68,\n      \"description\": \"Black T-Shirt\",\n      \"hs_code\": \"9505900000\",\n      \"sku\": \"TSHIRT123\",\n      \"weight\": 1,\n      \"origin\": \"US\"\n    }\n  ],\n  \"reference\": \"ORDER12345\",\n  \"presentment_currency\": \"EUR\",\n  \"insurance\": 0\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Not Found\",\n  \"code\": 0,\n  \"details\": \"Bad URL\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6c89d689-0d91-49e2-9d94-61a290d3edaf",
+              "name": "Unprocessable Entity - Returned when the request payload is missing mandatory data or contains invalid data.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tax-and-duty"
+                  ],
+                  "host": [
+                    "{{tax-and-duty-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"shipping_rate\": 0,\n  \"address_from\": {\n    \"country\": \"US\",\n    \"street1\": \"123 Main St\",\n    \"street2\": \"Apt 4B\",\n    \"city\": \"Los Angeles\",\n    \"state\": \"CA\",\n    \"zip\": \"90045\"\n  },\n  \"address_to\": {\n    \"country\": \"CA\",\n    \"street1\": \"81 Bay Street\",\n    \"street2\": \"\",\n    \"city\": \"Toronto\",\n    \"state\": \"ON\",\n    \"zip\": \"M5J0E7\"\n  },\n  \"items\": [\n    {\n      \"quantity\": 2,\n      \"value\": 24.68,\n      \"description\": \"Black T-Shirt\",\n      \"hs_code\": \"9505900000\",\n      \"sku\": \"TSHIRT123\",\n      \"weight\": 1,\n      \"origin\": \"US\"\n    },\n    {\n      \"quantity\": 2,\n      \"value\": 24.68,\n      \"description\": \"Black T-Shirt\",\n      \"hs_code\": \"9505900000\",\n      \"sku\": \"TSHIRT123\",\n      \"weight\": 1,\n      \"origin\": \"US\"\n    }\n  ],\n  \"reference\": \"ORDER12345\",\n  \"presentment_currency\": \"EUR\",\n  \"insurance\": 0\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Request payload is missing mandatory data or contains invalid data\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "64341ebf-babd-4b7a-b166-fe3b21bb660d",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tax-and-duty"
+                  ],
+                  "host": [
+                    "{{tax-and-duty-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"shipping_rate\": 0,\n  \"address_from\": {\n    \"country\": \"US\",\n    \"street1\": \"123 Main St\",\n    \"street2\": \"Apt 4B\",\n    \"city\": \"Los Angeles\",\n    \"state\": \"CA\",\n    \"zip\": \"90045\"\n  },\n  \"address_to\": {\n    \"country\": \"CA\",\n    \"street1\": \"81 Bay Street\",\n    \"street2\": \"\",\n    \"city\": \"Toronto\",\n    \"state\": \"ON\",\n    \"zip\": \"M5J0E7\"\n  },\n  \"items\": [\n    {\n      \"quantity\": 2,\n      \"value\": 24.68,\n      \"description\": \"Black T-Shirt\",\n      \"hs_code\": \"9505900000\",\n      \"sku\": \"TSHIRT123\",\n      \"weight\": 1,\n      \"origin\": \"US\"\n    },\n    {\n      \"quantity\": 2,\n      \"value\": 24.68,\n      \"description\": \"Black T-Shirt\",\n      \"hs_code\": \"9505900000\",\n      \"sku\": \"TSHIRT123\",\n      \"weight\": 1,\n      \"origin\": \"US\"\n    }\n  ],\n  \"reference\": \"ORDER12345\",\n  \"presentment_currency\": \"EUR\",\n  \"insurance\": 0\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Sorry, something went wrong while processing your request. We are already working on a solution. RequestId: $RequestId\",\n  \"details\": \"Internal Server Error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api-stg.passportshipping.com/v3",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://api-stg.passportshipping.com/custom/v1",
+      "key": "tax-and-duty-Url"
+    }
+  ],
+  "info": {
+    "_postman_id": "b661c897-ec32-4668-a091-0086725fab5c",
+    "name": "Getting Started with Passport Global Tax And Duty API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "<h2>Introduction</h2><p>Passport Global's API is designed to allow for quick integration to begin selling and shipping internationally. It offers endpoints for general shipping-related functions, including rate requests and shipping label generation.</p><h2>Prerequisites</h2><p><ul><li>Passport Global API is a REST-like API. All methods must be called using HTTPS.</li><li>Authentication and identification is done by providing an API key on every request as a custom HTTP header \"X-Access-Token\".</li><li>All requests are made using the POST method.</li><li>The API key is provided by our onboarding team. For more details see registration and authentication.</li><li>The API uses JSON formatting for requests and responses.</li><li>Environments<ul><li>Testing Environment:<a href=\"https://api-stg.passportshipping.com/v3\"> api-stg.passportshipping.com/v3</a></li><li>Production Environment:<a href=\"https://api.passportshipping.com/v3\"> api.passportshipping.com/v3</a></li></ul></li></ul></p><h2>Registration and Authentication</h2><p>During the onboarding or integration process, our Onboarding team will create an account for your organization and provide the API key to your designated point of contact, which is typically a member of the operations, development team, or one of the founders.</p><h2>Making Your First Request</h2><p>A typical first request is to obtain a shipping rate. Use the <code>/rate</code> endpoint, providing necessary details like the addresses (<code>address_to</code> and <code>address_from</code>), parcel dimensions, and item descriptions.<br/><br/>Use the documentation below to see an example request body for a rate request</p><h2>Response Handling</h2><p>Successful responses return a 200 status code<br/><br/>Handle error responses (for example 401 Unauthorized, 404 Not Found) according to the provided error messages for each endpoint provided below.</p>",
+      "type": "text/plain"
+    }
+  }
+}

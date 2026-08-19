@@ -1,0 +1,320 @@
+openapi: 3.2.0
+info:
+  title: Getting Started with Passport Global Tax And Duty API
+  description: <h2>Introduction</h2><p>Passport Global's API is designed to allow for quick integration to begin selling and shipping internationally. It offers endpoints for general shipping-related functions, including rate requests and shipping label generation.</p><h2>Prerequisites</h2><p><ul><li>Passport Global API is a REST-like API. All methods must be called using HTTPS.</li><li>Authentication and identification is done by providing an API key on every request as a custom HTTP header "X-Access-Token".</li><li>All requests are made using the POST method.</li><li>The API key is provided by our onboarding team. For more details see registration and authentication.</li><li>The API uses JSON formatting for requests and responses.</li><li>Environments<ul><li>Testing Environment:<a href="https://api-stg.passportshipping.com/v3"> api-stg.passportshipping.com/v3</a></li><li>Production Environment:<a href="https://api.passportshipping.com/v3"> api.passportshipping.com/v3</a></li></ul></li></ul></p><h2>Registration and Authentication</h2><p>During the onboarding or integration process, our Onboarding team will create an account for your organization and provide the API key to your designated point of contact, which is typically a member of the operations, development team, or one of the founders.</p><h2>Making Your First Request</h2><p>A typical first request is to obtain a shipping rate. Use the <code>/rate</code> endpoint, providing necessary details like the addresses (<code>address_to</code> and <code>address_from</code>), parcel dimensions, and item descriptions.<br/><br/>Use the documentation below to see an example request body for a rate request</p><h2>Response Handling</h2><p>Successful responses return a 200 status code<br/><br/>Handle error responses (for example 401 Unauthorized, 404 Not Found) according to the provided error messages for each endpoint provided below.</p>
+  version: '3.15'
+  x-logo:
+    url: PassportLogo.svg
+    background: '#FAFAFA'
+    altText: Logo Passport added via API Definition
+servers:
+- url: https://api-stg.passportshipping.com/v3
+tags:
+- name: Tax And Duty
+paths:
+  /tax-and-duty:
+    servers:
+    - url: https://api-stg.passportshipping.com/custom/v1
+    post:
+      tags:
+      - Tax And Duty
+      summary: Calculate tax and duty for an order
+      description: 'Brands can send information to this endpoint to receive landed costs (duties & taxes), in their desired currency for an order.
+
+
+        This API supports all landed cost calculations for any physical products from any country to any country, with a few exceptions:
+
+        - Domestic tax calculations (except for Canada, Australia)
+
+        - US inbound taxes
+
+        '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaxAndDuty_Request'
+        required: true
+      responses:
+        200:
+          description: (OK) Tax and duty calculated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaxAndDuty_Response'
+        400:
+          description: Bad Request - Brand has not been onboarded within Passport's system. Please reach out to Passport support.
+          content:
+            application/json:
+              examples:
+                BrandNotOnboarded:
+                  value:
+                    message: Brand has not been onboarded within Passport's system. Please reach out to Passport support.
+        401:
+          description: Unauthorized - Unable to access the requested resource, authorization failed.
+          content:
+            application/json:
+              examples:
+                UnauthorizedAccess:
+                  value:
+                    message: Unable to access the requested resource, authorization failed.
+                    details: missing/incorrect authorization data
+        403:
+          description: Forbidden - Brand is blocked.
+          content:
+            application/json:
+              examples:
+                MerchantBlocked:
+                  value:
+                    message: Brand is blocked
+                    details: Brand is blocked
+        404:
+          description: Not Found
+          content:
+            application/json:
+              examples:
+                NotFound:
+                  value:
+                    message: Not Found
+                    code: 0
+                    details: Bad URL
+        422:
+          description: Unprocessable Entity - Returned when the request payload is missing mandatory data or contains invalid data.
+          content:
+            application/json:
+              examples:
+                ValidationErrors:
+                  value:
+                    message: Request payload is missing mandatory data or contains invalid data
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              examples:
+                InternalError:
+                  value:
+                    message: 'Sorry, something went wrong while processing your request. We are already working on a solution. RequestId: $RequestId'
+                    details: Internal Server Error
+components:
+  schemas:
+    TaxAndDuty_Response:
+      type: object
+      required:
+      - request_id
+      - currency
+      - rates
+      properties:
+        request_id:
+          type: string
+          description: Unique identifier for tracking the API request.
+          example: 682302a7-6c05-438f-ae8e-9b8cffc054b2
+        currency:
+          type: string
+          description: The currency in which all returned prices are converted.
+          example: EUR
+        rates:
+          type: array
+          description: List of tax and duty rates.
+          items:
+            type: object
+            required:
+            - tax
+            - duty
+            - total
+            - formatted
+            - duty_tax_breakdown
+            properties:
+              tax:
+                type: number
+                description: Tax amount applied to the shipping cost.
+                example: 0
+              duty:
+                type: number
+                description: Customs duty applied to the shipping cost.
+                example: 6
+              total:
+                type: number
+                description: Total shipping, tax, duty, & insurance amounts.
+                example: 16
+              formatted:
+                type: object
+                required:
+                - tax
+                - duty
+                description: Default formatted (e.g. currency symbol, placement etc) string values for amounts. Format can be customized by contacting Passport.
+                properties:
+                  tax:
+                    type: string
+                    description: Formatted tax value.
+                    example: €0
+                  duty:
+                    type: string
+                    description: Formatted duty value.
+                    example: €6
+              duty_tax_breakdown:
+                type: array
+                description: Item level breakdown of duties & taxes calculated for each item.
+                items:
+                  type: object
+                  properties:
+                    sku:
+                      type: string
+                      description: Item identifier.
+                      example: TSHIRT123
+                    description:
+                      type: string
+                      description: Item description.
+                      example: Black T-Shirt
+                    tax:
+                      type: number
+                      description: Tax for a particular item.
+                      example: 0
+                    duty:
+                      type: number
+                      description: Duty for a particular item.
+                      example: 6
+    TaxAndDuty_Request:
+      type: object
+      required:
+      - shipping_rate
+      - address_from
+      - address_to
+      - items
+      properties:
+        reference:
+          type: string
+          description: Unique identifier for the request.
+          example: ORDER12345
+        presentment_currency:
+          type: string
+          description: The currency to which all amounts should be converted to. If not provided, will default to the store currency configured during onboarding.
+          example: EUR
+        shipping_rate:
+          type: number
+          description: Cost of shipping in store currency. If Free Shipping, can pass 0.
+          minimum: 0
+          example: 0
+        insurance:
+          type: number
+          description: Insurance amount applicable in store currency.
+          minimum: 0
+          example: 0
+        address_from:
+          type: object
+          required:
+          - country
+          properties:
+            street1:
+              type: string
+              description: The primary address line of the sender.
+              example: 123 Main St
+            street2:
+              type: string
+              description: Additional address details such as floor or apartment.
+              example: Apt 4B
+            city:
+              type: string
+              description: City of the sender's address.
+              example: Los Angeles
+            state:
+              type: string
+              description: State or region of the sender's address.
+              example: CA
+            zip:
+              type: string
+              description: ZIP or postal code of the sender's address.
+              example: '90045'
+            country:
+              type: string
+              description: Country name of the sender's address. Use 2-letter ISO country code.
+              example: US
+              externalDocs:
+                url: http://www.worlddata.info/countrycodes.php
+        address_to:
+          type: object
+          required:
+          - country
+          properties:
+            street1:
+              type: string
+              description: The primary address line of the recipient.
+              example: 81 Bay Street
+            street2:
+              type: string
+              description: Additional address details such as floor or apartment.
+              example: ''
+            city:
+              type: string
+              description: City of the recipient's address.
+              example: Toronto
+            state:
+              type: string
+              description: 'State or region of the recipient''s address.
+
+                Mandatory for CA, US, Spain. Optional for ROW.
+
+                '
+              example: 'ON'
+            zip:
+              type: string
+              description: 'ZIP or postal code of the recipient''s address.
+
+                Mandatory for CA, US, Spain. Optional for ROW.
+
+                '
+              example: M5J0E7
+            country:
+              type: string
+              description: Country name of the recipient's address. Use 2-letter ISO country code.
+              example: CA
+              externalDocs:
+                url: http://www.worlddata.info/countrycodes.php
+        items:
+          type: array
+          description: Array of items to calculate tax and duty for.
+          items:
+            type: object
+            required:
+            - quantity
+            - value
+            properties:
+              description:
+                type: string
+                description: Description of the item in the package. Recommended for accurate D&T Calculations.
+                example: Black T-Shirt
+              hs_code:
+                type: string
+                description: 'Harmonized System (HS) code for customs declaration. Recommended for accurate D&T Calculations.
+
+                  If not provided, will use the HS Code configured during onboarding.
+
+                  '
+                example: '9505900000'
+              sku:
+                type: string
+                description: Stock Keeping Unit (SKU) identifier for the item. Recommended for accurate D&T Calculations.
+                example: TSHIRT123
+              quantity:
+                type: number
+                description: Number of units of the item.
+                example: 2
+              value:
+                type: number
+                description: Total value of the item (price per unit * quantity - discounts) in the store currency.
+                example: 24.68
+                exclusiveMinimum: 0
+              weight:
+                type: number
+                description: Total weight of the item (weight per unit * quantity). Will use the weight metric configured during onboarding.
+                minimum: 0
+                example: 1.0
+              origin:
+                type: string
+                description: 'Origin country of item. If not provided, will use the origin configured during onboarding.
+
+                  Use 2-letter ISO country code.
+
+                  '
+                example: US
+                externalDocs:
+                  url: http://www.worlddata.info/countrycodes.php

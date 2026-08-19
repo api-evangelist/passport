@@ -1,0 +1,268 @@
+openapi: 3.2.0
+info:
+  title: Getting Started with Passport Global Product Price API
+  description: <h2>Introduction</h2><p>Passport Global's API is designed to allow for quick integration to begin selling and shipping internationally. It offers endpoints for general shipping-related functions, including rate requests and shipping label generation.</p><h2>Prerequisites</h2><p><ul><li>Passport Global API is a REST-like API. All methods must be called using HTTPS.</li><li>Authentication and identification is done by providing an API key on every request as a custom HTTP header "X-Access-Token".</li><li>All requests are made using the POST method.</li><li>The API key is provided by our onboarding team. For more details see registration and authentication.</li><li>The API uses JSON formatting for requests and responses.</li><li>Environments<ul><li>Testing Environment:<a href="https://api-stg.passportshipping.com/v3"> api-stg.passportshipping.com/v3</a></li><li>Production Environment:<a href="https://api.passportshipping.com/v3"> api.passportshipping.com/v3</a></li></ul></li></ul></p><h2>Registration and Authentication</h2><p>During the onboarding or integration process, our Onboarding team will create an account for your organization and provide the API key to your designated point of contact, which is typically a member of the operations, development team, or one of the founders.</p><h2>Making Your First Request</h2><p>A typical first request is to obtain a shipping rate. Use the <code>/rate</code> endpoint, providing necessary details like the addresses (<code>address_to</code> and <code>address_from</code>), parcel dimensions, and item descriptions.<br/><br/>Use the documentation below to see an example request body for a rate request</p><h2>Response Handling</h2><p>Successful responses return a 200 status code<br/><br/>Handle error responses (for example 401 Unauthorized, 404 Not Found) according to the provided error messages for each endpoint provided below.</p>
+  version: '3.15'
+  x-logo:
+    url: PassportLogo.svg
+    background: '#FAFAFA'
+    altText: Logo Passport added via API Definition
+servers:
+- url: https://api-stg.passportshipping.com/v3
+tags:
+- name: Product Price
+paths:
+  /product-price:
+    servers:
+    - url: https://api-stg.passportshipping.com/custom/v1
+    post:
+      tags:
+      - Product Price
+      summary: Get converted product prices in selected currency
+      description: 'E-commerce brands can use the product price endpoint to request product prices in the currency of their choosing. API details:
+
+        - Exchange rates are updated 1/day to ensure product price stability through the day. Brands can also choose to configure static exchange rates of their choosing.
+
+        - Product prices are rounded to 0 decimal places by default, but can be customized on a per currency basis.
+
+        - Product prices use a default display format, but can be customized on a per currency basis.
+
+        '
+      operationId: getProductPrice
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductPrice_Request'
+      responses:
+        '200':
+          description: Successful response with converted product prices
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductPrice_Response'
+        '400':
+          description: Bad Request - Currency not supported or other validation errors
+          content:
+            application/json:
+              examples:
+                PresentmentCurrencyNotSupported:
+                  value:
+                    message: presentment_currency EUR is not supported.
+                    details: Currency is not supported
+                BaseCurrencyNotSupported:
+                  value:
+                    message: base_currency XYZ is not supported.
+                    details: Currency is not supported
+        '401':
+          description: Unauthorized - Unable to access the requested resource, authorization failed
+          content:
+            application/json:
+              examples:
+                UnauthorizedAccess:
+                  value:
+                    message: Unable to access the requested resource, authorization failed.
+                    details: missing/incorrect authorization data
+        '403':
+          description: Forbidden - Merchant is blocked
+          content:
+            application/json:
+              examples:
+                MerchantBlocked:
+                  value:
+                    message: Merchant is blocked
+                    details: Merchant is blocked
+        '404':
+          description: Not Found - Bad URL
+          content:
+            application/json:
+              examples:
+                NotFound:
+                  value:
+                    message: Not Found
+                    code: 0
+                    details: Bad URL
+        '422':
+          description: Unprocessable Entity - Body validation errors
+          content:
+            application/json:
+              examples:
+                ValidationErrors:
+                  value:
+                    message: Body validation errors
+                    details:
+                      body:
+                        base_currency:
+                        - Base currency cannot be blank.
+                        presentment_currency:
+                        - Presentment currency cannot be blank.
+                        values:
+                        - Values cannot be blank.
+                        reference:
+                        - Reference cannot be blank.
+                        value:
+                        - Value cannot be blank.
+                        - Value must be no less than 0.01.
+                        - Value must be no greater than 9999999.99.
+                        - Value must be a number.
+        '500':
+          description: Internal Server Error - Other errors or unprocessed exceptions
+          content:
+            application/json:
+              examples:
+                InternalError:
+                  value:
+                    message: 'Sorry, something went wrong while processing your request. We are already working on a solution. RequestId: $RequestId'
+                    details: Other errors or unprocessed exceptions.
+components:
+  schemas:
+    ProductPrice_Request:
+      type: object
+      required:
+      - base_currency
+      - presentment_currency
+      - country
+      - values
+      properties:
+        base_currency:
+          type: string
+          description: Currency code of currency to convert from (brand's store currency)
+          example: USD
+        presentment_currency:
+          type: string
+          description: Currency code of currency to convert to
+          example: CAD
+        country:
+          type: string
+          description: Country ISO2 code the presentment_currency belongs to
+          example: CA
+        values:
+          type: array
+          description: List of products with reference and value to convert
+          items:
+            type: object
+            required:
+            - reference
+            - value
+            properties:
+              reference:
+                type: string
+                description: Reference field to link the request and response values
+                example: Product_1_USD_CAD
+              value:
+                type: number
+                description: Value to convert
+                example: 1
+          example:
+          - reference: Product_1_USD_CAD
+            value: 1
+          - reference: Product_2_USD_CAD
+            value: 2.35
+    ProductPrice_Response:
+      type: object
+      required:
+      - base_currency
+      - presentment_currency
+      - currency_symbol
+      - currency_code
+      - currency_text
+      - country
+      - converted_values
+      properties:
+        base_currency:
+          type: string
+          description: Currency to convert from (brand's store currency)
+          example: USD
+        presentment_currency:
+          type: string
+          description: Currency to convert to
+          example: CAD
+        currency_symbol:
+          type: string
+          description: Currency symbol
+          example: CAD
+        currency_code:
+          type: string
+          description: Currency code
+          example: CAD
+        currency_text:
+          type: string
+          description: Currency name
+          example: Canadian Dollar
+        country:
+          type: string
+          description: Country ISO2 code that presentment_currency belongs to
+          example: CA
+        converted_values:
+          type: array
+          description: Converted values for all provided products
+          items:
+            type: object
+            required:
+            - reference
+            - value
+            - converted_value
+            - conversion_rate
+            - converted_value_with_fee
+            - conversion_fee
+            - converted_value_with_fee_rounded
+            - converted_value_formatted
+            properties:
+              reference:
+                type: string
+                description: Reference field to link the request and response values
+                example: Product_1_USD_CAD
+              value:
+                type: number
+                description: Original value to convert
+                example: 1
+              converted_value:
+                type: string
+                description: Converted value (before fee)
+                example: '1.31234'
+              adjustment:
+                type: string
+                description: Price adjustment applied to each product price
+                example: 10%
+              adjusted_value:
+                type: number
+                description: Value after price adjustment
+                example: 1.1
+              conversion_rate:
+                type: string
+                description: Conversion rate used
+                example: '1.31234'
+              converted_value_with_fee:
+                type: string
+                description: Converted value with conversion fee
+                example: '1.44357'
+              conversion_fee:
+                type: string
+                description: Conversion fee amount added
+                example: '0.1'
+              converted_value_with_fee_rounded:
+                type: string
+                description: Converted value with conversion fee, rounded as per rules
+                example: '1.44'
+              converted_value_formatted:
+                type: string
+                description: Formatted converted value
+                example: 1.44 CAD
+          example:
+          - reference: Product_1_USD_CAD
+            value: 1
+            converted_value: '1.31234'
+            conversion_rate: '1.31234'
+            converted_value_with_fee: '1.44357'
+            conversion_fee: '0.1'
+            converted_value_with_fee_rounded: '1.44'
+            converted_value_formatted: 1.44 CAD
+          - reference: Product_2_USD_CAD
+            value: 2.35
+            converted_value: '3.08400'
+            conversion_rate: '1.31234'
+            converted_value_with_fee: '3.39240'
+            conversion_fee: '0.1'
+            converted_value_with_fee_rounded: '3.39'
+            converted_value_formatted: 3.39 CAD

@@ -1,0 +1,33 @@
+openapi: 3.2.0
+info:
+  title: Getting Started with Passport Global Void API
+  description: <h2>Introduction</h2><p>Passport Global's API is designed to allow for quick integration to begin selling and shipping internationally. It offers endpoints for general shipping-related functions, including rate requests and shipping label generation.</p><h2>Prerequisites</h2><p><ul><li>Passport Global API is a REST-like API. All methods must be called using HTTPS.</li><li>Authentication and identification is done by providing an API key on every request as a custom HTTP header "X-Access-Token".</li><li>All requests are made using the POST method.</li><li>The API key is provided by our onboarding team. For more details see registration and authentication.</li><li>The API uses JSON formatting for requests and responses.</li><li>Environments<ul><li>Testing Environment:<a href="https://api-stg.passportshipping.com/v3"> api-stg.passportshipping.com/v3</a></li><li>Production Environment:<a href="https://api.passportshipping.com/v3"> api.passportshipping.com/v3</a></li></ul></li></ul></p><h2>Registration and Authentication</h2><p>During the onboarding or integration process, our Onboarding team will create an account for your organization and provide the API key to your designated point of contact, which is typically a member of the operations, development team, or one of the founders.</p><h2>Making Your First Request</h2><p>A typical first request is to obtain a shipping rate. Use the <code>/rate</code> endpoint, providing necessary details like the addresses (<code>address_to</code> and <code>address_from</code>), parcel dimensions, and item descriptions.<br/><br/>Use the documentation below to see an example request body for a rate request</p><h2>Response Handling</h2><p>Successful responses return a 200 status code<br/><br/>Handle error responses (for example 401 Unauthorized, 404 Not Found) according to the provided error messages for each endpoint provided below.</p>
+  version: '3.15'
+  x-logo:
+    url: PassportLogo.svg
+    background: '#FAFAFA'
+    altText: Logo Passport added via API Definition
+servers:
+- url: https://api-stg.passportshipping.com/v3
+tags:
+- name: Void
+paths:
+  /void/{code}:
+    post:
+      tags:
+      - Void
+      summary: Void an existing shipping label
+      parameters:
+      - in: path
+        name: code
+        schema:
+          type: string
+        required: true
+        description: Uses the tracking code returned by /ship endpoint
+      responses:
+        200:
+          description: (OK) label voided
+        400:
+          description: Bad Request, with an error message for non-voidable shipments
+        404:
+          description: Not Found, for invalid tracking codes
