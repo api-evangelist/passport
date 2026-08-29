@@ -302,6 +302,9 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: CapabilityMap
+  url: capabilities/passport-capability-edges.yml
+  name: Passport Business Capability Map
 - type: Website
   url: https://passportglobal.com/
 - type: Documentation

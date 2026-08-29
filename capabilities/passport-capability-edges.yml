@@ -1,0 +1,36 @@
+slug: passport
+provider: Passport
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Transportation & Logistics
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 2
+edges:
+- tag: Tax And Duty
+  spec_file: passport-tax-and-duty-api-openapi.yml
+  capability_id: BC-2480.60
+  capability_id_l1: BC-2480
+  capability_name: Duty and Indirect Tax Management
+  confidence: 0.88
+  evidence: POST /tax-and-duty — "Calculate tax and duty for an order"
+  reason: Operation determines duties and indirect taxes on a cross-border order, matching Duty and Indirect
+    Tax Management under Customs & Trade Compliance; vendor is explicitly a cross-border trade and fiscal
+    compliance platform.
+- tag: Rate
+  spec_file: passport-rate-api-openapi.yml
+  capability_id: BC-2520.50
+  capability_id_l1: BC-2520
+  capability_name: Rating Engine Operations Management
+  confidence: 0.75
+  evidence: POST /rate — "Request a shipping rate including landed cost"; schemas Rate_Request, Rate_Response
+  reason: Single operation prices a shipment on demand, i.e. operation of a freight rating engine that
+    calculates charges (here including landed cost) for a cross-border parcel move. L1 freight rating
+    is well grounded; the exact sub-capability (rating engine vs. shipper quotation) is somewhat ambiguous,
+    hence 0.75.
