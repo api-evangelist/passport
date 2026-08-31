@@ -31,15 +31,15 @@ tags:
 - Company
 - Shipping
 - Logistics
-- Cross-border eCommerce
-- International Shipping
-- Customs Compliance
-- Landed Cost
+- cross-border-ecommerce
+- international-shipping
+- customs-compliance
+- landed-cost
 - duties-and-taxes
-- Parcel Delivery
+- parcel-delivery
 - E-Commerce
-- Merchant of Record
-- Trade Compliance
+- merchant-of-record
+- trade-compliance
 tags_raw:
 - Company
 - shipping
@@ -90,7 +90,7 @@ apis:
   humanURL: https://docs.passportglobal.com/
   baseURL: https://api.passportshipping.com/v3
   tags:
-  - Health Check
+  - Healthcheck
   tags_raw:
   - Healthcheck
   properties:
