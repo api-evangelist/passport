@@ -98,38 +98,6 @@ apis:
     url: sandbox/passport-sandbox.yml
   - type: ChangeLog
     url: changelog/passport-changelog.yml
-- aid: passport:passport-healthcheck-api
-  name: Passport Healthcheck API
-  description: The Healthcheck API from Passport — 1 operation(s) for healthcheck.
-  humanURL: https://docs.passportglobal.com/
-  baseURL: https://api.passportshipping.com/v3
-  tags:
-  - Health Check
-  tags_raw:
-  - Healthcheck
-  properties:
-  - type: OpenAPI
-    url: openapi/passport-healthcheck-api-openapi.yml
-  - type: Documentation
-    url: https://docs.passportglobal.com/
-  - type: APIReference
-    url: https://docs.passportglobal.com/
-  - type: GettingStarted
-    url: https://docs.passportglobal.com/
-  - type: Authentication
-    url: authentication/passport-authentication.yml
-  - type: Conventions
-    url: conventions/passport-conventions.yml
-  - type: ErrorCatalog
-    url: errors/passport-problem-types.yml
-  - type: DataModel
-    url: data-model/passport-data-model.yml
-  - type: Examples
-    url: examples/passport-examples.yml
-  - type: Sandbox
-    url: sandbox/passport-sandbox.yml
-  - type: ChangeLog
-    url: changelog/passport-changelog.yml
 - aid: passport:passport-order-api
   name: Passport Order API
   description: The Order API from Passport — 1 operation(s) for order.
@@ -290,6 +258,36 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/passport-void-api-openapi.yml
+  - type: Documentation
+    url: https://docs.passportglobal.com/
+  - type: APIReference
+    url: https://docs.passportglobal.com/
+  - type: GettingStarted
+    url: https://docs.passportglobal.com/
+  - type: Authentication
+    url: authentication/passport-authentication.yml
+  - type: Conventions
+    url: conventions/passport-conventions.yml
+  - type: ErrorCatalog
+    url: errors/passport-problem-types.yml
+  - type: DataModel
+    url: data-model/passport-data-model.yml
+  - type: Examples
+    url: examples/passport-examples.yml
+  - type: Sandbox
+    url: sandbox/passport-sandbox.yml
+  - type: ChangeLog
+    url: changelog/passport-changelog.yml
+- aid: passport:passport-health-check-api
+  name: Passport Health Check API
+  description: The Health Check API from Passport — 1 operation(s) for health check.
+  humanURL: https://docs.passportglobal.com/
+  baseURL: https://api.passportshipping.com/v3
+  tags:
+  - Health Check
+  properties:
+  - type: OpenAPI
+    url: openapi/passport-health-check-api-openapi.yml
   - type: Documentation
     url: https://docs.passportglobal.com/
   - type: APIReference
