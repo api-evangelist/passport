@@ -1,0 +1,28 @@
+openapi: 3.2.0
+info:
+  title: Getting Started with Passport Global Healthcheck API
+  description: 'Introduction
+
+
+    Passport Global''s API is designed to allow for quick integration to begin selling and shipping internationally.'
+  version: '3.15'
+  x-logo:
+    url: PassportLogo.svg
+    background: '#FAFAFA'
+    altText: Logo Passport added via API Definition
+servers:
+- url: https://api-stg.passportshipping.com/v3
+tags:
+- name: Health Check
+paths:
+  /ping:
+    get:
+      tags:
+      - Health Check
+      summary: Healtcheck
+      description: Check if the API Server is up and running
+      responses:
+        200:
+          description: (OK), API Server is Up and running
+      operationId: getPing
+      x-operation-id-source: derived

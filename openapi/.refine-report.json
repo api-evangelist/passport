@@ -1,14 +1,7 @@
 {
   "provider": "passport",
   "sources": [
-    "passport-cart-api-openapi.yml",
-    "passport-healthcheck-api-openapi.yml",
-    "passport-order-api-openapi.yml",
-    "passport-product-price-api-openapi.yml",
-    "passport-rate-api-openapi.yml",
-    "passport-ship-api-openapi.yml",
-    "passport-tax-and-duty-api-openapi.yml",
-    "passport-void-api-openapi.yml"
+    "_original/passport-public-api-openapi.yml"
   ],
   "outputs": [
     "passport-cart-api-openapi.yml",
@@ -20,19 +13,25 @@
     "passport-tax-and-duty-api-openapi.yml",
     "passport-void-api-openapi.yml"
   ],
-  "archived": [],
+  "archived": [
+    "deleted 1 superseded output(s) from the previous generation"
+  ],
   "errors": [],
   "warnings": [],
   "notes": [
-    "passport-cart-api-openapi.yml: upgraded openapi 3.0.1 -> OpenAPI 3.2.0",
-    "passport-healthcheck-api-openapi.yml: upgraded openapi 3.0.1 -> OpenAPI 3.2.0",
-    "passport-order-api-openapi.yml: upgraded openapi 3.0.1 -> OpenAPI 3.2.0",
-    "passport-product-price-api-openapi.yml: upgraded openapi 3.0.1 -> OpenAPI 3.2.0",
-    "passport-rate-api-openapi.yml: upgraded openapi 3.0.1 -> OpenAPI 3.2.0",
-    "passport-ship-api-openapi.yml: upgraded openapi 3.0.1 -> OpenAPI 3.2.0",
-    "passport-tax-and-duty-api-openapi.yml: upgraded openapi 3.0.1 -> OpenAPI 3.2.0",
-    "passport-void-api-openapi.yml: upgraded openapi 3.0.1 -> OpenAPI 3.2.0",
-    "apis.yml register: already-registered"
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "passport-public-api-openapi.yml: upgraded openapi 3.0.1 -> OpenAPI 3.2.0",
+    "superseded outputs removed: passport-health-check-api-openapi.yml",
+    "apis.yml register: written (+1 apis, 8 total)"
   ],
-  "skipped": []
+  "skipped": [
+    "passport-cart-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "passport-health-check-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "passport-order-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "passport-product-price-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "passport-rate-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "passport-ship-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "passport-tax-and-duty-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "passport-void-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

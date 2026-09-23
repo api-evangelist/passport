@@ -1,7 +1,10 @@
 openapi: 3.2.0
 info:
   title: Getting Started with Passport Global Order API
-  description: <h2>Introduction</h2><p>Passport Global's API is designed to allow for quick integration to begin selling and shipping internationally. It offers endpoints for general shipping-related functions, including rate requests and shipping label generation.</p><h2>Prerequisites</h2><p><ul><li>Passport Global API is a REST-like API. All methods must be called using HTTPS.</li><li>Authentication and identification is done by providing an API key on every request as a custom HTTP header "X-Access-Token".</li><li>All requests are made using the POST method.</li><li>The API key is provided by our onboarding team. For more details see registration and authentication.</li><li>The API uses JSON formatting for requests and responses.</li><li>Environments<ul><li>Testing Environment:<a href="https://api-stg.passportshipping.com/v3"> api-stg.passportshipping.com/v3</a></li><li>Production Environment:<a href="https://api.passportshipping.com/v3"> api.passportshipping.com/v3</a></li></ul></li></ul></p><h2>Registration and Authentication</h2><p>During the onboarding or integration process, our Onboarding team will create an account for your organization and provide the API key to your designated point of contact, which is typically a member of the operations, development team, or one of the founders.</p><h2>Making Your First Request</h2><p>A typical first request is to obtain a shipping rate. Use the <code>/rate</code> endpoint, providing necessary details like the addresses (<code>address_to</code> and <code>address_from</code>), parcel dimensions, and item descriptions.<br/><br/>Use the documentation below to see an example request body for a rate request</p><h2>Response Handling</h2><p>Successful responses return a 200 status code<br/><br/>Handle error responses (for example 401 Unauthorized, 404 Not Found) according to the provided error messages for each endpoint provided below.</p>
+  description: 'Introduction
+
+
+    Passport Global''s API is designed to allow for quick integration to begin selling and shipping internationally.'
   version: '3.15'
   x-logo:
     url: PassportLogo.svg
@@ -165,6 +168,8 @@ paths:
                   value:
                     message: 'Sorry, something went wrong while processing your request. We are already working on a solution. RequestId: $RequestId'
                     details: Internal Server Error
+      operationId: postOrder
+      x-operation-id-source: derived
     put:
       parameters:
       - name: orderNames
@@ -218,6 +223,8 @@ paths:
                 ValidationErrors:
                   value:
                     message: 'Unprocessable Entity: Returned when the request payload is missing mandatory information or contains invalid data'
+      operationId: putOrder
+      x-operation-id-source: derived
     delete:
       parameters:
       - name: orderNames
@@ -269,6 +276,8 @@ paths:
                 InternalError:
                   value:
                     message: Internal Server Error
+      operationId: deleteOrder
+      x-operation-id-source: derived
     get:
       parameters:
       - name: orderNames
@@ -337,363 +346,10 @@ paths:
                 InternalError:
                   value:
                     message: 'Internal Server Error: Generic failure while processing the request. The response contains a message with a `RequestId` you can share with support'
+      operationId: getOrder
+      x-operation-id-source: derived
 components:
   schemas:
-    Order_GET_Response:
-      type: array
-      description: List of order
-      items:
-        type: object
-        properties:
-          order_name:
-            type: string
-            description: Unique order identifier. We encourage this to be the same as the reference field used for shipments in the Rate API
-            example: store1_order001
-          created:
-            type: number
-            description: Order creation timestamp in UTC
-            example: 1707811200
-          value:
-            type: number
-            description: Pre-discounted value (total_value + discounts). Currency should be the same as total_value.
-            example: 120
-          items:
-            type: array
-            description: Array with information about items ordered. Note that this is an optional field, but if sent, should include certain required fields outlined below.
-            items:
-              type: object
-              properties:
-                name:
-                  type: string
-                  description: Name of the product
-                  example: Sample Product
-                sku:
-                  type: string
-                  description: Stock keeping unit
-                  example: SKU123
-                requires_shipping:
-                  type: boolean
-                  description: If an item requires shipping
-                  example: true
-                value:
-                  type: number
-                  description: Product value in presentment currency (no discounts)
-                  example: 55
-                value_discounted:
-                  type: number
-                  description: Discounted product value in presentment currency
-                  example: 45
-                quantity:
-                  type: number
-                  description: Number of items ordered
-                  example: 2
-                hs_code:
-                  type: string
-                  description: Harmonized System Code
-                  example: 1234.56.78
-                country_of_origin:
-                  type: string
-                  description: Product's country of origin
-                  example: US
-                description:
-                  type: string
-                  description: Product description
-                  example: Product description here
-                weight:
-                  type: number
-                  description: Item weight. Will use the weight metric configured during onboarding
-                  example: 123
-          address_to:
-            type: object
-            description: Object with recipient’s address. Note that this is an optional field, but if sent, should include certain required fields outlined below
-            properties:
-              street1:
-                type: string
-                description: The primary address line of the recipient.
-                maxLength: 40
-                example: 30 Rue de la Baie
-              street2:
-                type: string
-                description: Additional address details such as floor or apartment.
-                maxLength: 40
-                example: ''
-              city:
-                type: string
-                description: City of the recipient's address
-                maxLength: 32
-                example: Gatineau
-              state:
-                type: string
-                maxLength: 100
-                example: QC
-                description: State or region of the recipient's address. Mandatory for CA (Canada), optional for other countries.
-              zip:
-                type: string
-                description: ZIP or postal code of the recipient's address. Mandatory for CA (Canada), optional for other countries.
-                example: J8T 3H5
-              country:
-                type: string
-                example: CA
-                description: Country name of the recipients address (ISO code)
-              name:
-                type: string
-                maxLength: 100
-                example: Daniel Gauer
-                description: Name of the recipient
-              phone:
-                type: string
-                maxLength: 100
-                example: 49162342340
-                description: Phone number of the recipient
-              email:
-                type: string
-                maxLength: 100
-                example: test@test.test
-                description: Email of the recipient
-          shipping:
-            type: object
-            description: Object with shipping information
-            properties:
-              id:
-                type: number
-                description: Request_id of /cart response that was used
-                example: 123456
-              rate:
-                type: number
-                description: Shipping cost in presentment currency
-                example: 5
-              duty:
-                type: number
-                description: Duty amount in presentment currency
-                example: 3
-              duty_source:
-                type: string
-                description: Source of duty calculation
-                example: Passport
-              tax:
-                type: number
-                description: Tax amount in presentment currency
-                example: 2
-              tax_source:
-                type: string
-                description: Source of tax calculation (e.g. Passport, Other)
-                example: Passport
-              service_name:
-                type: string
-                description: Shipping service name
-                example: PassportPriorityDdpDelcon
-          customer_tax_id:
-            type: string
-            description: Optional field to include the customer's tax ID if available. Used for customs clearance in certain countries where a local identification number is required (e.g., Brazil CPF/CNPJ, South Korea PCC, Chile RUT, etc.).
-            example: CHE-123.456.789 HR
-          integration_id:
-            type: number
-            description: ''
-            example: 6
-          presentment_currency:
-            type: string
-            description: The currency to which all amounts should be converted to.
-            example: USD
-          value_discounted_presentment_currency:
-            type: number
-            description: ''
-            example: 150
-    Order_DELETE_Response:
-      type: object
-      properties:
-        deleted:
-          type: array
-          description: List of order names
-          items:
-            type: string
-            example: WEB-1001
-    Order_POST_Request:
-      type: object
-      required:
-      - total_value
-      - currency_code
-      - order_name
-      - created
-      - shipping
-      properties:
-        total_value:
-          type: number
-          description: Total value of order in presentment currency
-          example: 100.0
-        currency_code:
-          type: string
-          description: Currency code of the total_value
-          example: USD
-        order_name:
-          type: string
-          description: Unique order identifier. We encourage this to be the same as the reference field used for shipments in the Rate API
-          example: <in your system>
-        created:
-          type: number
-          description: Order creation timestamp in UTC
-          example: 1707811200
-        value:
-          type: number
-          description: Pre-discounted value (total_value + discounts). Currency should be the same as total_value.
-          example: 120.0
-        items:
-          type: array
-          description: Array with information about items ordered. Note that this is an optional field, but if sent, should include certain required fields outlined below.
-          items:
-            type: object
-            required:
-            - name
-            - requires_shipping
-            - value
-            - value_discounted
-            - quantity
-            - weight
-            properties:
-              id:
-                type: string
-                description: Item ID
-                example: null
-              name:
-                type: string
-                description: Name of the product
-                example: Sample Product
-              sku:
-                type: string
-                description: Stock keeping unit
-                example: SKU123
-              requires_shipping:
-                type: boolean
-                description: If an item requires shipping
-                example: true
-              value:
-                type: number
-                description: Product value in presentment currency (no discounts)
-                example: 55.0
-              value_discounted:
-                type: number
-                description: Discounted product value in presentment currency
-                example: 45.0
-              quantity:
-                type: number
-                description: Number of items ordered
-                example: 2
-              hs_code:
-                type: string
-                description: Harmonized System Code
-                example: 1234.56.78
-              country_of_origin:
-                type: string
-                description: Product's country of origin
-                example: US
-              country_of_fulfillment:
-                type: string
-                description: Country that the product is fulfilled from (ISO Code)
-                example: US
-              description:
-                type: string
-                description: Product description
-                example: Product description here
-              weight:
-                type: number
-                description: Item weight. Will use the weight metric configured during onboarding
-                example: 123
-        address_to:
-          type: object
-          description: Object with recipient’s address. Note that this is an optional field, but if sent, should include certain required fields outlined below
-          required:
-          - street1
-          - city
-          - country
-          properties:
-            street1:
-              type: string
-              description: The primary address line of the recipient.
-              maxLength: 40
-              example: Georg-Leipold-Straße 5
-            street2:
-              type: string
-              description: Additional address details such as floor or apartment.
-              maxLength: 40
-              example: ''
-            city:
-              type: string
-              description: City of the recipient's address
-              maxLength: 32
-              example: Weiden in der Oberpfalz
-            state:
-              type: string
-              maxLength: 100
-              example: null
-              description: State or region of the recipient's address. Mandatory for CA (Canada), optional for other countries.
-            zip:
-              type: string
-              description: ZIP or postal code of the recipient's address. Mandatory for CA (Canada), optional for other countries.
-              example: 92637
-            country:
-              type: string
-              example: DE
-              description: Country name of the recipients address (ISO code)
-            name:
-              type: string
-              maxLength: 100
-              example: Daniel Gauer
-              description: Name of the recipient
-            phone:
-              type: string
-              maxLength: 100
-              example: 518-111-1111
-              description: Phone number of the recipient
-            email:
-              type: string
-              maxLength: 100
-              example: daniel.gauer@web.de
-              description: Email of the recipient
-        shipping:
-          type: object
-          description: Object with shipping information
-          required:
-          - id
-          - rate
-          - duty
-          - tax
-          - service_name
-          properties:
-            id:
-              type: number
-              description: Request_id of /cart response that was used
-              example: 123456
-            rate:
-              type: number
-              description: Shipping cost in presentment currency
-              example: 5.0
-            duty:
-              type: number
-              description: Duty amount in presentment currency
-              example: 3.0
-            duty_source:
-              type: string
-              description: Source of duty calculation
-              example: Passport
-            tax:
-              type: number
-              description: Tax amount in presentment currency
-              example: 2.0
-            tax_source:
-              type: string
-              description: Source of tax calculation (e.g. Passport, Other)
-              example: Passport
-            service_name:
-              type: string
-              description: Shipping service name
-              example: PassportPriorityDdpDelcon
-        customer_tax_id:
-          type: string
-          description: Optional field to include the customer's tax ID if available. Used for customs clearance in certain countries where a local identification number is required (e.g., Brazil CPF/CNPJ, South Korea PCC, Chile RUT, etc.).
-          example: CHE-123.456.789 HR
-        order_url:
-          type: string
-          description: Url of confirmation page once order has been placed
-          example: https://passportglobal.com
     Order_PUT_Request:
       type: object
       required:
@@ -886,3 +542,358 @@ components:
           type: string
           description: Url of confirmation page once order has been placed
           example: https://example.com
+    Order_POST_Request:
+      type: object
+      required:
+      - total_value
+      - currency_code
+      - order_name
+      - created
+      - shipping
+      properties:
+        total_value:
+          type: number
+          description: Total value of order in presentment currency
+          example: 100.0
+        currency_code:
+          type: string
+          description: Currency code of the total_value
+          example: USD
+        order_name:
+          type: string
+          description: Unique order identifier. We encourage this to be the same as the reference field used for shipments in the Rate API
+          example: <in your system>
+        created:
+          type: number
+          description: Order creation timestamp in UTC
+          example: 1707811200
+        value:
+          type: number
+          description: Pre-discounted value (total_value + discounts). Currency should be the same as total_value.
+          example: 120.0
+        items:
+          type: array
+          description: Array with information about items ordered. Note that this is an optional field, but if sent, should include certain required fields outlined below.
+          items:
+            type: object
+            required:
+            - name
+            - requires_shipping
+            - value
+            - value_discounted
+            - quantity
+            - weight
+            properties:
+              id:
+                type: string
+                description: Item ID
+                example: null
+              name:
+                type: string
+                description: Name of the product
+                example: Sample Product
+              sku:
+                type: string
+                description: Stock keeping unit
+                example: SKU123
+              requires_shipping:
+                type: boolean
+                description: If an item requires shipping
+                example: true
+              value:
+                type: number
+                description: Product value in presentment currency (no discounts)
+                example: 55.0
+              value_discounted:
+                type: number
+                description: Discounted product value in presentment currency
+                example: 45.0
+              quantity:
+                type: number
+                description: Number of items ordered
+                example: 2
+              hs_code:
+                type: string
+                description: Harmonized System Code
+                example: 1234.56.78
+              country_of_origin:
+                type: string
+                description: Product's country of origin
+                example: US
+              country_of_fulfillment:
+                type: string
+                description: Country that the product is fulfilled from (ISO Code)
+                example: US
+              description:
+                type: string
+                description: Product description
+                example: Product description here
+              weight:
+                type: number
+                description: Item weight. Will use the weight metric configured during onboarding
+                example: 123
+        address_to:
+          type: object
+          description: Object with recipient’s address. Note that this is an optional field, but if sent, should include certain required fields outlined below
+          required:
+          - street1
+          - city
+          - country
+          properties:
+            street1:
+              type: string
+              description: The primary address line of the recipient.
+              maxLength: 40
+              example: Georg-Leipold-Straße 5
+            street2:
+              type: string
+              description: Additional address details such as floor or apartment.
+              maxLength: 40
+              example: ''
+            city:
+              type: string
+              description: City of the recipient's address
+              maxLength: 32
+              example: Weiden in der Oberpfalz
+            state:
+              type: string
+              maxLength: 100
+              example: null
+              description: State or region of the recipient's address. Mandatory for CA (Canada), optional for other countries.
+            zip:
+              type: string
+              description: ZIP or postal code of the recipient's address. Mandatory for CA (Canada), optional for other countries.
+              example: 92637
+            country:
+              type: string
+              example: DE
+              description: Country name of the recipients address (ISO code)
+            name:
+              type: string
+              maxLength: 100
+              example: Daniel Gauer
+              description: Name of the recipient
+            phone:
+              type: string
+              maxLength: 100
+              example: 518-111-1111
+              description: Phone number of the recipient
+            email:
+              type: string
+              maxLength: 100
+              example: daniel.gauer@web.de
+              description: Email of the recipient
+        shipping:
+          type: object
+          description: Object with shipping information
+          required:
+          - id
+          - rate
+          - duty
+          - tax
+          - service_name
+          properties:
+            id:
+              type: number
+              description: Request_id of /cart response that was used
+              example: 123456
+            rate:
+              type: number
+              description: Shipping cost in presentment currency
+              example: 5.0
+            duty:
+              type: number
+              description: Duty amount in presentment currency
+              example: 3.0
+            duty_source:
+              type: string
+              description: Source of duty calculation
+              example: Passport
+            tax:
+              type: number
+              description: Tax amount in presentment currency
+              example: 2.0
+            tax_source:
+              type: string
+              description: Source of tax calculation (e.g. Passport, Other)
+              example: Passport
+            service_name:
+              type: string
+              description: Shipping service name
+              example: PassportPriorityDdpDelcon
+        customer_tax_id:
+          type: string
+          description: Optional field to include the customer's tax ID if available. Used for customs clearance in certain countries where a local identification number is required (e.g., Brazil CPF/CNPJ, South Korea PCC, Chile RUT, etc.).
+          example: CHE-123.456.789 HR
+        order_url:
+          type: string
+          description: Url of confirmation page once order has been placed
+          example: https://passportglobal.com
+    Order_DELETE_Response:
+      type: object
+      properties:
+        deleted:
+          type: array
+          description: List of order names
+          items:
+            type: string
+            example: WEB-1001
+    Order_GET_Response:
+      type: array
+      description: List of order
+      items:
+        type: object
+        properties:
+          order_name:
+            type: string
+            description: Unique order identifier. We encourage this to be the same as the reference field used for shipments in the Rate API
+            example: store1_order001
+          created:
+            type: number
+            description: Order creation timestamp in UTC
+            example: 1707811200
+          value:
+            type: number
+            description: Pre-discounted value (total_value + discounts). Currency should be the same as total_value.
+            example: 120
+          items:
+            type: array
+            description: Array with information about items ordered. Note that this is an optional field, but if sent, should include certain required fields outlined below.
+            items:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Name of the product
+                  example: Sample Product
+                sku:
+                  type: string
+                  description: Stock keeping unit
+                  example: SKU123
+                requires_shipping:
+                  type: boolean
+                  description: If an item requires shipping
+                  example: true
+                value:
+                  type: number
+                  description: Product value in presentment currency (no discounts)
+                  example: 55
+                value_discounted:
+                  type: number
+                  description: Discounted product value in presentment currency
+                  example: 45
+                quantity:
+                  type: number
+                  description: Number of items ordered
+                  example: 2
+                hs_code:
+                  type: string
+                  description: Harmonized System Code
+                  example: 1234.56.78
+                country_of_origin:
+                  type: string
+                  description: Product's country of origin
+                  example: US
+                description:
+                  type: string
+                  description: Product description
+                  example: Product description here
+                weight:
+                  type: number
+                  description: Item weight. Will use the weight metric configured during onboarding
+                  example: 123
+          address_to:
+            type: object
+            description: Object with recipient’s address. Note that this is an optional field, but if sent, should include certain required fields outlined below
+            properties:
+              street1:
+                type: string
+                description: The primary address line of the recipient.
+                maxLength: 40
+                example: 30 Rue de la Baie
+              street2:
+                type: string
+                description: Additional address details such as floor or apartment.
+                maxLength: 40
+                example: ''
+              city:
+                type: string
+                description: City of the recipient's address
+                maxLength: 32
+                example: Gatineau
+              state:
+                type: string
+                maxLength: 100
+                example: QC
+                description: State or region of the recipient's address. Mandatory for CA (Canada), optional for other countries.
+              zip:
+                type: string
+                description: ZIP or postal code of the recipient's address. Mandatory for CA (Canada), optional for other countries.
+                example: J8T 3H5
+              country:
+                type: string
+                example: CA
+                description: Country name of the recipients address (ISO code)
+              name:
+                type: string
+                maxLength: 100
+                example: Daniel Gauer
+                description: Name of the recipient
+              phone:
+                type: string
+                maxLength: 100
+                example: 49162342340
+                description: Phone number of the recipient
+              email:
+                type: string
+                maxLength: 100
+                example: test@test.test
+                description: Email of the recipient
+          shipping:
+            type: object
+            description: Object with shipping information
+            properties:
+              id:
+                type: number
+                description: Request_id of /cart response that was used
+                example: 123456
+              rate:
+                type: number
+                description: Shipping cost in presentment currency
+                example: 5
+              duty:
+                type: number
+                description: Duty amount in presentment currency
+                example: 3
+              duty_source:
+                type: string
+                description: Source of duty calculation
+                example: Passport
+              tax:
+                type: number
+                description: Tax amount in presentment currency
+                example: 2
+              tax_source:
+                type: string
+                description: Source of tax calculation (e.g. Passport, Other)
+                example: Passport
+              service_name:
+                type: string
+                description: Shipping service name
+                example: PassportPriorityDdpDelcon
+          customer_tax_id:
+            type: string
+            description: Optional field to include the customer's tax ID if available. Used for customs clearance in certain countries where a local identification number is required (e.g., Brazil CPF/CNPJ, South Korea PCC, Chile RUT, etc.).
+            example: CHE-123.456.789 HR
+          integration_id:
+            type: number
+            description: ''
+            example: 6
+          presentment_currency:
+            type: string
+            description: The currency to which all amounts should be converted to.
+            example: USD
+          value_discounted_presentment_currency:
+            type: number
+            description: ''
+            example: 150
