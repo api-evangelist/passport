@@ -62,15 +62,6 @@ paths:
       operationId: postCart
       x-operation-id-source: derived
 components:
-  responses:
-    NotFound:
-      description: Sender's company not found in the list of authorized values, please, contact us if the company name is correct
-    BadRequest:
-      description: Brand has not been onboarded within Passport’s system. Please reach out to Passport support.
-    Unauthorized:
-      description: (Unauthorized) Unable to access the requested resource, you don't have authorization, please check your API Key
-    ServerError:
-      description: Internal Server Error.
   schemas:
     Cart_Request:
       type: object
@@ -389,3 +380,12 @@ components:
                       type: number
                       description: Duty amount for the item.
                       example: 6
+  responses:
+    NotFound:
+      description: Sender's company not found in the list of authorized values, please, contact us if the company name is correct
+    Unauthorized:
+      description: (Unauthorized) Unable to access the requested resource, you don't have authorization, please check your API Key
+    BadRequest:
+      description: Brand has not been onboarded within Passport’s system. Please reach out to Passport support.
+    ServerError:
+      description: Internal Server Error.

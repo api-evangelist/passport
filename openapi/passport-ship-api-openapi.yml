@@ -55,46 +55,7 @@ paths:
       operationId: postShip
       x-operation-id-source: derived
 components:
-  responses:
-    NotFound:
-      description: Sender's company not found in the list of authorized values, please, contact us if the company name is correct
-    InvalidData:
-      description: If data validation fails, an error description with HTTP status = 422 is returned.
-    Unauthorized:
-      description: (Unauthorized) Unable to access the requested resource, you don't have authorization, please check your API Key
-    ServerError:
-      description: Internal Server Error.
   schemas:
-    Ship_Response:
-      type: object
-      properties:
-        code:
-          type: number
-          example: PG3450126846CA
-        rate:
-          type: number
-          example: 18.62
-        duty:
-          type: number
-          example: 0
-        tax:
-          type: number
-          example: 2.47
-        insurance:
-          type: number
-          example: 1.3
-          description: 0 or NULL if no insurance
-        currency:
-          type: string
-          description: Accepted values are three-letter ISO 4217 codes
-          example: USD
-        label:
-          type: string
-          example: https://s3-us-west-2.amazonaws.com/stg-postage-label/20180731/b64515eaf3a7a7729dc40fc07d1e88dc1532985659248.png
-          description: Link to the amazon S3 bucket with the file
-        tracking_url:
-          type: string
-          example: https://track-stg.passportshipping.com/PG3450126846CA
     Ship_Request:
       type: object
       required:
@@ -367,3 +328,42 @@ components:
           - ExpressDdpDelcon
           - ExpeditedDduDelcon
           - ExpressDduDelcon
+    Ship_Response:
+      type: object
+      properties:
+        code:
+          type: number
+          example: PG3450126846CA
+        rate:
+          type: number
+          example: 18.62
+        duty:
+          type: number
+          example: 0
+        tax:
+          type: number
+          example: 2.47
+        insurance:
+          type: number
+          example: 1.3
+          description: 0 or NULL if no insurance
+        currency:
+          type: string
+          description: Accepted values are three-letter ISO 4217 codes
+          example: USD
+        label:
+          type: string
+          example: https://s3-us-west-2.amazonaws.com/stg-postage-label/20180731/b64515eaf3a7a7729dc40fc07d1e88dc1532985659248.png
+          description: Link to the amazon S3 bucket with the file
+        tracking_url:
+          type: string
+          example: https://track-stg.passportshipping.com/PG3450126846CA
+  responses:
+    NotFound:
+      description: Sender's company not found in the list of authorized values, please, contact us if the company name is correct
+    Unauthorized:
+      description: (Unauthorized) Unable to access the requested resource, you don't have authorization, please check your API Key
+    InvalidData:
+      description: If data validation fails, an error description with HTTP status = 422 is returned.
+    ServerError:
+      description: Internal Server Error.

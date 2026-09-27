@@ -53,6 +53,43 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    Rate_Response:
+      type: object
+      properties:
+        rate:
+          type: number
+        duty:
+          type: number
+        tax:
+          type: number
+        insurance:
+          type: number
+        currency:
+          type: string
+          description: Accepted values are three-letter ISO 4217 codes
+        serviceName:
+          type: string
+          enum:
+          - StandardDdu
+          - StandardDduDelcon
+          - PriorityDdu
+          - PriorityDduDelcon
+          - PriorityDdp
+          - PriorityDdpDelcon
+          - ExpeditedDdpDelcon
+          - ExpressDdpDelcon
+          - ExpeditedDduDelcon
+          - epacketDdp
+          - ExpressDdp
+          - ExpressDduDelcon
+          - GlobalPlus
+      example:
+        rate: 10.78
+        duty: 0
+        tax: 2.47
+        insurance: 1.5
+        currency: USD
+        serviceName: PriorityDdpDelcon
     Rate_Request:
       type: object
       required:
@@ -301,49 +338,12 @@ components:
           default: merchandise
           example: merchandise
           description: Indication of the goods classification for customs
-    Rate_Response:
-      type: object
-      properties:
-        rate:
-          type: number
-        duty:
-          type: number
-        tax:
-          type: number
-        insurance:
-          type: number
-        currency:
-          type: string
-          description: Accepted values are three-letter ISO 4217 codes
-        serviceName:
-          type: string
-          enum:
-          - StandardDdu
-          - StandardDduDelcon
-          - PriorityDdu
-          - PriorityDduDelcon
-          - PriorityDdp
-          - PriorityDdpDelcon
-          - ExpeditedDdpDelcon
-          - ExpressDdpDelcon
-          - ExpeditedDduDelcon
-          - epacketDdp
-          - ExpressDdp
-          - ExpressDduDelcon
-          - GlobalPlus
-      example:
-        rate: 10.78
-        duty: 0
-        tax: 2.47
-        insurance: 1.5
-        currency: USD
-        serviceName: PriorityDdpDelcon
   responses:
     NotFound:
       description: Sender's company not found in the list of authorized values, please, contact us if the company name is correct
-    InvalidData:
-      description: If data validation fails, an error description with HTTP status = 422 is returned.
     Unauthorized:
       description: (Unauthorized) Unable to access the requested resource, you don't have authorization, please check your API Key
+    InvalidData:
+      description: If data validation fails, an error description with HTTP status = 422 is returned.
     ServerError:
       description: Internal Server Error.
