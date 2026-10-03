@@ -100,82 +100,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    TaxAndDuty_Response:
-      type: object
-      required:
-      - request_id
-      - currency
-      - rates
-      properties:
-        request_id:
-          type: string
-          description: Unique identifier for tracking the API request.
-          example: 682302a7-6c05-438f-ae8e-9b8cffc054b2
-        currency:
-          type: string
-          description: The currency in which all returned prices are converted.
-          example: EUR
-        rates:
-          type: array
-          description: List of tax and duty rates.
-          items:
-            type: object
-            required:
-            - tax
-            - duty
-            - total
-            - formatted
-            - duty_tax_breakdown
-            properties:
-              tax:
-                type: number
-                description: Tax amount applied to the shipping cost.
-                example: 0
-              duty:
-                type: number
-                description: Customs duty applied to the shipping cost.
-                example: 6
-              total:
-                type: number
-                description: Total shipping, tax, duty, & insurance amounts.
-                example: 16
-              formatted:
-                type: object
-                required:
-                - tax
-                - duty
-                description: Default formatted (e.g. currency symbol, placement etc) string values for amounts. Format can be customized by contacting Passport.
-                properties:
-                  tax:
-                    type: string
-                    description: Formatted tax value.
-                    example: €0
-                  duty:
-                    type: string
-                    description: Formatted duty value.
-                    example: €6
-              duty_tax_breakdown:
-                type: array
-                description: Item level breakdown of duties & taxes calculated for each item.
-                items:
-                  type: object
-                  properties:
-                    sku:
-                      type: string
-                      description: Item identifier.
-                      example: TSHIRT123
-                    description:
-                      type: string
-                      description: Item description.
-                      example: Black T-Shirt
-                    tax:
-                      type: number
-                      description: Tax for a particular item.
-                      example: 0
-                    duty:
-                      type: number
-                      description: Duty for a particular item.
-                      example: 6
     TaxAndDuty_Request:
       type: object
       required:
@@ -321,3 +245,79 @@ components:
                 example: US
                 externalDocs:
                   url: http://www.worlddata.info/countrycodes.php
+    TaxAndDuty_Response:
+      type: object
+      required:
+      - request_id
+      - currency
+      - rates
+      properties:
+        request_id:
+          type: string
+          description: Unique identifier for tracking the API request.
+          example: 682302a7-6c05-438f-ae8e-9b8cffc054b2
+        currency:
+          type: string
+          description: The currency in which all returned prices are converted.
+          example: EUR
+        rates:
+          type: array
+          description: List of tax and duty rates.
+          items:
+            type: object
+            required:
+            - tax
+            - duty
+            - total
+            - formatted
+            - duty_tax_breakdown
+            properties:
+              tax:
+                type: number
+                description: Tax amount applied to the shipping cost.
+                example: 0
+              duty:
+                type: number
+                description: Customs duty applied to the shipping cost.
+                example: 6
+              total:
+                type: number
+                description: Total shipping, tax, duty, & insurance amounts.
+                example: 16
+              formatted:
+                type: object
+                required:
+                - tax
+                - duty
+                description: Default formatted (e.g. currency symbol, placement etc) string values for amounts. Format can be customized by contacting Passport.
+                properties:
+                  tax:
+                    type: string
+                    description: Formatted tax value.
+                    example: €0
+                  duty:
+                    type: string
+                    description: Formatted duty value.
+                    example: €6
+              duty_tax_breakdown:
+                type: array
+                description: Item level breakdown of duties & taxes calculated for each item.
+                items:
+                  type: object
+                  properties:
+                    sku:
+                      type: string
+                      description: Item identifier.
+                      example: TSHIRT123
+                    description:
+                      type: string
+                      description: Item description.
+                      example: Black T-Shirt
+                    tax:
+                      type: number
+                      description: Tax for a particular item.
+                      example: 0
+                    duty:
+                      type: number
+                      description: Duty for a particular item.
+                      example: 6

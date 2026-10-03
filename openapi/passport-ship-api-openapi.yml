@@ -55,6 +55,15 @@ paths:
       operationId: postShip
       x-operation-id-source: derived
 components:
+  responses:
+    Unauthorized:
+      description: (Unauthorized) Unable to access the requested resource, you don't have authorization, please check your API Key
+    InvalidData:
+      description: If data validation fails, an error description with HTTP status = 422 is returned.
+    ServerError:
+      description: Internal Server Error.
+    NotFound:
+      description: Sender's company not found in the list of authorized values, please, contact us if the company name is correct
   schemas:
     Ship_Request:
       type: object
@@ -358,12 +367,3 @@ components:
         tracking_url:
           type: string
           example: https://track-stg.passportshipping.com/PG3450126846CA
-  responses:
-    NotFound:
-      description: Sender's company not found in the list of authorized values, please, contact us if the company name is correct
-    Unauthorized:
-      description: (Unauthorized) Unable to access the requested resource, you don't have authorization, please check your API Key
-    InvalidData:
-      description: If data validation fails, an error description with HTTP status = 422 is returned.
-    ServerError:
-      description: Internal Server Error.

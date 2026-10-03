@@ -118,6 +118,48 @@ paths:
                     details: Other errors or unprocessed exceptions.
 components:
   schemas:
+    ProductPrice_Request:
+      type: object
+      required:
+      - base_currency
+      - presentment_currency
+      - country
+      - values
+      properties:
+        base_currency:
+          type: string
+          description: Currency code of currency to convert from (brand's store currency)
+          example: USD
+        presentment_currency:
+          type: string
+          description: Currency code of currency to convert to
+          example: CAD
+        country:
+          type: string
+          description: Country ISO2 code the presentment_currency belongs to
+          example: CA
+        values:
+          type: array
+          description: List of products with reference and value to convert
+          items:
+            type: object
+            required:
+            - reference
+            - value
+            properties:
+              reference:
+                type: string
+                description: Reference field to link the request and response values
+                example: Product_1_USD_CAD
+              value:
+                type: number
+                description: Value to convert
+                example: 1
+          example:
+          - reference: Product_1_USD_CAD
+            value: 1
+          - reference: Product_2_USD_CAD
+            value: 2.35
     ProductPrice_Response:
       type: object
       required:
@@ -225,45 +267,3 @@ components:
             conversion_fee: '0.1'
             converted_value_with_fee_rounded: '3.39'
             converted_value_formatted: 3.39 CAD
-    ProductPrice_Request:
-      type: object
-      required:
-      - base_currency
-      - presentment_currency
-      - country
-      - values
-      properties:
-        base_currency:
-          type: string
-          description: Currency code of currency to convert from (brand's store currency)
-          example: USD
-        presentment_currency:
-          type: string
-          description: Currency code of currency to convert to
-          example: CAD
-        country:
-          type: string
-          description: Country ISO2 code the presentment_currency belongs to
-          example: CA
-        values:
-          type: array
-          description: List of products with reference and value to convert
-          items:
-            type: object
-            required:
-            - reference
-            - value
-            properties:
-              reference:
-                type: string
-                description: Reference field to link the request and response values
-                example: Product_1_USD_CAD
-              value:
-                type: number
-                description: Value to convert
-                example: 1
-          example:
-          - reference: Product_1_USD_CAD
-            value: 1
-          - reference: Product_2_USD_CAD
-            value: 2.35
