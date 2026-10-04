@@ -67,10 +67,10 @@ components:
       description: (Unauthorized) Unable to access the requested resource, you don't have authorization, please check your API Key
     ServerError:
       description: Internal Server Error.
-    NotFound:
-      description: Sender's company not found in the list of authorized values, please, contact us if the company name is correct
     BadRequest:
       description: Brand has not been onboarded within Passport’s system. Please reach out to Passport support.
+    NotFound:
+      description: Sender's company not found in the list of authorized values, please, contact us if the company name is correct
   schemas:
     Cart_Request:
       type: object

@@ -696,6 +696,15 @@ components:
             type: number
             description: ''
             example: 150
+    Order_DELETE_Response:
+      type: object
+      properties:
+        deleted:
+          type: array
+          description: List of order names
+          items:
+            type: string
+            example: WEB-1001
     Order_PUT_Request:
       type: object
       required:
@@ -888,12 +897,3 @@ components:
           type: string
           description: Url of confirmation page once order has been placed
           example: https://example.com
-    Order_DELETE_Response:
-      type: object
-      properties:
-        deleted:
-          type: array
-          description: List of order names
-          items:
-            type: string
-            example: WEB-1001
