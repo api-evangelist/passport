@@ -1,0 +1,12 @@
+{
+ "url": "https://docs.passportglobal.com/passport_public_api_v3_15.yml",
+ "requested_url": "https://docs.passportglobal.com/passport_public_api_v3_15.yml",
+ "status": 200,
+ "content_type": "application/octet-stream",
+ "bytes": 92614,
+ "sha256": "35465b05cd1201b3b960b3053d609d6f5ff9cd31a5f8272aae07e9e519587f38",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "equivalent",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the provider's current document describes the same operations (Jaccard 1.0), but the bytes differ, so the archive is an earlier or reformatted copy."
+}
