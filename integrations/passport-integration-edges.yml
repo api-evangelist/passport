@@ -1,5 +1,5 @@
 generated: '2026-10-12'
-method: none
+method: searched
 source:
 - https://zapier.com/apps/passport/integrations
 - https://n8n.io/integrations/passport/
@@ -12,5 +12,23 @@ checked:
 - https://zapier.com/apps/passport/integrations
 summary: null
 marketplace_apps: []
-edges: []
+edges:
+- partner_name: shippo
+  partner: shippo
+  partner_match: aggregator
+  channel: partner-built
+  direction: partner-built
+  type: contract
+  relationship: carrier-coverage
+  evidence: https://docs.goshippo.com/spec/shippoapi/public-api.yaml
+  detected_by: detect-carrier-edges.py
+  first_seen: '2026-10-12'
+  contract_reference:
+    repo: shippo
+    spec_file: public-api.yaml
+    value: passport
+    property: components.schemas.CarriersEnum
+    detected_by: detect-carrier-edges.py
+    detected: '2026-10-12'
+    spec_url: https://docs.goshippo.com/spec/shippoapi/public-api.yaml
 templates: []
