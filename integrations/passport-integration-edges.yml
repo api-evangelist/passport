@@ -22,13 +22,13 @@ edges:
   relationship: carrier-coverage
   evidence: https://docs.goshippo.com/spec/shippoapi/public-api.yaml
   detected_by: detect-carrier-edges.py
-  first_seen: '2026-10-12'
+  first_seen: '2026-10-13'
   contract_reference:
     repo: shippo
     spec_file: public-api.yaml
     value: passport
     property: components.schemas.CarriersEnum
     detected_by: detect-carrier-edges.py
-    detected: '2026-10-12'
+    detected: '2026-10-13'
     spec_url: https://docs.goshippo.com/spec/shippoapi/public-api.yaml
 templates: []
