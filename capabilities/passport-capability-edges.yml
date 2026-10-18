@@ -3,6 +3,7 @@ provider: Passport
 generated_by: planning/capability-mapping/scripts/classify_capabilities.py
 model: claude-opus-5
 frame:
+- Infrastructure
 - Transportation & Logistics
 min_confidence: 0.7
 capability_model:
@@ -11,7 +12,7 @@ capability_model:
   attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
     CC BY 4.0
   notice: NOTICE
-edge_count: 2
+edge_count: 3
 edges:
 - tag: Tax And Duty
   spec_file: passport-tax-and-duty-api-openapi.yml
@@ -34,3 +35,12 @@ edges:
     calculates charges (here including landed cost) for a cross-border parcel move. L1 freight rating
     is well grounded; the exact sub-capability (rating engine vs. shipper quotation) is somewhat ambiguous,
     hence 0.75.
+- tag: Void
+  spec_file: passport-void-api-openapi.yml
+  capability_id: BC-520.50
+  capability_id_l1: BC-520
+  capability_name: Logistics Operations Management
+  confidence: 0.7
+  evidence: POST /void/{code}  postVoidByCode  Void an existing shipping label
+  reason: Cancellation of a previously issued shipping label — a shipment-execution action within logistics
+    operations. 'Void' here is label cancellation, not financial voiding.
