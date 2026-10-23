@@ -321,3 +321,9 @@ components:
                       type: number
                       description: Duty for a particular item.
                       example: 6
+x-provenance:
+  method: harvested
+  publisher: Passport
+  source: https://docs.passportglobal.com/passport_public_api_v3_15.yml
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)
